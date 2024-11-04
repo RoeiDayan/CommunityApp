@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CommunityApp.Views.RegisterView"
+             Title="RegisterView">
+    <Grid>
+
+
+        <!-- Main Content -->
+        <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20">
+            <!-- Photo -->
+            <Frame BorderColor="Black" Padding="5" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
+                    <Label Grid.Row="1"
+Text="Click Here To Upload Photo!"
+TextColor="Blue"
+HorizontalOptions="Center"
+VerticalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+            <!-- Name -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Name" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+            </Grid>
+            <Entry Placeholder="Type First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" />
+
+            <!-- Email -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+            </Grid>
+            <Entry Placeholder="Type Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" />
+
+            <!-- Password -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Placeholder="Type Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" />
+                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}" />
+            </Grid>
+
+            <!-- Register and Cancel Buttons -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" />
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+            </Grid>
+        </VerticalStackLayout>
+        <!-- Centered ActivityIndicator -->
+        <ActivityIndicator IsRunning="{Binding InServerCall}" 
+                   Color="Red" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" />
+    </Grid>
+</ContentPage>
