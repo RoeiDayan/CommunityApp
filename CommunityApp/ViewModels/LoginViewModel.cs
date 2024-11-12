@@ -7,9 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CommunityApp.Models;
-using CommunityApp.Services;
-using CommunityApp.Views;
 
 namespace CommunityApp.ViewModels
 {
@@ -85,13 +82,13 @@ namespace CommunityApp.ViewModels
             ErrorMsg = "";
             //Call the server to login
             LoginInfo loginInfo = new LoginInfo { Email = Email, Password = Password };
-            AppUser? u = await this.proxy.LoginAsync(loginInfo);
+            Account? acc = await this.proxy.LoginAsync(loginInfo);
 
             InServerCall = false;
 
             //Set the application logged in user to be whatever user returned (null or real user)
-            ((App)Application.Current).LoggedInUser = u;
-            if (u == null)
+            ((App)Application.Current).LoggedInUser = acc;
+            if (acc == null)
             {
                 ErrorMsg = "Invalid email or password";
             }
@@ -100,11 +97,8 @@ namespace CommunityApp.ViewModels
                 ErrorMsg = "";
                 //Navigate to the main page
                 AppShell shell = serviceProvider.GetService<AppShell>();
-                TasksViewModel tasksViewModel = serviceProvider.GetService<TasksViewModel>();
-                tasksViewModel.Refresh(); //Refresh data and user in the tasksview model as it is a singleton
                 ((App)Application.Current).MainPage = shell;
                 Shell.Current.FlyoutIsPresented = false; //close the flyout
-                Shell.Current.GoToAsync("Tasks"); //Navigate to the Tasks tab page
             }
         }
 

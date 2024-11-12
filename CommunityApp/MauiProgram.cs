@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityApp.Services;
+using CommunityApp.ViewModels;
+using CommunityApp.Views;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 
 namespace CommunityApp
@@ -30,17 +33,24 @@ namespace CommunityApp
         {
             
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<LoginView>();
+            builder.Services.AddTransient<RegisterView>();
+            builder.Services.AddTransient<SelectCommunityView>();
 
             return builder;
         }
 
         public static MauiAppBuilder RegisterDataServices(this MauiAppBuilder builder)
         {
-            
+            builder.Services.AddSingleton<CommunityWebAPIProxy>();
             return builder;
         }
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
+            builder.Services.AddTransient<SelectCommunityViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<AppShellViewModel>();
             return builder;
         }
     }
