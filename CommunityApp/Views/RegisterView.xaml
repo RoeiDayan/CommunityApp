@@ -85,5 +85,6 @@ VerticalOptions="End">
                    Color="Red" 
                    VerticalOptions="Center" 
                    HorizontalOptions="Center" />
+
     </Grid>
 </ContentPage>
