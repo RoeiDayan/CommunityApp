@@ -286,17 +286,17 @@ namespace CommunityApp.ViewModels
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
-                newUser = await proxy.Register(newUser);
+                newAccount = await proxy.Register(newAccount);
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
-                if (newUser != null)
+                if (newAccount != null)
                 {
                     //UPload profile imae if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Email = newUser.UserEmail, Password = newUser.UserPassword });
-                        AppUser? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
+                        await proxy.LoginAsync(new LoginInfo { Email = newAccount.Email, Password = newAccount.Password });
+                        Account? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
                         if (updatedUser == null)
                         {
                             InServerCall = false;

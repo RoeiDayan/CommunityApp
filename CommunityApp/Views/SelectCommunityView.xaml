@@ -4,9 +4,7 @@
              x:Class="CommunityApp.Views.SelectCommunityView"
              Title="SelectCommunityView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Choose the community you wish to log into"></Label>
+        
     </VerticalStackLayout>
 </ContentPage>
