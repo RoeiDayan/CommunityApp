@@ -9,7 +9,7 @@
         <!-- Main Content -->
         <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20">
             <!-- Photo -->
-            <Frame BorderColor="Black" Padding="5" Margin="10">
+            <!--<Frame BorderColor="Black" Padding="5" Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -29,7 +29,7 @@ VerticalOptions="End">
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
-            </Frame>
+            </Frame>-->
             <!-- Name -->
             <Grid>
                 <Grid.ColumnDefinitions>
