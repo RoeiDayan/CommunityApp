@@ -155,5 +155,38 @@ namespace CommunityApp.Services
                 return null;
             }
         }
+        public async Task<List<Member>?> GetAccountMembersAsync(int id)
+        {
+            // Set URI to the specific function API
+            string url = $"{this.baseUrl}GetUserCommunities?id={id}";
+            try
+            {
+                // Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                // Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    // Extract the content as a string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    // Deserialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Member>? result = JsonSerializer.Deserialize<List<Member>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as necessary
+                return null;
+            }
+        }
+
     }
 }

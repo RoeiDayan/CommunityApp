@@ -8,5 +8,6 @@ namespace CommunityApp.ViewModels
 {
     internal class SelectCommunityViewModel
     {
+
     }
 }
