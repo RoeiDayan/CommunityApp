@@ -155,26 +155,24 @@ namespace CommunityApp.Services
                 return null;
             }
         }
-        public async Task<List<Member>?> GetAccountMembersAsync(int id)
+        public async Task<List<MemberCommunityDTO>?> GetUserCommunitiesAsync(int userId)
         {
-            // Set URI to the specific function API
-            string url = $"{this.baseUrl}GetUserCommunities?id={id}";
+            string url = $"{this.baseUrl}GetUserCommunities?id={userId}";
             try
             {
-                // Call the server API
+                // Call the API
                 HttpResponseMessage response = await client.GetAsync(url);
-                // Check status
                 if (response.IsSuccessStatusCode)
                 {
-                    // Extract the content as a string
-                    string resContent = await response.Content.ReadAsStringAsync();
-                    // Deserialize result
+                    // Parse the response content
+                    string content = await response.Content.ReadAsStringAsync();
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    List<Member>? result = JsonSerializer.Deserialize<List<Member>>(resContent, options);
-                    return result;
+
+                    // Deserialize into a list of MemberCommunityDTO objects
+                    return JsonSerializer.Deserialize<List<MemberCommunityDTO>>(content, options);
                 }
                 else
                 {
@@ -183,10 +181,9 @@ namespace CommunityApp.Services
             }
             catch (Exception ex)
             {
-                // Log or handle the exception as necessary
+                // Handle exceptions
                 return null;
             }
         }
 
     }
-}
