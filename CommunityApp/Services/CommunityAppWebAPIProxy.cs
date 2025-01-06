@@ -28,11 +28,11 @@ namespace CommunityApp.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "zccnvt4z-5046.euw.devtunnels.ms";
+        private static string serverIP = "t8mdphxp-5046.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
-        public static string BaseAddress = "https://zccnvt4z-5046.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://zccnvt4z-5046.euw.devtunnels.ms/";
+        public static string BaseAddress = "https://t8mdphxp-5046.euw.devtunnels.ms/api/";
+        private static string ImageBaseAddress = "https://t8mdphxp-5046.euw.devtunnels.ms/";
         #endregion
 
         public CommunityWebAPIProxy()
@@ -187,3 +187,4 @@ namespace CommunityApp.Services
         }
 
     }
+}

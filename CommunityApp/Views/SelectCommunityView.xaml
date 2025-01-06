@@ -21,7 +21,7 @@
 
                             <!-- Sign-In Button -->
                             <Button Text="Sign In" 
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:CommunityViewModel}}, Path=SignInCommand}"
+                            Command="{Binding SignInCommand}"
                             CommandParameter="{Binding ComId}" />
                         </StackLayout>
                     </Frame>

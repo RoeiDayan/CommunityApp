@@ -1,9 +1,11 @@
+using CommunityApp.ViewModels;
 namespace CommunityApp.Views;
 
 public partial class RegisterView : ContentPage
 {
-	public RegisterView()
+	public RegisterView(RegisterViewModel vm)
 	{
-		InitializeComponent();
+        this.BindingContext = vm;
+        InitializeComponent();
 	}
 }
