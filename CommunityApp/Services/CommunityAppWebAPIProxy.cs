@@ -186,5 +186,26 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<bool> SignInToCommunityAsync(int comId)
+        {
+            string url = $"{this.baseUrl}SignInToCommunity";
+            try
+            {
+                // Prepare the request content
+                StringContent content = new StringContent(JsonSerializer.Serialize(comId), Encoding.UTF8, "application/json");
+
+                // Send the POST request
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                // Check if the response is successful
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the error
+                return false;
+            }
+        }
+
     }
 }
