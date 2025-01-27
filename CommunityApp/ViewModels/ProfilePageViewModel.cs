@@ -1,6 +1,7 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
 using CommunityApp.Views;
+using Microsoft.Maui.ApplicationModel.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +11,25 @@ using System.Windows.Input;
 
 namespace CommunityApp.ViewModels
 {
-    public class HomePageViewModel:ViewModelBase
+    public class ProfilePageViewModel:ViewModelBase
     {
         private CommunityWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
-        
-        public HomePageViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
+        public ProfilePageViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            CurrentCom = ((App)Application.Current).CurCom;
+            CurMember = ((App)Application.Current).CurMem;
         }
-        private Community? currentCom;
-        public Community? CurrentCom
+        private Member? curMember;
+        public Member? CurMember
         {
-            get => currentCom;
+            get => curMember;
             set
             {
-                currentCom = value;
-                OnPropertyChanged("CurrentCom");
+                curMember = value;
+                OnPropertyChanged("CurMember");
+             
             }
         }
     }

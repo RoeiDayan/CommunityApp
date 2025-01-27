@@ -1,5 +1,6 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
+using CommunityApp.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,8 +61,9 @@ namespace CommunityApp.ViewModels
                 // Navigate to the community-specific page
                 await Application.Current.MainPage.DisplayAlert("Success", "Signed into community successfully!", "OK");
 
-                // Replace with actual navigation logic
-                await Application.Current.MainPage.Navigation.PushAsync(new CommunityHomePage(comId));
+               // Replace with actual navigation logic
+               // await Application.Current.MainPage.Navigation.PushAsync(new HomePageView());
+               //!!!!!!
             }
             else
             {

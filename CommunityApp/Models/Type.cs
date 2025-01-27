@@ -12,8 +12,6 @@ namespace CommunityApp.Models
 
         public string? Type1 { get; set; }
 
-        //[InverseProperty("TypeNavigation")]
-        //public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
     }
 }

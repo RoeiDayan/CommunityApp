@@ -4,22 +4,28 @@
              x:Class="CommunityApp.Views.HomePageView"
              Title="HomePageView">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label Text="Column 0, Row 0"
-           WidthRequest="200" />
-        <Label Grid.Column="1"
-           Text="Column 1, Row 0" />
-        <Label Grid.Row="1"
-           Text="Column 0, Row 1" />
-        <Label Grid.Column="1"
-           Grid.Row="1"
-           Text="Column 1, Row 1" />
+        <CollectionView ItemsSource="{Binding }">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="10" Padding="10" Margin="5" BorderColor="LightGray">
+                        <StackLayout>
+                            <!-- Community Picture (optional) -->
+                            <Image Source="{Binding Picture}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
+
+                            <!-- Community Name -->
+                            <Label Text="{Binding ComName}" FontSize="20" FontAttributes="Bold" TextColor="Black" />
+
+                            <!-- Community Body -->
+                            <Label Text="{Binding Body}" FontSize="14" TextColor="Gray" />
+
+                            <!-- Sign-In Button -->
+                            <Button Text="Sign In" 
+                    Command="{Binding SignInCommand}"
+                    CommandParameter="{Binding ComId}" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>
