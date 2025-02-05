@@ -4,9 +4,25 @@
              x:Class="CommunityApp.Views.ProfilePageView"
              Title="ProfilePageView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Name:"></Label>
+        <Label Text="{Binding MemberName}"></Label>
+
+        <Label Text="Role: "></Label>
+        <Label Text="{Binding MemberRole}"></Label>
+        <Label Text="Balance: "></Label>
+        <Label Text="{Binding Balance}"></Label>
+
+        <Label Text="Unit Number"></Label>
+        <Label Text="{Binding UnitNum}"></Label>
+
+        <Label Text="Liability"></Label>
+        <Label Text="{Binding IsLiable}"></Label>
+
+        <Label Text="Residency"></Label>
+        <Label Text="{Binding IsResident}"></Label>
+
+        <Label Text="Managment"></Label>
+        <Label Text="{Binding IsManager}"></Label>
+        
     </VerticalStackLayout>
 </ContentPage>
