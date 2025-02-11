@@ -77,7 +77,7 @@ namespace CommunityApp.ViewModels
 
         private async void OnLogin()
         {
-            //Choose the way you want to blobk the page while indicating a server call
+            //Choose the way you want to block the page while indicating a server call
             InServerCall = true;
             ErrorMsg = "";
             //Call the server to login
@@ -96,8 +96,8 @@ namespace CommunityApp.ViewModels
             {
                 ErrorMsg = "";
                 //Navigate to the main page
-                AppShell shell = serviceProvider.GetService<AppShell>();
-                ((App)Application.Current).MainPage = shell;
+                SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
+                ((App)Application.Current).MainPage = v;
 
                 Shell.Current.FlyoutIsPresented = false; //close the flyout
             }

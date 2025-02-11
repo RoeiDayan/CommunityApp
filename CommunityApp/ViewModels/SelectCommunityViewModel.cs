@@ -1,6 +1,7 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
 using CommunityApp.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace CommunityApp.ViewModels
 
         private async void OnSignIn(int comId)
         {
-            if (InServerCall) return; // Prevent multiple simultaneous calls
+            if (InServerCall) return; // Prevent multiple calls
             InServerCall = true;
 
             bool success = await proxy.SignInToCommunityAsync(comId);
@@ -58,12 +59,16 @@ namespace CommunityApp.ViewModels
 
             if (success)
             {
-                // Navigate to the community-specific page
-                await Application.Current.MainPage.DisplayAlert("Success", "Signed into community successfully!", "OK");
+                ((App)Application.Current).CurCom = SelectedCommunity.Community;
+                ((App)Application.Current).CurMem = SelectedCommunity.Member;
 
-               // Replace with actual navigation logic
-               // await Application.Current.MainPage.Navigation.PushAsync(new HomePageView());
-               //!!!!!!
+                
+                //Navigate to the main page
+                HomePageView v = serviceProvider.GetService<HomePageView>();
+                ((App)Application.Current).MainPage = v;
+
+                Shell.Current.FlyoutIsPresented = false; //close the flyout
+
             }
             else
             {
@@ -79,12 +84,14 @@ namespace CommunityApp.ViewModels
             try
             {
                 InServerCall = true;
-                int userId = ((App)Application.Current).LoggedInUser.Id; // Replace with actual user ID logic
+                int userId = ((App)Application.Current).LoggedInUser.Id;
                 var userCommunities = await proxy.GetUserCommunitiesAsync(userId);
                 InServerCall = false;
 
                 if (userCommunities != null)
                 {
+                    //Created MemberCommunityDTO to link a member to a community so on login you know where to go
+
                     Communities = new ObservableCollection<MemberCommunityDTO>(userCommunities);
                 }
                 else

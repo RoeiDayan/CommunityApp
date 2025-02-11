@@ -4,28 +4,6 @@
              x:Class="CommunityApp.Views.HomePageView"
              Title="HomePageView">
     <Grid>
-        <CollectionView ItemsSource="{Binding }">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame CornerRadius="10" Padding="10" Margin="5" BorderColor="LightGray">
-                        <StackLayout>
-                            <!-- Community Picture (optional) -->
-                            <Image Source="{Binding Picture}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
-
-                            <!-- Community Name -->
-                            <Label Text="{Binding ComName}" FontSize="20" FontAttributes="Bold" TextColor="Black" />
-
-                            <!-- Community Body -->
-                            <Label Text="{Binding Body}" FontSize="14" TextColor="Gray" />
-
-                            <!-- Sign-In Button -->
-                            <Button Text="Sign In" 
-                    Command="{Binding SignInCommand}"
-                    CommandParameter="{Binding ComId}" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        
     </Grid>
 </ContentPage>
