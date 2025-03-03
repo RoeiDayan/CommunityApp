@@ -11,13 +11,15 @@ namespace CommunityApp.ViewModels
     public class SelectCommunityViewModel : ViewModelBase
     {
         private readonly CommunityWebAPIProxy proxy;
+        private IServiceProvider serviceProvider;
 
-        public SelectCommunityViewModel(CommunityWebAPIProxy proxy)
+        public SelectCommunityViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
             this.proxy = proxy;
             Communities = new ObservableCollection<MemberCommunityDTO>();
             SignInCommand = new Command<int>(OnSignIn);
             LoadCommunities();
+            this.serviceProvider = serviceProvider;
         }
 
         #region Communities
@@ -64,7 +66,7 @@ namespace CommunityApp.ViewModels
 
                 
                 //Navigate to the main page
-                HomePageView v = serviceProvider.GetService<HomePageView>();
+                Shell v = serviceProvider.GetService<Shell>();
                 ((App)Application.Current).MainPage = v;
 
                 Shell.Current.FlyoutIsPresented = false; //close the flyout
