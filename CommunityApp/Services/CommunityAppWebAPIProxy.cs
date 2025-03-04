@@ -7,7 +7,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Windows.System;
 //using CommunityApp.Models;
 
 namespace CommunityApp.Services
