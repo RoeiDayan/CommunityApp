@@ -3,9 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.HomePageView"
              Title="HomePageView">
-    <Grid RowDefinitions="Auto,*,*" Padding="10">
+    <Grid RowDefinitions="Auto,*,*,Auto" Padding="10">
 
-<!--Notices-->        <ScrollView Grid.Row="0" Orientation="Horizontal">
+        <!-- Notifies Error Message -->
+        <Label Grid.Row="0"
+               Text="{Binding ErrorMessage}" 
+               TextColor="Red" 
+               IsVisible="{Binding ErrorMessage}" 
+               HorizontalOptions="Center"/>
+
+        <!-- Refresh Button -->
+        <Button Grid.Row="1"
+                Text="Refresh Data"
+                Command="{Binding RefreshCommand}"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" />
+
+        <!-- Notices -->
+        <ScrollView Grid.Row="2" Orientation="Horizontal">
             <HorizontalStackLayout Spacing="10" Padding="5">
                 <BindableLayout.ItemsSource>
                     <x:StaticExtension Member="{Binding Notices}" />
@@ -21,7 +36,7 @@
         </ScrollView>
 
         <!-- Reports -->
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Reports}" >
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Reports}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Span="3" />
             </CollectionView.ItemsLayout>

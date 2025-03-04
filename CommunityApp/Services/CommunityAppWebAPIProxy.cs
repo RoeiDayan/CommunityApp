@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Windows.System;
 //using CommunityApp.Models;
 
 namespace CommunityApp.Services
@@ -204,6 +205,59 @@ namespace CommunityApp.Services
             {
                 // Log or handle the error
                 return false;
+            }
+        }
+        public async Task<List<Notice>> GetCommunityNoticesAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetCommunityNotices?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    return JsonSerializer.Deserialize<List<Notice>>(content, options) ?? new List<Notice>();
+                }
+                else
+                {
+                    return new List<Notice>(); // Return an empty list instead of null
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Notice>(); // Handle exceptions by returning an empty list
+            }
+        }
+
+        public async Task<List<Report>> GetCommunityReportsAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetCommunityReports?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    return JsonSerializer.Deserialize<List<Report>>(content, options) ?? new List<Report>();
+                }
+                else
+                {
+                    return new List<Report>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Report>();
             }
         }
 

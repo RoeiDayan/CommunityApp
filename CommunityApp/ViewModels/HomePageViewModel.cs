@@ -1,11 +1,8 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
-using CommunityApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -23,14 +20,27 @@ namespace CommunityApp.ViewModels
             CurrentCom = ((App)Application.Current).CurCom;
             Reports = new ObservableCollection<Report>();
             Notices = new ObservableCollection<Notice>();
-            InitDataFromserver();
+
+            // Command to refresh both notices and reports
+            RefreshCommand = new Command(async () => await RefreshData());
+
+            // Automatically refresh when the ViewModel is created
+            _ = RefreshData();
         }
 
-        private async void InitDataFromServer()
+        #region Properties
+
+        private Community? currentCom;
+        public Community? CurrentCom
         {
-            
+            get => currentCom;
+            set
+            {
+                currentCom = value;
+                OnPropertyChanged(nameof(CurrentCom));
+            }
         }
-        #region Declaring 
+
         private ObservableCollection<Report> reports;
         public ObservableCollection<Report> Reports
         {
@@ -52,16 +62,77 @@ namespace CommunityApp.ViewModels
                 OnPropertyChanged(nameof(Notices));
             }
         }
-        #endregion
-        private Community? currentCom;
-        public Community? CurrentCom
+
+        private string errorMessage;
+        public string ErrorMessage
         {
-            get => currentCom;
+            get => errorMessage;
             set
             {
-                currentCom = value;
-                OnPropertyChanged("CurrentCom");
+                errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
+
+        #endregion
+
+        #region Commands
+        public ICommand RefreshCommand { get; }
+        #endregion
+
+        #region Methods
+
+        // Refresh method that fetches both notices and reports
+        private async Task RefreshData()
+        {
+            if (CurrentCom == null)
+                return;
+
+            try
+            {
+                ErrorMessage = ""; // Clear any previous errors
+
+                // Run both methods concurrently (parallel requests)
+                var noticesTask = GetNoticesFromServer();
+                var reportsTask = GetReportsFromServer();
+
+                // Wait for both tasks to complete
+                await Task.WhenAll(noticesTask, reportsTask);
+            }
+            catch (Exception)
+            {
+                ErrorMessage = "Failed to load notices and reports. Please check your connection.";
+            }
+        }
+
+        // Fetch notices from the server
+        private async Task GetNoticesFromServer()
+        {
+            if (CurrentCom != null)
+            {
+                List<Notice> noticesFromServer = await proxy.GetCommunityNoticesAsync(CurrentCom.ComId);
+                Notices.Clear();
+                foreach (var notice in noticesFromServer)
+                {
+                    Notices.Add(notice);
+                }
+            }
+        }
+
+        // Fetch reports from the server
+        private async Task GetReportsFromServer()
+        {
+            if (CurrentCom != null)
+            {
+                List<Report> reportsFromServer = await proxy.GetCommunityReportsAsync(CurrentCom.ComId);
+                Reports.Clear();
+                foreach (var report in reportsFromServer)
+                {
+                    Reports.Add(report);
+                }
+            }
+        }
+
+        #endregion
     }
 }
