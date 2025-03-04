@@ -23,6 +23,12 @@ namespace CommunityApp.ViewModels
             CurrentCom = ((App)Application.Current).CurCom;
             Reports = new ObservableCollection<Report>();
             Notices = new ObservableCollection<Notice>();
+            InitDataFromserver();
+        }
+
+        private async void InitDataFromServer()
+        {
+            
         }
         #region Declaring 
         private ObservableCollection<Report> reports;

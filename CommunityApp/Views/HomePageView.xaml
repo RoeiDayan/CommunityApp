@@ -5,8 +5,7 @@
              Title="HomePageView">
     <Grid RowDefinitions="Auto,*,*" Padding="10">
 
-        <!-- שורת ההתראות -->
-        <ScrollView Grid.Row="0" Orientation="Horizontal">
+<!--Notices-->        <ScrollView Grid.Row="0" Orientation="Horizontal">
             <HorizontalStackLayout Spacing="10" Padding="5">
                 <BindableLayout.ItemsSource>
                     <x:StaticExtension Member="{Binding Notices}" />
@@ -21,7 +20,7 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <!-- דיווחים -->
+        <!-- Reports -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding Reports}" >
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Span="3" />
