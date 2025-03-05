@@ -77,7 +77,7 @@
                            CornerRadius="10" 
                            Margin="10"
                            HasShadow="True">
-                        <Label Text="{Binding Description}" 
+                        <Label Text="{Binding Text}" 
                                FontSize="16" 
                                FontAttributes="Bold" 
                                TextColor="#37474F"
