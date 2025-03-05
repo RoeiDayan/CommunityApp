@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.SelectCommunityView"
              Title="SelectCommunityView">
-    <VerticalStackLayout>
+    <VerticalStackLayout IsEnabled="{Binding NotInServerCall}">
         <Label Text="Choose the community you wish to log into"></Label>
-        <CollectionView ItemsSource="{Binding Communities}">
+        <CollectionView ItemsSource="{Binding Communities}" x:Name="cv">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+                    
                     <Frame CornerRadius="10" Padding="10" Margin="5" BorderColor="LightGray">
                         <StackLayout>
                             <!-- Community Picture (optional) -->
@@ -21,7 +22,7 @@
 
                             <!-- Sign-In Button -->
                             <Button Text="Sign In" 
-                            Command="{Binding SignInCommand}"
+                            Command="{Binding Source={x:Reference cv}, Path=BindingContext.SignInCommand}"
                             CommandParameter="{Binding ComId}" />
                         </StackLayout>
                     </Frame>

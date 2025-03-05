@@ -16,15 +16,26 @@ namespace CommunityApp.ViewModels
         public SelectCommunityViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
             this.proxy = proxy;
-            Communities = new ObservableCollection<MemberCommunityDTO>();
+            MemberCommunities = new ObservableCollection<MemberCommunity>();
             SignInCommand = new Command<int>(OnSignIn);
             LoadCommunities();
             this.serviceProvider = serviceProvider;
         }
 
         #region Communities
-        private ObservableCollection<MemberCommunityDTO> communities;
-        public ObservableCollection<MemberCommunityDTO> Communities
+        private ObservableCollection<MemberCommunity> memberCommunities;
+        public ObservableCollection<MemberCommunity> MemberCommunities
+        {
+            get => memberCommunities;
+            set
+            {
+                memberCommunities = value;
+                OnPropertyChanged(nameof(MemberCommunities));
+            }
+        }
+
+        private ObservableCollection<Community> communities;
+        public ObservableCollection<Community> Communities
         {
             get => communities;
             set
@@ -36,8 +47,8 @@ namespace CommunityApp.ViewModels
         #endregion
 
         #region SelectedCommunity
-        private MemberCommunityDTO selectedCommunity;
-        public MemberCommunityDTO SelectedCommunity
+        private MemberCommunity selectedCommunity;
+        public MemberCommunity SelectedCommunity
         {
             get => selectedCommunity;
             set
@@ -53,7 +64,7 @@ namespace CommunityApp.ViewModels
 
         private async void OnSignIn(int comId)
         {
-            if (InServerCall) return; // Prevent multiple calls
+            
             InServerCall = true;
 
             bool success = await proxy.SignInToCommunityAsync(comId);
@@ -92,9 +103,12 @@ namespace CommunityApp.ViewModels
 
                 if (userCommunities != null)
                 {
-                    //Created MemberCommunityDTO to link a member to a community so on login you know where to go
+                    //Created MemberCommunity to link a member to a community so on login you know where to go
 
-                    Communities = new ObservableCollection<MemberCommunityDTO>(userCommunities);
+                    MemberCommunities = new ObservableCollection<MemberCommunity>(userCommunities);
+                    Communities = new ObservableCollection<Community>();
+                    foreach (MemberCommunity m in MemberCommunities)
+                        Communities.Add(m.Community);
                 }
                 else
                 {

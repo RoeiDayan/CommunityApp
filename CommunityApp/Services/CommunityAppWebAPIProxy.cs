@@ -155,7 +155,7 @@ namespace CommunityApp.Services
                 return null;
             }
         }
-        public async Task<List<MemberCommunityDTO>?> GetUserCommunitiesAsync(int userId)
+        public async Task<List<MemberCommunity>?> GetUserCommunitiesAsync(int userId)
         {
             string url = $"{this.baseUrl}GetUserCommunities?id={userId}";
             try
@@ -171,8 +171,8 @@ namespace CommunityApp.Services
                         PropertyNameCaseInsensitive = true
                     };
 
-                    // Deserialize into a list of MemberCommunityDTO objects
-                    return JsonSerializer.Deserialize<List<MemberCommunityDTO>>(content, options);
+                    // Deserialize into a list of MemberCommunity objects
+                    return JsonSerializer.Deserialize<List<MemberCommunity>>(content, options);
                 }
                 else
                 {

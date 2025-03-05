@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommunityApp.Models
 {
-    public class MemberCommunityDTO
+    public class MemberCommunity
     {
         public Member Member { get; set; }  // Membership data
         public Community Community { get; set; }  // Community data

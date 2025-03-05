@@ -99,7 +99,7 @@ namespace CommunityApp.ViewModels
                 SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
                 ((App)Application.Current).MainPage = v;
 
-                Shell.Current.FlyoutIsPresented = false; //close the flyout
+                //Shell.Current.FlyoutIsPresented = false; //close the flyout
             }
         }
 
