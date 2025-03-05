@@ -2,29 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.SelectCommunityView"
-             Title="SelectCommunityView">
-    <VerticalStackLayout IsEnabled="{Binding NotInServerCall}">
-        <Label Text="Choose the community you wish to log into"></Label>
+             Title="SelectCommunityView"
+             BackgroundColor="#F4F6F9">
+
+    <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20" Spacing="15">
+
+        <!-- Title -->
+        <Label Text="Choose the community you wish to log into"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#333"
+               HorizontalOptions="Center"
+               Padding="5"/>
+
+        <!-- Community Selection -->
         <CollectionView ItemsSource="{Binding Communities}" x:Name="cv">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    
-                    <Frame CornerRadius="10" Padding="10" Margin="5" BorderColor="LightGray">
-                        <StackLayout>
+                    <Frame CornerRadius="12"
+                           Padding="15"
+                           Margin="10"
+                           BackgroundColor="White"
+                           BorderColor="#D1D5DB"
+                           HasShadow="True">
+                        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+
                             <!-- Community Picture (optional) -->
-                            <Image Source="{Binding Picture}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
+                            <Image Source="{Binding Picture}" 
+                                   HeightRequest="120" 
+                                   WidthRequest="120" 
+                                   Aspect="AspectFill"
+                                   HorizontalOptions="Center"
+                                   Margin="5"/>
 
                             <!-- Community Name -->
-                            <Label Text="{Binding ComName}" FontSize="20" FontAttributes="Bold" TextColor="Black" />
+                            <Label Text="{Binding ComName}" 
+                                   FontSize="22" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#1E88E5"
+                                   HorizontalOptions="Center"/>
 
-                            <!-- Community Body -->
-                            <Label Text="{Binding Body}" FontSize="14" TextColor="Gray" />
+                            <!-- Community Description -->
+                            <Label Text="{Binding Body}" 
+                                   FontSize="14" 
+                                   TextColor="#555"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="5"/>
 
                             <!-- Sign-In Button -->
                             <Button Text="Sign In" 
-                            Command="{Binding Source={x:Reference cv}, Path=BindingContext.SignInCommand}"
-                            CommandParameter="{Binding ComId}" />
-                        </StackLayout>
+                                    Command="{Binding Source={x:Reference cv}, Path=BindingContext.SignInCommand}"
+                                    CommandParameter="{Binding ComId}"
+                                    BackgroundColor="#1E88E5"
+                                    TextColor="White"
+                                    FontSize="16"
+                                    CornerRadius="8"
+                                    Padding="10"
+                                    HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -21,11 +21,11 @@ namespace CommunityApp.ViewModels
             Reports = new ObservableCollection<Report>();
             Notices = new ObservableCollection<Notice>();
 
-            // Command to refresh both notices and reports
-            RefreshCommand = new Command(async () => await RefreshData());
+            // Command to fetch and refresh both notices and reports
+            FetchBothCommand = new Command(async () => await FetchBothData());
 
             // Automatically refresh when the ViewModel is created
-            _ = RefreshData();
+            _ = FetchBothData();
         }
 
         #region Properties
@@ -77,13 +77,13 @@ namespace CommunityApp.ViewModels
         #endregion
 
         #region Commands
-        public ICommand RefreshCommand { get; }
+        public ICommand FetchBothCommand { get; }
         #endregion
 
         #region Methods
 
         // Refresh method that fetches both notices and reports
-        private async Task RefreshData()
+        private async Task FetchBothData()
         {
             if (CurrentCom == null)
                 return;
