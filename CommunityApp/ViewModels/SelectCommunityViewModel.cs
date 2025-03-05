@@ -46,42 +46,33 @@ namespace CommunityApp.ViewModels
         }
         #endregion
 
-        #region SelectedCommunity
-        private MemberCommunity selectedCommunity;
-        public MemberCommunity SelectedCommunity
-        {
-            get => selectedCommunity;
-            set
-            {
-                selectedCommunity = value;
-                OnPropertyChanged(nameof(SelectedCommunity));
-            }
-        }
-        #endregion
+        
 
         #region Commands
         public Command<int> SignInCommand { get; }
 
         private async void OnSignIn(int comId)
         {
-            
-            InServerCall = true;
-
-            bool success = await proxy.SignInToCommunityAsync(comId);
-            InServerCall = false;
-
-            if (success)
+            bool found = false;
+            MemberCommunity ChosenMemCom = new MemberCommunity();
+             foreach(MemberCommunity m in MemberCommunities)
+             { 
+                if(m.Community.ComId == comId)
+                {
+                    ChosenMemCom.Community = m.Community;
+                    ChosenMemCom.Member = m.Member;
+                    found = true;
+                    break;
+                }
+             }
+            if (found)
             {
-                ((App)Application.Current).CurCom = SelectedCommunity.Community;
-                ((App)Application.Current).CurMem = SelectedCommunity.Member;
+                ((App)Application.Current).CurCom = ChosenMemCom.Community;
+                ((App)Application.Current).CurMem = ChosenMemCom.Member;
 
-                
                 //Navigate to the main page
-                Shell v = serviceProvider.GetService<Shell>();
+                AppShell v = serviceProvider.GetService<AppShell>();
                 ((App)Application.Current).MainPage = v;
-
-                Shell.Current.FlyoutIsPresented = false; //close the flyout
-
             }
             else
             {

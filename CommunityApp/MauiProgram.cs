@@ -36,6 +36,7 @@ namespace CommunityApp
             builder.Services.AddTransient<LoginView>();
             builder.Services.AddTransient<RegisterView>();
             builder.Services.AddTransient<SelectCommunityView>();
+            builder.Services.AddTransient<HomePageView>();
 
             return builder;
         }
@@ -51,6 +52,8 @@ namespace CommunityApp
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
+            builder.Services.AddTransient<HomePageViewModel>();
+
             return builder;
         }
     }
