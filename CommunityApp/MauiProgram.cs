@@ -39,6 +39,9 @@ namespace CommunityApp
             builder.Services.AddTransient<SelectCommunityView>();
             builder.Services.AddTransient<HomePageView>();
             builder.Services.AddTransient<ProfilePageView>();
+            //builder.Services.AddTransient<StartCommunityView>();
+            //builder.Services.AddTransient<JoinCommunityView>();
+
 
             return builder;
         }
@@ -56,6 +59,9 @@ namespace CommunityApp
             builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<HomePageViewModel>();
             builder.Services.AddTransient<ProfilePageViewModel>();
+            builder.Services.AddTransient<StartCommunityViewModel>();
+            builder.Services.AddTransient<JoinCommunityViewModel>();
+
 
             return builder;
         }

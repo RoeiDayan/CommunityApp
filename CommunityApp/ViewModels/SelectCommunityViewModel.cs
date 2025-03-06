@@ -46,8 +46,6 @@ namespace CommunityApp.ViewModels
         }
         #endregion
 
-        
-
         #region Commands
         public Command<int> SignInCommand { get; }
 
