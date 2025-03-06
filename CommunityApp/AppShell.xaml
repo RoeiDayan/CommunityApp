@@ -21,6 +21,12 @@
             ContentTemplate="{DataTemplate local:ProfilePageView}"
             Route="Profile" />
     </FlyoutItem>
+    <FlyoutItem Title="Account">
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate local:AccountPageView}"
+            Route="Account"/>
+    </FlyoutItem>
 
 
 </Shell>

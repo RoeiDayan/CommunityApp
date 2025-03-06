@@ -2,11 +2,70 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.AccountPageView"
-             Title="AccountPageView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="My Account">
+
+    <!-- Background Gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
+
+            <!-- Account Card -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="25"
+                   HasShadow="True"
+                   WidthRequest="320"
+                   HorizontalOptions="Center">
+
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+
+                    <!-- Name -->
+                    <Label Text="{Binding CurrentAcc.Name}"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#333"
+                           HorizontalTextAlignment="Center"/>
+
+                    <!-- Email -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Image Source="email_icon.png" WidthRequest="20" HeightRequest="20" />
+                        <Label Text="{Binding CurrentAcc.Email}"
+                               FontSize="16"
+                               TextColor="#555"
+                               VerticalOptions="Center"
+                               Padding="5,0"/>
+                    </StackLayout>
+
+                    <!-- Password -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Image Source="lock_icon.png" WidthRequest="20" HeightRequest="20" />
+                        <Label Text="********"
+                               FontSize="16"
+                               TextColor="#555"
+                               VerticalOptions="Center"
+                               Padding="5,0"/>
+                    </StackLayout>
+
+                    <!-- Logout Button -->
+                    <Button Text="Log Out"
+                            Command="{Binding LogoutCommand}"
+                            BackgroundColor="#FF4081"
+                            TextColor="White"
+                            FontSize="18"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            HorizontalOptions="Fill"
+                            FontAttributes="Bold"/>
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

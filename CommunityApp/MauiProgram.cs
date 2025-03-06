@@ -32,16 +32,15 @@ namespace CommunityApp
         }
         public static MauiAppBuilder RegisterPages(this MauiAppBuilder builder)
         {
-            
             builder.Services.AddTransient<AppShell>();
             builder.Services.AddTransient<LoginView>();
             builder.Services.AddTransient<RegisterView>();
             builder.Services.AddTransient<SelectCommunityView>();
             builder.Services.AddTransient<HomePageView>();
             builder.Services.AddTransient<ProfilePageView>();
-            //builder.Services.AddTransient<StartCommunityView>();
-            //builder.Services.AddTransient<JoinCommunityView>();
-
+            builder.Services.AddTransient<StartCommunityView>();
+            builder.Services.AddTransient<JoinCommunityView>();
+            builder.Services.AddTransient<AccountPageView>();
 
             return builder;
         }
@@ -61,7 +60,7 @@ namespace CommunityApp
             builder.Services.AddTransient<ProfilePageViewModel>();
             builder.Services.AddTransient<StartCommunityViewModel>();
             builder.Services.AddTransient<JoinCommunityViewModel>();
-
+            builder.Services.AddTransient<AccountPageViewModel>();
 
             return builder;
         }
