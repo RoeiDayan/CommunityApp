@@ -8,14 +8,14 @@
     Title="CommunityApp">
 
     <!-- Flyout Menu -->
-    <FlyoutItem Title="Home" >
+    <FlyoutItem Title="Home" FlyoutIcon="home.png">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:HomePageView}"
             Route="Home" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Profile" >
+    <FlyoutItem Title="Profile" FlyoutIcon="user.png">
         <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate local:ProfilePageView}"

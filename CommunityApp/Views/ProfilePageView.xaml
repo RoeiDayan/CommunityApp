@@ -23,9 +23,14 @@
                    HorizontalOptions="FillAndExpand"
                    Margin="0,0,0,10">
                 <VerticalStackLayout HorizontalOptions="Center">
+                    <!-- Profile Picture -->
                     <Frame WidthRequest="120" HeightRequest="120" CornerRadius="60" 
                            BackgroundColor="White" HasShadow="True" Padding="5">
-                        
+                        <!-- Bind Image to ProfilePicture from ViewModel -->
+                        <Image Source="{Binding ProfilePicture}" 
+                               WidthRequest="110" HeightRequest="110"
+                               Aspect="AspectFill"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
                     <Label Text="{Binding MemberName}" 
                            FontFamily="Font1"
