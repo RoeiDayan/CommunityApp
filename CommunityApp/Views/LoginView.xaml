@@ -4,22 +4,82 @@
              x:Class="CommunityApp.Views.LoginView"
              Title="LoginView">
 
-    <VerticalStackLayout>
-        <Entry x:Name="LoginEmail" Placeholder="Email" Keyboard="Email" Text="{Binding Email}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
-        <Entry x:Name="LoginPass" Placeholder="Password" Text="{Binding Password}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
+    <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
 
-        <Button Text="Login" Command="{Binding LoginCommand}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
+        <Label Text="Welcome Back! 👋" 
+               FontSize="30" 
+               FontFamily="Font1"
+               HorizontalOptions="Center" 
+               TextColor="White"
+               FontAttributes="Bold"/>
 
-        <Label Text="{Binding ErrMsg}" TextColor="Red" HorizontalOptions="Center" FontFamily="Font1"/>
+        <!-- Email Entry Field -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry x:Name="LoginEmail" 
+                   Placeholder="Email" 
+                   Keyboard="Email" 
+                   Text="{Binding Email}" 
+                   IsEnabled="{Binding NotInServerCall}" 
+                   FontFamily="Font1"
+                   HeightRequest="50"
+                   BackgroundColor="White"
+                   PlaceholderColor="Gray"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"/>
+        </Frame>
 
-        <Label Text="Don't have an account yet?! Create one here" TextColor="Green" HorizontalOptions="Center" VerticalOptions="End" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1">
+        <!-- Password Entry Field -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry x:Name="LoginPass" 
+                   Placeholder="Password" 
+                   Text="{Binding Password}" 
+                   IsEnabled="{Binding NotInServerCall}" 
+                   FontFamily="Font1"
+                   IsPassword="True"
+                   HeightRequest="50"
+                   BackgroundColor="White"
+                   PlaceholderColor="Gray"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"/>
+        </Frame>
+
+        <Button Text="🚀 Login"
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding NotInServerCall}"
+                FontFamily="Font1"
+                FontSize="18"
+                BackgroundColor="#FF4081"
+                TextColor="White"
+                HeightRequest="50"
+                CornerRadius="25"
+                Padding="10"/>
+
+        <Label Text="{Binding ErrMsg}"
+               TextColor="Yellow"
+               HorizontalOptions="Center"
+               FontFamily="Font1"
+               FontSize="14"/>
+
+        <Label Text="New here? Create an account!"
+               TextColor="White"
+               FontFamily="Font1"
+               FontSize="16"
+               HorizontalOptions="Center"
+               VerticalOptions="End">
             <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RegisterCommand}"></TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
             </Label.GestureRecognizers>
         </Label>
-        
-        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="Red"></ActivityIndicator>
+
+        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="White" />
+
     </VerticalStackLayout>
-    
+
 </ContentPage>

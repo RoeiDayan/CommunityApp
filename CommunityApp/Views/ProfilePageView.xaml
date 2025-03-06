@@ -3,26 +3,120 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.ProfilePageView"
              Title="ProfilePageView">
-    <VerticalStackLayout>
-        <Label Text="Name:" FontFamily="Font1"></Label>
-        <Label Text="{Binding MemberName}" FontFamily="Font1"></Label>
 
-        <Label Text="Role: " FontFamily="Font1"></Label>
-        <Label Text="{Binding MemberRole}" FontFamily="Font1"></Label>
-        <Label Text="Balance: " FontFamily="Font1"></Label>
-        <Label Text="{Binding Balance}" FontFamily="Font1"></Label>
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
-        <Label Text="Unit Number" FontFamily="Font1"></Label>
-        <Label Text="{Binding UnitNum}" FontFamily="Font1"></Label>
+    <ScrollView Padding="20" BackgroundColor="Transparent">
+        <VerticalStackLayout Spacing="20">
+            <!-- Profile Header Section -->
+            <Frame BackgroundColor="#2193b0"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="True"
+                   HorizontalOptions="FillAndExpand">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    
+                    <Label Text="{Binding MemberName}" 
+                           FontFamily="Font1"
+                           FontSize="24"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding MemberRole}" 
+                           FontFamily="Font1"
+                           FontSize="16"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
 
-        <Label Text="Liability" FontFamily="Font1"></Label>
-        <Label Text="{Binding IsLiable}" FontFamily="Font1"></Label>
+            <!-- Profile Info Section -->
+            <Frame BackgroundColor="#ECEFF1"
+                   CornerRadius="10"
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <!-- Balance -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Balance: " 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#37474F"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding Balance}" 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#1565C0"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
 
-        <Label Text="Residency" FontFamily="Font1"></Label>
-        <Label Text="{Binding IsResident}" FontFamily="Font1"></Label>
+                    <!-- Unit Number -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Unit Number: " 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#37474F"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding UnitNum}" 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#1565C0"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
 
-        <Label Text="Managment" FontFamily="Font1"></Label>
-        <Label Text="{Binding IsManager}" FontFamily="Font1"></Label>
-        
-    </VerticalStackLayout>
+                    <!-- Liability -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Liability: " 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#37474F"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding IsLiable}" 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#1565C0"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <!-- Residency -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Residency: " 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#37474F"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding IsResident}" 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#1565C0"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <!-- Management -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Management: " 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#37474F"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding IsManager}" 
+                               FontFamily="Font1"
+                               FontSize="18"
+                               TextColor="#1565C0"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

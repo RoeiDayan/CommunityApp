@@ -26,6 +26,7 @@ namespace CommunityApp.ViewModels
             UnitNum = CurMember.UnitNum;
             IsLiable = CurMember.IsLiable;
             IsResident = CurMember.IsResident;
+            IsManager = CurMember.IsManager;
             ChooseRole();
         }
 
