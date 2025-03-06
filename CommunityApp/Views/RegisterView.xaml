@@ -36,10 +36,10 @@ VerticalOptions="End">
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Name" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Label Text="Name" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
+                <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
             </Grid>
-            <Entry Placeholder="Type First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" />
+            <Entry Placeholder="Type First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
 
             <!-- Email -->
             <Grid>
@@ -47,10 +47,10 @@ VerticalOptions="End">
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
+                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
             </Grid>
-            <Entry Placeholder="Type Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" />
+            <Entry Placeholder="Type Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
 
             <!-- Password -->
             <Grid>
@@ -58,16 +58,16 @@ VerticalOptions="End">
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
+                <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="40" />
                 </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0" Placeholder="Type Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" />
-                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}" />
+                <Entry Grid.Column="0" Placeholder="Type Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
+                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}"/>
             </Grid>
 
             <!-- Register and Cancel Buttons -->
@@ -76,8 +76,8 @@ VerticalOptions="End">
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" />
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" FontFamily="Font1"/>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}" FontFamily="Font1"/>
             </Grid>
         </VerticalStackLayout>
         <!-- Centered ActivityIndicator -->

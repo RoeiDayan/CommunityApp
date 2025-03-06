@@ -15,7 +15,8 @@
                FontSize="16"
                IsVisible="{Binding ErrorMessage}" 
                HorizontalOptions="Center"
-               Padding="5"/>
+               Padding="5"
+               FontFamily="Font1"/>
 
         <!-- Header for Notices -->
         <Frame Grid.Row="1"
@@ -27,7 +28,8 @@
                    FontSize="20" 
                    FontAttributes="Bold" 
                    TextColor="#333"
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center"
+                   FontFamily="Font1"/>
         </Frame>
 
         <!-- Notices Grid -->
@@ -46,7 +48,8 @@
                                FontSize="16" 
                                FontAttributes="Bold" 
                                TextColor="#1565C0"
-                               HorizontalOptions="Center"/>
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -62,7 +65,8 @@
                    FontSize="20" 
                    FontAttributes="Bold" 
                    TextColor="#333"
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center"
+                   FontFamily="Font1"/>
         </Frame>
 
         <!-- Reports Grid -->
@@ -81,7 +85,8 @@
                                FontSize="16" 
                                FontAttributes="Bold" 
                                TextColor="#37474F"
-                               HorizontalOptions="Center"/>
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -98,7 +103,8 @@
                 Padding="12"
                 Margin="10"
                 HorizontalOptions="Center"
-                VerticalOptions="Center" />
+                VerticalOptions="Center" 
+                FontFamily="Font1"/>
 
     </Grid>
 </ContentPage>

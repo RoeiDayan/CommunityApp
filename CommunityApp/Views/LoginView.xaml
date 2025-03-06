@@ -5,15 +5,15 @@
              Title="LoginView">
 
     <VerticalStackLayout>
-        <Entry x:Name="LoginEmail" Placeholder="Email" Keyboard="Email" Text="{Binding Email}" IsEnabled="{Binding NotInServerCall}"/>
-        
-        <Entry x:Name="LoginPass" Placeholder="Password" Text="{Binding Password}" IsEnabled="{Binding NotInServerCall}"/>
-        
-        <Button Text="Login" Command="{Binding LoginCommand}" IsEnabled="{Binding NotInServerCall}"/>
+        <Entry x:Name="LoginEmail" Placeholder="Email" Keyboard="Email" Text="{Binding Email}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
 
-        <Label Text="{Binding ErrMsg}" TextColor="Red" HorizontalOptions="Center"/>
-        
-        <Label Text="Don't have an account yet?! Create one here" TextColor="Green" HorizontalOptions="Center" VerticalOptions="End" IsEnabled="{Binding NotInServerCall}">
+        <Entry x:Name="LoginPass" Placeholder="Password" Text="{Binding Password}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
+
+        <Button Text="Login" Command="{Binding LoginCommand}" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1"/>
+
+        <Label Text="{Binding ErrMsg}" TextColor="Red" HorizontalOptions="Center" FontFamily="Font1"/>
+
+        <Label Text="Don't have an account yet?! Create one here" TextColor="Green" HorizontalOptions="Center" VerticalOptions="End" IsEnabled="{Binding NotInServerCall}" FontFamily="Font1">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RegisterCommand}"></TapGestureRecognizer>
             </Label.GestureRecognizers>

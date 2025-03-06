@@ -5,7 +5,7 @@
              Title="SelectCommunityView"
              BackgroundColor="#F4F6F9">
 
-    <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20" Spacing="15">
+    <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20" Spacing="15" >
 
         <!-- Title -->
         <Label Text="Choose the community you wish to log into"
@@ -13,7 +13,7 @@
                FontAttributes="Bold"
                TextColor="#333"
                HorizontalOptions="Center"
-               Padding="5"/>
+               Padding="5" FontFamily="Font1"/>
 
         <!-- Community Selection -->
         <CollectionView ItemsSource="{Binding Communities}" x:Name="cv">
@@ -40,14 +40,16 @@
                                    FontSize="22" 
                                    FontAttributes="Bold" 
                                    TextColor="#1E88E5"
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   FontFamily="Font1"/>
 
                             <!-- Community Description -->
                             <Label Text="{Binding Body}" 
                                    FontSize="14" 
                                    TextColor="#555"
                                    HorizontalTextAlignment="Center"
-                                   Margin="5"/>
+                                   Margin="5"
+                                   FontFamily="Font1"/>
 
                             <!-- Sign-In Button -->
                             <Button Text="Sign In" 
@@ -58,7 +60,8 @@
                                     FontSize="16"
                                     CornerRadius="8"
                                     Padding="10"
-                                    HorizontalOptions="Fill"/>
+                                    HorizontalOptions="Fill"
+                                    FontFamily="Font1"/>
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>

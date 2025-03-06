@@ -4,25 +4,25 @@
              x:Class="CommunityApp.Views.ProfilePageView"
              Title="ProfilePageView">
     <VerticalStackLayout>
-        <Label Text="Name:"></Label>
-        <Label Text="{Binding MemberName}"></Label>
+        <Label Text="Name:" FontFamily="Font1"></Label>
+        <Label Text="{Binding MemberName}" FontFamily="Font1"></Label>
 
-        <Label Text="Role: "></Label>
-        <Label Text="{Binding MemberRole}"></Label>
-        <Label Text="Balance: "></Label>
-        <Label Text="{Binding Balance}"></Label>
+        <Label Text="Role: " FontFamily="Font1"></Label>
+        <Label Text="{Binding MemberRole}" FontFamily="Font1"></Label>
+        <Label Text="Balance: " FontFamily="Font1"></Label>
+        <Label Text="{Binding Balance}" FontFamily="Font1"></Label>
 
-        <Label Text="Unit Number"></Label>
-        <Label Text="{Binding UnitNum}"></Label>
+        <Label Text="Unit Number" FontFamily="Font1"></Label>
+        <Label Text="{Binding UnitNum}" FontFamily="Font1"></Label>
 
-        <Label Text="Liability"></Label>
-        <Label Text="{Binding IsLiable}"></Label>
+        <Label Text="Liability" FontFamily="Font1"></Label>
+        <Label Text="{Binding IsLiable}" FontFamily="Font1"></Label>
 
-        <Label Text="Residency"></Label>
-        <Label Text="{Binding IsResident}"></Label>
+        <Label Text="Residency" FontFamily="Font1"></Label>
+        <Label Text="{Binding IsResident}" FontFamily="Font1"></Label>
 
-        <Label Text="Managment"></Label>
-        <Label Text="{Binding IsManager}"></Label>
+        <Label Text="Managment" FontFamily="Font1"></Label>
+        <Label Text="{Binding IsManager}" FontFamily="Font1"></Label>
         
     </VerticalStackLayout>
 </ContentPage>
