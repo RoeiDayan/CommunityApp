@@ -3,72 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.RegisterView"
              Title="RegisterView">
-    <Grid>
 
+    <!-- Background Gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
-        <!-- Main Content -->
-        <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20">
-            <!-- Photo -->
-            <!--<Frame BorderColor="Black" Padding="5" Margin="10">
+    <!-- Main Content -->
+    <Grid Padding="20">
+
+        <!-- Register Form -->
+        <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Spacing="15">
+
+            <!-- Photo Upload (Updated) -->
+            <Frame Padding="10" BackgroundColor="#E3F2FD" CornerRadius="20" Margin="0, 10" HasShadow="True">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
-                    <Label Grid.Row="1"
-Text="Click Here To Upload Photo!"
-TextColor="Blue"
-HorizontalOptions="Center"
-VerticalOptions="End">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                    <!-- Modern photo upload area with rounded corners and a nice button -->
+                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}" HeightRequest="150" Aspect="AspectFill" Margin="0, 10" />
+                    <Button Grid.Row="1" Text="Upload Photo" BackgroundColor="#FF4081" TextColor="White" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="End" Padding="15, 10" Command="{Binding UploadPhotoCommand}" />
                 </Grid>
-            </Frame>-->
-            <!-- Name -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Name" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
-                <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
-            </Grid>
-            <Entry Placeholder="Type First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
+            </Frame>
 
-            <!-- Email -->
+            <!-- Name (White Headers) -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
-                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
+                <Label Text="Name" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White" />
             </Grid>
-            <Entry Placeholder="Type Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
+            <Entry Placeholder="Enter First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
+            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
 
-            <!-- Password -->
+            <!-- Email (White Headers) -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Email" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White" />
+            </Grid>
+            <Entry Placeholder="Enter Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
+            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
+
+            <!-- Password (White Headers) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" FontFamily="Font1"/>
-                <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" FontFamily="Font1"/>
+                <Label Text="Password" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="40" />
                 </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0" Placeholder="Type Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" FontFamily="Font1"/>
-                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}"/>
+                <Entry Grid.Column="0" Placeholder="Enter Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
+                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}" Padding="10"/>
             </Grid>
+            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
 
             <!-- Register and Cancel Buttons -->
             <Grid>
@@ -76,15 +77,14 @@ VerticalOptions="End">
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" FontFamily="Font1"/>
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}" FontFamily="Font1"/>
+                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" FontFamily="Font1" FontSize="18" BackgroundColor="#FF4081" TextColor="White" CornerRadius="25" Padding="15"/>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}" FontFamily="Font1" FontSize="18" BackgroundColor="#E0E0E0" TextColor="#37474F" CornerRadius="25" Padding="15"/>
             </Grid>
+
         </VerticalStackLayout>
+
         <!-- Centered ActivityIndicator -->
-        <ActivityIndicator IsRunning="{Binding InServerCall}" 
-                   Color="Red" 
-                   VerticalOptions="Center" 
-                   HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="Red" VerticalOptions="Center" HorizontalOptions="Center" />
 
     </Grid>
 </ContentPage>
