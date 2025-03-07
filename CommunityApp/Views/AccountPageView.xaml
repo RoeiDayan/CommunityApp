@@ -33,24 +33,20 @@
                            HorizontalTextAlignment="Center"/>
 
                     <!-- Email -->
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Image Source="email_icon.png" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="{Binding CurrentAcc.Email}"
-                               FontSize="16"
-                               TextColor="#555"
-                               VerticalOptions="Center"
-                               Padding="5,0"/>
-                    </StackLayout>
+                    <Label Text="{Binding CurrentAcc.Email}"
+                           FontSize="16"
+                           TextColor="#555"
+                           VerticalOptions="Center"
+                           Padding="5,0"
+                           HorizontalTextAlignment="Center"/>
 
                     <!-- Password -->
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Image Source="lock_icon.png" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="{Binding CurrentAcc.Password}"
-                               FontSize="16"
-                               TextColor="#555"
-                               VerticalOptions="Center"
-                               Padding="5,0"/>
-                    </StackLayout>
+                    <Label Text="{Binding CurrentAcc.Password}"
+                           FontSize="16"
+                           TextColor="#555"
+                           VerticalOptions="Center"
+                           Padding="5,0"
+                           HorizontalTextAlignment="Center"/>
 
                     <!-- Logout Button -->
                     <Button Text="Log Out"
