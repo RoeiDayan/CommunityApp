@@ -17,9 +17,9 @@ namespace CommunityApp.Models
 
         public string? Text { get; set; }
 
-        public int Priority { get; set; }
+        public int? Priority { get; set; }
 
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         public bool? IsAnon { get; set; }
 
