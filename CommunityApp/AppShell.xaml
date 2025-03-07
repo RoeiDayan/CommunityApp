@@ -16,17 +16,24 @@
     </FlyoutItem>
 
     <FlyoutItem Title="User Settings" FlyoutIcon="user.png">
-
         <ShellContent
     Title="Profile"
     ContentTemplate="{DataTemplate local:ProfilePageView}"
     Route="Profile" />
     </FlyoutItem>
+    
     <FlyoutItem Title="Account" FlyoutIcon="account.png">
         <ShellContent
         Title="Account"
         ContentTemplate="{DataTemplate local:AccountPageView}"
         Route="Account"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Switch Community" FlyoutIcon="community.png">
+        <ShellContent
+            Title="Switch Community"
+            ContentTemplate="{DataTemplate local:SelectCommunityView}"
+            Route="Switch Community"/>
     </FlyoutItem>
 
 
