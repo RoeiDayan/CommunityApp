@@ -25,5 +25,7 @@ namespace CommunityApp.Models
 
         public DateTime? CreatedAt { get; set; }
 
+        public string Title { get; set; } = null!;
+
     }
 }

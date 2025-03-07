@@ -50,12 +50,21 @@
                                CornerRadius="10"
                                Margin="10"
                                HasShadow="True">
-                            <Label Text="{Binding Title}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#D32F2F"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"/>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}"
+                                    FontSize="25"
+                                    FontAttributes="Bold"
+                                    TextColor="#D32F2F"
+                                    HorizontalOptions="Center"
+                                    FontFamily="Font1"/>
+                                <Label Text="{Binding Text}"
+                                    FontSize="16"
+                                    TextColor="#37474F"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    FontFamily="Font1"/>
+                            </VerticalStackLayout>
+                            
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -81,17 +90,28 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="15"
-                           BackgroundColor="#ECEFF1"
-                           CornerRadius="10"
-                           Margin="10"
-                           HasShadow="True">
-                        <Label Text="{Binding Text}"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               TextColor="#37474F"
-                               HorizontalOptions="Center"
-                               FontFamily="Font1"/>
+                        BackgroundColor="#ECEFF1"
+                        CornerRadius="10"
+                        Margin="10"
+                        HasShadow="True">
+
+                        <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Label Text="{Binding Title}"
+                                FontSize="25"
+                                FontAttributes="Bold"
+                                TextColor="#37474F"
+                                HorizontalOptions="Center"
+                                FontFamily="Font1"/>
+
+                            <Label Text="{Binding Text}"
+                                FontSize="16"
+                                TextColor="#37474F"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                FontFamily="Font1"/>
+                        </VerticalStackLayout>
                     </Frame>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
