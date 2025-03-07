@@ -45,7 +45,7 @@
                     <!-- Password -->
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Image Source="lock_icon.png" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="********"
+                        <Label Text="{Binding CurrentAcc.Password}"
                                FontSize="16"
                                TextColor="#555"
                                VerticalOptions="Center"
