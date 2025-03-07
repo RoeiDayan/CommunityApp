@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +11,15 @@ namespace CommunityApp.Models
     {
         public int ReportId { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
-        public int? ComId { get; set; }
+        public int ComId { get; set; }
+
         public string? Text { get; set; }
 
-        public int? Priority { get; set; }
+        public int Priority { get; set; }
 
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         public bool? IsAnon { get; set; }
 
