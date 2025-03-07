@@ -17,8 +17,6 @@ namespace CommunityApp.Models
 
         public int? Priority { get; set; }
 
-        public int? Type { get; set; }
-
         public int? Status { get; set; }
 
         public bool? IsAnon { get; set; }
