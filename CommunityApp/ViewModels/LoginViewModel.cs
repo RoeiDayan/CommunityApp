@@ -95,7 +95,7 @@ namespace CommunityApp.ViewModels
             else
             {
                 ErrorMsg = "";
-                //Navigate to the main page
+                
                 SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
                 ((App)Application.Current).MainPage = v;
 

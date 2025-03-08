@@ -35,6 +35,12 @@
             ContentTemplate="{DataTemplate local:SelectCommunityView}"
             Route="Switch Community"/>
     </FlyoutItem>
+    <FlyoutItem Title="Create Report">
+        <ShellContent
+            Title="Create Report"
+            ContentTemplate="{DataTemplate local:CreateReportView}"
+            Route="Create Report"/>
+    </FlyoutItem>
 
 
 </Shell>

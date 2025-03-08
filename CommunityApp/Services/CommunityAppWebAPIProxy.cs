@@ -1,4 +1,5 @@
 ﻿using CommunityApp.Models;
+using CoreData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -260,6 +261,25 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<bool> CreateReportAsync(Report r)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}CreateReport";
+                string json = JsonSerializer.Serialize(r);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                // If the request was successful, read the boolean response
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(await response.Content.ReadAsStringAsync(), out bool result) && result;
+            }
+            catch
+            {
+                return false; // If an error occurs, assume failure
+            }
+        }
 
 
     }

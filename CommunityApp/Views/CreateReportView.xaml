@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CommunityApp.Views"
              x:Class="CommunityApp.Views.CreateReportView"
-             Title="CreateReportView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Create Report">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <!-- Title Entry -->
+        <Entry x:Name="TitleEntry"
+               Placeholder="Enter Report Title"
+               Text="{Binding Title}"
+               FontSize="18"
+               VerticalOptions="Start" />
+
+        <!-- Description Entry -->
+        <Editor x:Name="ReportDescEditor"
+                Placeholder="Enter Report Description"
+                Text="{Binding ReportDesc}"
+                FontSize="18"
+                HeightRequest="200"
+                VerticalOptions="Start" />
+
+        <!-- Anonymity Toggle -->
+        <Switch x:Name="AnonymitySwitch"
+                IsToggled="{Binding IsAnon}"
+                VerticalOptions="Start" />
+        <Label Text="Submit Anonymously"
+               FontSize="16"
+               VerticalOptions="Start" />
+
+        <!-- Create Report Button -->
+        <Button Text="Create Report"
+                Command="{Binding CreateReportCommand}"
+                IsEnabled="{Binding NotInServerCall}"
+                VerticalOptions="Center" />
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator IsRunning="{Binding InServerCall}"
+                           IsVisible="{Binding InServerCall}"
+                           VerticalOptions="Center" />
+
     </VerticalStackLayout>
+
 </ContentPage>

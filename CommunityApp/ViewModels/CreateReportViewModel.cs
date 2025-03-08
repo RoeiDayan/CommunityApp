@@ -23,8 +23,8 @@ namespace CommunityApp.ViewModels
             InServerCall = false;
         }
         #region Properties
-        private string? title;
-        public string? Title
+        private string title;
+        public string Title
         {
             get => title;
             set
@@ -40,7 +40,7 @@ namespace CommunityApp.ViewModels
             get => reportDesc;
             set
             {
-                title = value;
+                reportDesc = value;
                 OnPropertyChanged(nameof(ReportDesc));
             }
         }
@@ -60,16 +60,30 @@ namespace CommunityApp.ViewModels
         #region Commands
         public Command CreateReportCommand { get; }
 
+        #endregion
+
+        #region Methods
         public async void CreateReport()
         {
             InServerCall = true;
-            string? RepTitle = this.Title;
-            string? RepDesc = this.ReportDesc;
-            bool? isAnon = this.IsAnon;
             int userId = ((App)Application.Current).LoggedInUser.Id;
             int comId = ((App)Application.Current).CurCom.ComId;
 
+            Report r = new Report { UserId = userId, ComId = comId, Title = Title, ReportDesc = ReportDesc, IsAnon = IsAnon, Priority = null, Status = null, CreatedAt = null };
             bool answer = false;
+            answer = await this.proxy.CreateReportAsync(r);
+            InServerCall = false;
+            if (answer == false)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Failed to create a report", "ok");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Succes", "Report Created", "ok");
+
+                HomePageView v = serviceProvider.GetService<HomePageView>();
+                ((App)Application.Current).MainPage = v;
+            }
 
         }
         #endregion
