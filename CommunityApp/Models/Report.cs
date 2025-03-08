@@ -15,7 +15,9 @@ namespace CommunityApp.Models
 
         public int ComId { get; set; }
 
-        public string? Text { get; set; }
+        public string Title { get; set; } = null!;
+
+        public string? ReportDesc { get; set; }
 
         public int? Priority { get; set; }
 
@@ -24,8 +26,5 @@ namespace CommunityApp.Models
         public bool? IsAnon { get; set; }
 
         public DateTime? CreatedAt { get; set; }
-
-        public string Title { get; set; } = null!;
-
     }
 }
