@@ -79,7 +79,7 @@ namespace CommunityApp.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Succes", "Report Created", "ok");
+                await Application.Current.MainPage.DisplayAlert("Success!", "Report Created", "ok");
 
                 HomePageView v = serviceProvider.GetService<HomePageView>();
                 ((App)Application.Current).MainPage = v;
