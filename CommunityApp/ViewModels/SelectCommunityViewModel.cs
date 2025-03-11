@@ -18,6 +18,7 @@ namespace CommunityApp.ViewModels
             this.proxy = proxy;
             MemberCommunities = new ObservableCollection<MemberCommunity>();
             SignInCommand = new Command<int>(OnSignIn);
+            JoinCommand = new Command(JoinCommunity);
             LoadCommunities();
             this.serviceProvider = serviceProvider;
         }
@@ -48,6 +49,7 @@ namespace CommunityApp.ViewModels
 
         #region Commands
         public Command<int> SignInCommand { get; }
+        public Command JoinCommand {  get; }
 
         private async void OnSignIn(int comId)
         {
@@ -108,6 +110,23 @@ namespace CommunityApp.ViewModels
             {
                 InServerCall = false;
                 await Application.Current.MainPage.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
+        }
+        private async void JoinCommunity()
+        {
+            try
+            {
+                if (Shell.Current == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Shell.Current is null", "OK");
+                    return;
+                }
+
+                await Shell.Current.GoToAsync("JoinCommunity");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Navigation Error", ex.Message, "OK");
             }
         }
         #endregion

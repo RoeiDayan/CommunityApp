@@ -23,7 +23,8 @@
 
         <!-- Community Code Entry -->
         <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
-            <Entry Placeholder="Community Code"
+            <StackLayout>
+                <Entry Placeholder="Community Code"
                    Text="{Binding CommunityCode}"
                    FontFamily="Font1"
                    HeightRequest="50"
@@ -31,6 +32,9 @@
                    PlaceholderColor="Gray"
                    TextColor="Black"
                    HorizontalTextAlignment="Center"/>
+
+                <Label Text="Invalid Community Code" IsVisible="{Binding ShowInvalidCodeMsg}" TextColor="#FF4081" HorizontalTextAlignment="Center" FontFamily="Font1" FontSize="22"/>
+            </StackLayout>
         </Frame>
 
         <!-- Unit Number Entry -->
@@ -90,12 +94,6 @@
                 CornerRadius="25"
                 Padding="10"/>
 
-        <!-- Error Message -->
-        <Label Text="{Binding ErrMsg}"
-               TextColor="Yellow"
-               HorizontalOptions="Center"
-               FontFamily="Font1"
-               FontSize="14"/>
 
         <!-- Back to Login -->
         <Label Text="Already a member? Log in!"
@@ -103,7 +101,8 @@
                FontFamily="Font1"
                FontSize="16"
                HorizontalOptions="Center"
-               VerticalOptions="End">
+               VerticalOptions="End"
+               IsVisible="{Binding ShowLogin}">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoginCommand}"/>
             </Label.GestureRecognizers>

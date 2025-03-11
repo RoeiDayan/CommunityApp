@@ -280,6 +280,51 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<int> GetCommunityIdAsync(string s)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}GetCommunityId";
+                string json = JsonSerializer.Serialize(s);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (int.TryParse(responseContent, out int communityId))
+                    {
+                        return communityId;
+                    }
+                }
+
+                return -2;
+            }
+            catch
+            {
+                return -3; 
+            }
+        }
+
+        public async Task<bool> JoinCommunityAsync(Member m)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}JoinCommunity";
+                string json = JsonSerializer.Serialize(m);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(await response.Content.ReadAsStringAsync(), out bool result) && result;
+            }
+            catch
+            {
+                return false; 
+            }
+        }
     }
 }

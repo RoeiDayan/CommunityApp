@@ -19,6 +19,11 @@ namespace CommunityApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             JoinCommand = new Command(OnJoinCommunity);
+            LoginCommand = new Command(OnLogin);
+            InServerCall = false;
+            ComCodeErrorMsg = "Invalid community code";
+            showInvalidCodeMsg = false;
+            ShowLogin = (((App)Application.Current).CurMem == null);
         }
         #region Properties
         private string communityCode;
@@ -87,7 +92,57 @@ namespace CommunityApp.ViewModels
                 isProvider = value; OnPropertyChanged(nameof(IsProvider));
             }
         }
+        private string comCodeErrorMsg;
+        public string ComCodeErrorMsg
+        {
+            get => comCodeErrorMsg;
+            set
+            {
+                comCodeErrorMsg = value; OnPropertyChanged(ComCodeErrorMsg);
+            }
+        }
 
+        
+        #region CodeValid
+        private bool isCodeValid;
+        public bool IsCodeValid
+        {
+            get => isCodeValid;
+            set
+            {
+                isCodeValid = value;
+                OnPropertyChanged(nameof(IsCodeNotValid));
+                OnPropertyChanged(nameof(IsCodeValid));
+            }
+        }
+        public bool IsCodeNotValid
+        {
+            get
+            {
+                return !IsCodeValid;
+            }
+        }
+        #endregion
+
+        private bool showInvalidCodeMsg;
+        public bool ShowInvalidCodeMsg
+        {
+            get => showInvalidCodeMsg;
+            set
+            {
+                showInvalidCodeMsg = value; OnPropertyChanged(nameof(ShowInvalidCodeMsg));
+            }
+        }
+
+        private bool showLogin;
+        public bool ShowLogin
+        {
+            get => showLogin;
+            set
+            {
+                showLogin = value; OnPropertyChanged(nameof(ShowLogin));
+            }
+        }
         #endregion
 
         #region Commands
@@ -98,7 +153,64 @@ namespace CommunityApp.ViewModels
         #region Methods
         private async void OnJoinCommunity()
         {
+            InServerCall = true;
+            int comID = await GetCommunityId();
+            if (IsCodeValid)
+            {
+                Member m = new Member
+                {
+                    ComId = comID,
+                    UserId = ((App)Application.Current).LoggedInUser.Id,
+                    UnitNum = this.UnitNum,
+                    IsLiable = this.IsLiable,
+                    IsResident = this.IsResident,
+                    IsManager = this.isManager,
+                    IsProvider = this.IsProvider,
+                    IsApproved = false
+                };
+                bool joinSuccess = await proxy.JoinCommunityAsync(m);
+                InServerCall = false;
+                if (joinSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Success!", "Your member submition is pending approval", "ok");
+                    SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
+                    ((App)Application.Current).MainPage = v;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Failed", "Your member submition failed. Remember: You can't join a community your'e already in", "ok");
+                }
+            }
+            else
+            {
+                InServerCall = false;
+                await showInvalid();
+            }
 
+        }
+        private async Task<int> GetCommunityId()
+        {
+            int result = await this.proxy.GetCommunityIdAsync(this.CommunityCode);
+            if (result >= 0)
+            {
+                IsCodeValid = true;
+            }
+            else
+            {
+                IsCodeValid = false;
+            }
+            return result;
+        }
+
+        private async Task showInvalid()
+        {
+            ShowInvalidCodeMsg = true;
+            await Task.Delay(3500);
+            ShowInvalidCodeMsg = false;
+        }
+        private void OnLogin()
+        {
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LoginView>());
         }
         #endregion
     }

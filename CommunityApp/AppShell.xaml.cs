@@ -1,4 +1,5 @@
 ﻿using CommunityApp.ViewModels;
+using CommunityApp.Views;
 
 namespace CommunityApp
 {
@@ -12,7 +13,8 @@ namespace CommunityApp
         }
         private void RegisterRoutes()
         {
-
+            Routing.RegisterRoute("JoinCommunity", typeof(JoinCommunityView));
         }
+
     }
 }
