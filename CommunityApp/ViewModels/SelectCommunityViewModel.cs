@@ -114,21 +114,36 @@ namespace CommunityApp.ViewModels
         }
         private async void JoinCommunity()
         {
-            try
-            {
-                if (Shell.Current == null)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Shell.Current is null", "OK");
-                    return;
-                }
+            // Get the JoinCommunityViewModel from the service provider
+            var joinViewModel = serviceProvider.GetService<JoinCommunityViewModel>();
 
-                await Shell.Current.GoToAsync("JoinCommunity");
-            }
-            catch (Exception ex)
+            if (joinViewModel == null)
             {
-                await Application.Current.MainPage.DisplayAlert("Navigation Error", ex.Message, "OK");
+                // Display error if we can't get the view model
+                await Application.Current.MainPage.DisplayAlert("Error", "Unable to initialize join community page.", "OK");
+                return;
+            }
+
+            // Create the view with the required view model
+            var joinCommunityPage = new JoinCommunityView(joinViewModel);
+
+            // Check if MainPage is a NavigationPage and use it to navigate
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                // Navigate using PushAsync
+                await navigationPage.PushAsync(joinCommunityPage);
+            }
+            else
+            {
+                // If MainPage is not a NavigationPage, display an error
+                await Application.Current.MainPage.DisplayAlert("Error", "NavigationPage not found.", "OK");
             }
         }
+
+
+
+
+
         #endregion
     }
 }

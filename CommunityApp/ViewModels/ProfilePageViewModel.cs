@@ -21,7 +21,6 @@ namespace CommunityApp.ViewModels
             this.proxy = proxy;
             CurMember = ((App)Application.Current).CurMem;
             MemberName = ((App)Application.Current).LoggedInUser.Name;
-            MemberRole = CurMember.Role;
             Balance = CurMember.Balance;
             UnitNum = CurMember.UnitNum;
             IsLiable = CurMember.IsLiable;
