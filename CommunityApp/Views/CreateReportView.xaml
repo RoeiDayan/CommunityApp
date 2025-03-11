@@ -23,12 +23,13 @@
                 VerticalOptions="Start" />
 
         <!-- Anonymity Toggle -->
+        <Label Text="Submit Anonymously"
+            FontSize="16"
+            VerticalOptions="Start" />
         <Switch x:Name="AnonymitySwitch"
                 IsToggled="{Binding IsAnon}"
                 VerticalOptions="Start" />
-        <Label Text="Submit Anonymously"
-               FontSize="16"
-               VerticalOptions="Start" />
+        
 
         <!-- Create Report Button -->
         <Button Text="Create Report"

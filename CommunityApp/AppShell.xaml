@@ -43,6 +43,13 @@
             Route="CreateReport"/>
     </FlyoutItem>
 
+    <FlyoutItem Title="Join Community" FlyoutIcon="joincommunity.png">
+        <ShellContent
+            Title="Join Community"
+            ContentTemplate="{DataTemplate local:JoinCommunityView}"
+            Route="JoinCommunity"/>
+    </FlyoutItem>
+
     <!-- Tab Bar -->
     <TabBar>
         <Tab Title="Home" Icon="home.png">
@@ -74,6 +81,7 @@
                 Title="Create Report"
                 ContentTemplate="{DataTemplate local:CreateReportView}"/>
         </Tab>
+        
     </TabBar>
 
 </Shell>
