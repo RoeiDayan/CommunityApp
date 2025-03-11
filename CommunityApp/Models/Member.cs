@@ -28,6 +28,7 @@ namespace CommunityApp.Models
         public bool? IsManager { get; set; }
 
         public bool? IsProvider { get; set; }
+        public bool? IsApproved { get; set; }
 
     }
 }

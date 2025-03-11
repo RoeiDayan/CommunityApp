@@ -17,30 +17,63 @@
 
     <FlyoutItem Title="User Settings" FlyoutIcon="user.png">
         <ShellContent
-    Title="Profile"
-    ContentTemplate="{DataTemplate local:ProfilePageView}"
-    Route="Profile" />
+            Title="Profile"
+            ContentTemplate="{DataTemplate local:ProfilePageView}"
+            Route="Profile" />
     </FlyoutItem>
-    
+
     <FlyoutItem Title="Account" FlyoutIcon="account.png">
         <ShellContent
-        Title="Account"
-        ContentTemplate="{DataTemplate local:AccountPageView}"
-        Route="Account"/>
+            Title="Account"
+            ContentTemplate="{DataTemplate local:AccountPageView}"
+            Route="Account"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Switch Community" FlyoutIcon="community.png">
         <ShellContent
             Title="Switch Community"
             ContentTemplate="{DataTemplate local:SelectCommunityView}"
-            Route="Switch Community"/>
+            Route="SwitchCommunity"/>
     </FlyoutItem>
-    <FlyoutItem Title="Create Report">
+
+    <FlyoutItem Title="Create Report" FlyoutIcon="report.png">
         <ShellContent
             Title="Create Report"
             ContentTemplate="{DataTemplate local:CreateReportView}"
-            Route="Create Report"/>
+            Route="CreateReport"/>
     </FlyoutItem>
 
+    <!-- Tab Bar -->
+    <TabBar>
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate local:HomePageView}"/>
+        </Tab>
+
+        <Tab Title="User Settings" Icon="user.png">
+            <ShellContent
+                Title="Profile"
+                ContentTemplate="{DataTemplate local:ProfilePageView}"/>
+        </Tab>
+
+        <Tab Title="Account" Icon="account.png">
+            <ShellContent
+                Title="Account"
+                ContentTemplate="{DataTemplate local:AccountPageView}"/>
+        </Tab>
+
+        <Tab Title="Switch Community" Icon="community.png">
+            <ShellContent
+                Title="Switch Community"
+                ContentTemplate="{DataTemplate local:SelectCommunityView}"/>
+        </Tab>
+
+        <Tab Title="Create Report" Icon="report.png">
+            <ShellContent
+                Title="Create Report"
+                ContentTemplate="{DataTemplate local:CreateReportView}"/>
+        </Tab>
+    </TabBar>
 
 </Shell>
