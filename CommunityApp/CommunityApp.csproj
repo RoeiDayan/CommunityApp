@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\joincommunity.png" />
 	  <None Remove="Resources\Images\Report.png" />
+	  <None Remove="Resources\Images\startcommunity.png" />
 	  <None Remove="Resources\Images\user.png" />
 	</ItemGroup>
 

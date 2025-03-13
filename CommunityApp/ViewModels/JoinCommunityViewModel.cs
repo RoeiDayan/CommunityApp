@@ -20,6 +20,7 @@ namespace CommunityApp.ViewModels
             this.proxy = proxy;
             JoinCommand = new Command(OnJoinCommunity);
             LoginCommand = new Command(OnLogin);
+            OnSelectCommunityCommand = new Command(OnSelectCommunity);
             InServerCall = false;
             ComCodeErrorMsg = "Invalid community code";
             showInvalidCodeMsg = false;
@@ -148,6 +149,8 @@ namespace CommunityApp.ViewModels
         #region Commands
         public Command JoinCommand { get;}
         public Command LoginCommand { get;}
+
+        public Command OnSelectCommunityCommand { get;}
         #endregion
 
         #region Methods
@@ -208,9 +211,19 @@ namespace CommunityApp.ViewModels
             await Task.Delay(3500);
             ShowInvalidCodeMsg = false;
         }
-        private void OnLogin()
+        private async void OnLogin()
         {
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LoginView>());
+            var loginPage = serviceProvider.GetService<LoginView>();
+            ((App)Application.Current).MainPage = new NavigationPage(loginPage);
+            await Task.CompletedTask;
+
+            
+        }
+
+        private async void OnSelectCommunity()
+        {
+            SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
+            ((App)Application.Current).MainPage = v;
         }
         #endregion
     }

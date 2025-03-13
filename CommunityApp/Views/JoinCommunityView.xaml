@@ -94,9 +94,21 @@
                 CornerRadius="25"
                 Padding="10"/>
 
+        
+        <Label Text="Already a member? Select a community!"
+       TextColor="White"
+       FontFamily="Font1"
+       FontSize="16"
+       HorizontalOptions="Center"
+       VerticalOptions="End">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OnSelectCommunityCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
 
         <!-- Back to Login -->
-        <Label Text="Already a member? Log in!"
+        <Label Text="Wrong account? Log in!"
                TextColor="White"
                FontFamily="Font1"
                FontSize="16"

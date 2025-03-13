@@ -50,6 +50,13 @@
             Route="JoinCommunity"/>
     </FlyoutItem>
 
+    <FlyoutItem Title="Start Community" FlyoutIcon="startcommunity.png">
+        <ShellContent
+        Title="Start Community"
+        ContentTemplate="{DataTemplate local:StartCommunityView}"
+        Route="StartCommunity"/>
+    </FlyoutItem>
+
     <!-- Tab Bar -->
     <TabBar>
         <Tab Title="Home" Icon="home.png">

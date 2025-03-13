@@ -24,6 +24,9 @@ namespace CommunityApp.ViewModels
             password = "";
             InServerCall = false;
             errorMsg = "";
+            ((App)Application.Current).LoggedInUser = null;
+            ((App)Application.Current).CurCom = null;
+            ((App)Application.Current).CurMem = null;
         }
 
         private string email;

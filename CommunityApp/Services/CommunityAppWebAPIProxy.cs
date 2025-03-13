@@ -326,5 +326,39 @@ namespace CommunityApp.Services
                 return false; 
             }
         }
+        
+        public async Task<MemberCommunity> CreateCommunityAsync(MemberCommunity memCom)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}CreateCommunity";
+                string json = JsonSerializer.Serialize(memCom);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response content
+                    string result = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    return JsonSerializer.Deserialize<MemberCommunity>(result, options);
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null ;
+            }
+        }
+
     }
 }

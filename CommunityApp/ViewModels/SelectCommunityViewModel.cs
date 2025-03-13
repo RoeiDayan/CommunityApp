@@ -16,11 +16,12 @@ namespace CommunityApp.ViewModels
         public SelectCommunityViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
             this.proxy = proxy;
+            this.serviceProvider = serviceProvider;
             MemberCommunities = new ObservableCollection<MemberCommunity>();
             SignInCommand = new Command<int>(OnSignIn);
             JoinCommand = new Command(JoinCommunity);
+            GoToLoginCommand = new Command(GoToLogin);
             LoadCommunities();
-            this.serviceProvider = serviceProvider;
         }
 
         #region Communities
@@ -50,7 +51,7 @@ namespace CommunityApp.ViewModels
         #region Commands
         public Command<int> SignInCommand { get; }
         public Command JoinCommand {  get; }
-
+        public Command GoToLoginCommand { get; }
         private async void OnSignIn(int comId)
         {
             bool found = false;
@@ -114,34 +115,16 @@ namespace CommunityApp.ViewModels
         }
         private async void JoinCommunity()
         {
-            // Get the JoinCommunityViewModel from the service provider
-            var joinViewModel = serviceProvider.GetService<JoinCommunityViewModel>();
-
-            if (joinViewModel == null)
-            {
-                // Display error if we can't get the view model
-                await Application.Current.MainPage.DisplayAlert("Error", "Unable to initialize join community page.", "OK");
-                return;
-            }
-
-            // Create the view with the required view model
-            var joinCommunityPage = new JoinCommunityView(joinViewModel);
-
-            // Check if MainPage is a NavigationPage and use it to navigate
-            if (Application.Current.MainPage is NavigationPage navigationPage)
-            {
-                // Navigate using PushAsync
-                await navigationPage.PushAsync(joinCommunityPage);
-            }
-            else
-            {
-                // If MainPage is not a NavigationPage, display an error
-                await Application.Current.MainPage.DisplayAlert("Error", "NavigationPage not found.", "OK");
-            }
+            JoinCommunityView v = serviceProvider.GetService<JoinCommunityView>();
+            ((App)Application.Current).MainPage = v;
         }
 
 
-
+        private async void GoToLogin()
+        {
+            LoginView v = serviceProvider.GetService<LoginView>();
+            ((App)Application.Current).MainPage = v;
+        }
 
 
         #endregion
