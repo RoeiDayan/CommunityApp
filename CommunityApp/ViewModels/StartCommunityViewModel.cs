@@ -23,7 +23,9 @@ namespace CommunityApp.ViewModels
             this.serviceProvider = serviceProvider;
         }
 
+        #region Properties
 
+        #endregion
 
         #region Methods
         public void ComposeCommunity()

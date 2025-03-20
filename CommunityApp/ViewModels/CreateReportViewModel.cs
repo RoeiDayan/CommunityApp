@@ -81,7 +81,7 @@ namespace CommunityApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Success!", "Report Created", "ok");
 
-                HomePageView v = serviceProvider.GetService<HomePageView>();
+                AppShell v = serviceProvider.GetService<AppShell>();
                 ((App)Application.Current).MainPage = v;
             }
 

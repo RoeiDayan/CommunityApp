@@ -1,126 +1,255 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
              x:Class="CommunityApp.Views.HomePageView"
+
              Title="HomePageView">
 
+
+
     <ContentPage.Background>
+
         <LinearGradientBrush>
+
             <GradientStop Color="#2193b0" Offset="0.0" />
+
             <GradientStop Color="#6dd5ed" Offset="1.0" />
+
         </LinearGradientBrush>
+
     </ContentPage.Background>
 
-    <!-- Using 5 rows for proper layout: Error, Notices Header, Notices, Reports Header, Reports, Button -->
-    <Grid Padding="20" RowDefinitions="Auto,Auto,*,Auto,*,Auto" RowSpacing="15">
 
-        <!-- Error Message Label -->
-        <Label Grid.Row="0"
-               Text="{Binding ErrorMessage}"
-               TextColor="Red"
-               FontAttributes="Bold"
-               FontSize="16"
-               IsVisible="{Binding HasErrorMessage}"
-               HorizontalOptions="Center"
-               Padding="5"
-               FontFamily="Font1"/>
 
-        <!-- Notices Header -->
-        <Label Grid.Row="1"
-               Text="Notices"
-               FontSize="22"
-               FontAttributes="Bold"
-               TextColor="White"
-               HorizontalOptions="Center"
-               FontFamily="Font1"
-               Margin="0,0,0,10"/>
+    <ScrollView>
 
-        <!-- Notices List -->
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Notices}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Span="2" Orientation="Vertical"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="15"
-                           BackgroundColor="#E3F2FD"
-                           CornerRadius="10"
-                           Margin="10"
-                           HasShadow="True">
-                        <VerticalStackLayout Spacing="5" VerticalOptions="FillAndExpand">
-                            <Label Text="{Binding Title}"
-                                   FontSize="25"
-                                   FontAttributes="Bold"
-                                   TextColor="#D32F2F"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"/>
-                            <Label Text="{Binding Text}"
-                                   FontSize="16"
-                                   TextColor="#37474F"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"
-                                   LineBreakMode="WordWrap"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-        <!-- Reports Header -->
-        <Label Grid.Row="3"
-               Text="Reports"
-               FontSize="22"
-               FontAttributes="Bold"
-               TextColor="White"
-               HorizontalOptions="Center"
-               FontFamily="Font1"
-               Margin="0,15,0,10"/>
 
-        <!-- Reports List -->
-        <CollectionView Grid.Row="4" ItemsSource="{Binding Reports}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Span="2" Orientation="Vertical"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="15"
-                           BackgroundColor="#ECEFF1"
-                           CornerRadius="10"
-                           Margin="10"
-                           HasShadow="True">
-                        <VerticalStackLayout Spacing="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                            <Label Text="{Binding Title}"
-                                   FontSize="25"
-                                   FontAttributes="Bold"
-                                   TextColor="#37474F"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"/>
-                            <Label Text="{Binding Text}"
-                                   FontSize="16"
-                                   TextColor="#37474F"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"
-                                   LineBreakMode="WordWrap"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
-        <!-- Refresh Button -->
-        <Button Grid.Row="5"
-                Text="Refresh Data"
-                Command="{Binding FetchBothCommand}"
-                BackgroundColor="#FF4081"
-                TextColor="White"
-                FontSize="18"
-                CornerRadius="25"
-                Padding="12"
-                Margin="10"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                FontFamily="Font1"/>
-    </Grid>
+            <!-- Error Message Label -->
+
+            <Label Text="{Binding ErrorMessage}"
+
+                   TextColor="Red"
+
+                   FontAttributes="Bold"
+
+                   FontSize="16"
+
+                   IsVisible="{Binding HasErrorMessage}"
+
+                   HorizontalOptions="Center"
+
+                   Padding="5"
+
+                   FontFamily="Font1"/>
+
+
+
+            <!-- Notices Header -->
+
+            <Label Text="Notices"
+
+                   FontSize="22"
+
+                   FontAttributes="Bold"
+
+                   TextColor="White"
+
+                   HorizontalOptions="Center"
+
+                   FontFamily="Font1"
+
+                   Margin="0,0,0,10"/>
+
+
+
+            <!-- Notices List - Using ListView instead of CollectionView -->
+
+            <ListView ItemsSource="{Binding Notices}"
+
+                      HasUnevenRows="True"
+
+                      SeparatorVisibility="None"
+
+                      HeightRequest="300"
+
+                      BackgroundColor="Transparent">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+
+                            <Frame BackgroundColor="#E3F2FD"
+
+                                   CornerRadius="10"
+
+                                   Margin="5,10"
+
+                                   Padding="15"
+
+                                   HasShadow="True">
+
+                                <StackLayout Spacing="10">
+
+                                    <Label Text="{Binding Title}"
+
+                                           FontSize="22"
+
+                                           FontAttributes="Bold"
+
+                                           TextColor="#D32F2F"
+
+                                           HorizontalTextAlignment="Center"
+
+                                           FontFamily="Font1"/>
+
+                                    <Label Text="{Binding Text}"
+
+                                           FontSize="16"
+
+                                           TextColor="#37474F"
+
+                                           FontAttributes="Bold"
+
+                                           HorizontalTextAlignment="Center"
+
+                                           FontFamily="Font1"
+
+                                           LineBreakMode="WordWrap"/>
+
+                                </StackLayout>
+
+                            </Frame>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+
+
+            <!-- Reports Header -->
+
+            <Label Text="Reports"
+
+                   FontSize="22"
+
+                   FontAttributes="Bold"
+
+                   TextColor="White"
+
+                   HorizontalOptions="Center"
+
+                   FontFamily="Font1"
+
+                   Margin="0,10"/>
+
+
+
+            <!-- Reports List - Using ListView instead of CollectionView -->
+
+            <ListView ItemsSource="{Binding Reports}"
+
+                      HasUnevenRows="True"
+
+                      SeparatorVisibility="None"
+
+                      HeightRequest="300"
+
+                      BackgroundColor="Transparent">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+
+                            <Frame BackgroundColor="#ECEFF1"
+
+                                   CornerRadius="10"
+
+                                   Margin="5,10"
+
+                                   Padding="15"
+
+                                   HasShadow="True">
+
+                                <StackLayout Spacing="10">
+
+                                    <Label Text="{Binding Title}"
+
+                                           FontSize="22"
+
+                                           FontAttributes="Bold"
+
+                                           TextColor="#37474F"
+
+                                           HorizontalTextAlignment="Center"
+
+                                           FontFamily="Font1"/>
+
+                                    <Label Text="{Binding ReportDesc}"
+
+                                           FontSize="16"
+
+                                           TextColor="#37474F"
+
+                                           FontAttributes="Bold"
+
+                                           HorizontalTextAlignment="Center"
+
+                                           FontFamily="Font1"
+
+                                           LineBreakMode="WordWrap"/>
+
+                                </StackLayout>
+
+                            </Frame>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+
+
+            <!-- Refresh Button -->
+
+            <Button Text="Refresh Data"
+
+                   Command="{Binding FetchBothCommand}"
+
+                   BackgroundColor="#FF4081"
+
+                   TextColor="White"
+
+                   FontSize="18"
+
+                   CornerRadius="25"
+
+                   Padding="12"
+
+                   Margin="10"
+
+                   HorizontalOptions="Center"
+
+                   FontFamily="Font1"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
 </ContentPage>
