@@ -12,8 +12,8 @@ namespace CommunityApp.ViewModels
     {
         private readonly CommunityWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
-        private Member mem;
-        private Community com;
+        private Member mem = new Member();
+        private Community com = new Community();
 
 
 
@@ -23,9 +23,12 @@ namespace CommunityApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.comId = 0;
             this.userId = ((App)Application.Current).LoggedInUser.Id;
+            Role = "Manager";
+            Balance = 0;
+            IsResident = false;
         }
 
-        #region Properties
+        #region UserProperties
         private int comId;
 
         private int userId;
@@ -143,15 +146,99 @@ namespace CommunityApp.ViewModels
         }
 
         #endregion
+        #region ComProperties
+        private string comName;
+        public string ComName
+        {
+            get => comName;
+            set
+            {
+                if (comName != value)
+                {
+                    comName = value;
+                    OnPropertyChanged(nameof(ComName));
+                }
+            }
+        }
+
+        private string comDesc;
+        public string ComDesc
+        {
+            get => comDesc;
+            set
+            {
+                if (comDesc != value)
+                {
+                    comDesc = value;
+                    OnPropertyChanged(nameof(ComDesc));
+                }
+            }
+        }
+
+        private string comCode;
+        public string ComCode
+        {
+            get => comCode;
+            set
+            {
+                if (comCode != value)
+                {
+                    comCode = value;
+                    OnPropertyChanged(nameof(ComCode));
+                }
+            }
+        }
+
+        private string picture;
+        public string Picture
+        {
+            get => picture;
+            set
+            {
+                if (picture != value)
+                {
+                    picture = value;
+                    OnPropertyChanged(nameof(Picture));
+                }
+            }
+        }
+
+        private string gatePhoneNum;
+        public string GatePhoneNum
+        {
+            get => gatePhoneNum;
+            set
+            {
+                if (gatePhoneNum != value)
+                {
+                    gatePhoneNum = value;
+                    OnPropertyChanged(nameof(GatePhoneNum));
+                }
+            }
+        }
+
+        #endregion
 
         #region Methods
         public void ComposeCommunity()
         {
-
+            com.ComName = ComName;
+            com.ComDesc = ComDesc;
+            com.ComCode = ComCode;
+            com.Picture = Picture;
+            com.GatePhoneNum = GatePhoneNum;
         }
         public void ComposeMember()
         {
-
+            mem.UserId = userId;
+            mem.UnitNum = UnitNum;
+            mem.Balance = Balance;
+            mem.Role = Role;
+            mem.IsLiable = true;
+            mem.IsResident = IsResident;
+            mem.IsManager = true;
+            mem.IsProvider = false;
+            mem.IsApproved = true;
         }
         public async void CreateCommunity()
         {

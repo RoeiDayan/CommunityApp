@@ -12,7 +12,7 @@ namespace CommunityApp.Models
 
         public string? ComName { get; set; }
 
-        public string? Body { get; set; }
+        public string? ComDesc { get; set; }
 
         public string? ComCode { get; set; }
 
