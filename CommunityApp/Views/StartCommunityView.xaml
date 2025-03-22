@@ -9,10 +9,106 @@
             <GradientStop Color="#6dd5ed" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+
+        <!-- Header -->
+        <Label Text="Start a Community 🏡" 
+           FontSize="30" 
+           FontFamily="Font1"
+           HorizontalOptions="Center" 
+           TextColor="White"
+           FontAttributes="Bold"/>
+
+        <!-- Community Code Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <StackLayout>
+                <Entry Placeholder="Create A Community Code"
+               Text="{Binding CommunityCode}"
+               FontFamily="Font1"
+               HeightRequest="50"
+               BackgroundColor="White"
+               PlaceholderColor="Gray"
+               TextColor="Black"
+               HorizontalTextAlignment="Center"/>
+
+                <Label Text="Invalid Community Code" IsVisible="{Binding ShowInvalidCodeMsg}" TextColor="#FF4081" HorizontalTextAlignment="Center" FontFamily="Font1" FontSize="22"/>
+            </StackLayout>
+        </Frame>
+
+        <!-- Unit Number Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry Placeholder="Unit Number"
+               Text="{Binding UnitNum}"
+               FontFamily="Font1"
+               HeightRequest="50"
+               BackgroundColor="White"
+               PlaceholderColor="Gray"
+               TextColor="Black"
+               HorizontalTextAlignment="Center"/>
+        </Frame>
+
+        <!-- Role Selection -->
+        <Frame HasShadow="False" Padding="15" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Select Your Role:" 
+           FontSize="16"
+           FontFamily="Font1"
+           TextColor="Black"
+           FontAttributes="Bold"/>
+
+                <!-- Grid for alignment -->
+                <Grid ColumnDefinitions="Auto,Auto" Padding="5">
+                    <Label Text="Legally Liable" VerticalOptions="Center" TextColor="Black"/>
+                    <Switch IsToggled="{Binding IsLiable}" Grid.Column="1"/>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,Auto" Padding="5">
+                    <Label Text="Resident" VerticalOptions="Center" TextColor="Black"/>
+                    <Switch IsToggled="{Binding IsResident}" Grid.Column="1"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </Frame>
+
+
+        <Button Text="Create Community 🤝"
+            Command="{Binding StartCommand}"
+            IsEnabled="{Binding NotInServerCall}"
+            FontFamily="Font1"
+            FontSize="18"
+            BackgroundColor="#FF4081"
+            TextColor="White"
+            HeightRequest="50"
+            CornerRadius="25"
+            Padding="10"/>
+
+
+        <Label Text="Already a member? Select a community!"
+   TextColor="White"
+   FontFamily="Font1"
+   FontSize="16"
+   HorizontalOptions="Center"
+   VerticalOptions="End">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OnSelectCommunityCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <Label Text="Wrong account? Log in!"
+           TextColor="White"
+           FontFamily="Font1"
+           FontSize="16"
+           HorizontalOptions="Center"
+           VerticalOptions="End"
+           IsVisible="{Binding ShowLogin}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoginCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!-- Activity Indicator -->
+        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="White"/>
+
     </VerticalStackLayout>
 </ContentPage>

@@ -1,93 +1,81 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-
-             xmlns:local="clr-namespace:CommunityApp.Views"
-
              x:Class="CommunityApp.Views.CreateReportView"
-
              Title="Create Report">
 
+    <!-- Background Gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="15">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
+            <!-- Title Entry -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <Entry x:Name="TitleEntry"
+                       Placeholder="Enter Report Title"
+                       Text="{Binding Title}"
+                       FontSize="18"
+                       FontFamily="Font1"
+                       TextColor="#37474F"/>
+            </Frame>
 
+            <!-- Description Entry -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <Editor x:Name="ReportDescEditor"
+                        Placeholder="Enter Report Description"
+                        Text="{Binding ReportDesc}"
+                        FontSize="18"
+                        FontFamily="Font1"
+                        TextColor="#37474F"
+                        HeightRequest="150"/>
+            </Frame>
 
+            <!-- Anonymity Toggle -->
+            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                <Label Text="Submit Anonymously"
+                       FontSize="16"
+                       FontFamily="Font1"
+                       TextColor="White"
+                       VerticalOptions="Center"/>
+                <Switch x:Name="AnonymitySwitch"
+                        IsToggled="{Binding IsAnon}"
+                        ThumbColor="#FF4081"
+                        OnColor="#FF80AB"/>
+            </HorizontalStackLayout>
 
-        <!-- Title Entry -->
+            <!-- Create Report Button -->
+            <Button Text="Create Report"
+                    Command="{Binding CreateReportCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    FontFamily="Font1"
+                    CornerRadius="25"
+                    Padding="12"
+                    Margin="10"
+                    HorizontalOptions="Center"/>
 
-        <Entry x:Name="TitleEntry"
-
-               Placeholder="Enter Report Title"
-
-               Text="{Binding Title}"
-
-               FontSize="18"
-
-               VerticalOptions="Start" />
-
-
-
-        <!-- Description Entry -->
-
-        <Editor x:Name="ReportDescEditor"
-
-                Placeholder="Enter Report Description"
-
-                Text="{Binding ReportDesc}"
-
-                FontSize="18"
-
-                HeightRequest="200"
-
-                VerticalOptions="Start" />
-
-
-
-        <!-- Anonymity Toggle -->
-
-        <Label Text="Submit Anonymously"
-
-            FontSize="16"
-
-            VerticalOptions="Start" />
-
-        <Switch x:Name="AnonymitySwitch"
-
-                IsToggled="{Binding IsAnon}"
-
-                VerticalOptions="Start" />
-
-
-
-
-
-        <!-- Create Report Button -->
-
-        <Button Text="Create Report"
-
-                Command="{Binding CreateReportCommand}"
-
-                IsEnabled="{Binding NotInServerCall}"
-
-                VerticalOptions="Center" />
-
-
-
-        <!-- Loading Indicator -->
-
-        <ActivityIndicator IsRunning="{Binding InServerCall}"
-
-                           IsVisible="{Binding InServerCall}"
-
-                           VerticalOptions="Center" />
-
-
-
-    </VerticalStackLayout>
-
-
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding InServerCall}"
+                               IsVisible="{Binding InServerCall}"
+                               Color="White"
+                               VerticalOptions="Center"
+                               WidthRequest="40"
+                               HeightRequest="40"/>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

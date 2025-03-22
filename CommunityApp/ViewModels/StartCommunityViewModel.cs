@@ -14,7 +14,7 @@ namespace CommunityApp.ViewModels
         private IServiceProvider serviceProvider;
         private Member mem = new Member();
         private Community com = new Community();
-
+        
 
 
         public StartCommunityViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
@@ -26,6 +26,7 @@ namespace CommunityApp.ViewModels
             Role = "Manager";
             Balance = 0;
             IsResident = false;
+            InServerCall = false;
         }
 
         #region UserProperties
@@ -242,11 +243,12 @@ namespace CommunityApp.ViewModels
         }
         public async void CreateCommunity()
         {
+            InServerCall = true;
             MemberCommunity Submission = new MemberCommunity {Member = this.mem, Community = this.com };
             MemberCommunity result = await this.proxy.CreateCommunityAsync(Submission);
             ((App)Application.Current).CurCom = result.Community;
             ((App)Application.Current).CurMem = result.Member;
-
+            InServerCall = false;   
             AppShell v = serviceProvider.GetService<AppShell>();
             ((App)Application.Current).MainPage = v;
         }

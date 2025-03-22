@@ -10,7 +10,7 @@
             <GradientStop Color="#6dd5ed" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
-
+ 
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
         <!-- Header -->
