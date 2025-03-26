@@ -354,9 +354,9 @@ namespace CommunityApp.Services
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-                return null ;
+                return null;
             }
         }
 

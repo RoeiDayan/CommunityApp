@@ -23,12 +23,12 @@ namespace CommunityApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.comId = 0;
             this.userId = ((App)Application.Current).LoggedInUser.Id;
-            Role = "Manager";
-            Balance = 0;
-            IsResident = false;
+            CreateCommunityCommand = new Command(OnCreateCommunity);
             InServerCall = false;
         }
-
+        #region Commands
+        public Command CreateCommunityCommand { get;}
+        #endregion
         #region UserProperties
         private int comId;
 
@@ -233,24 +233,35 @@ namespace CommunityApp.ViewModels
         {
             mem.UserId = userId;
             mem.UnitNum = UnitNum;
-            mem.Balance = Balance;
-            mem.Role = Role;
+            mem.Balance = 0;
+            mem.Role = "Manager";
             mem.IsLiable = true;
-            mem.IsResident = IsResident;
+            mem.IsResident = true;
             mem.IsManager = true;
             mem.IsProvider = false;
             mem.IsApproved = true;
         }
-        public async void CreateCommunity()
+        public async void OnCreateCommunity()
         {
             InServerCall = true;
+            ComposeCommunity();
+            ComposeMember();
             MemberCommunity Submission = new MemberCommunity {Member = this.mem, Community = this.com };
             MemberCommunity result = await this.proxy.CreateCommunityAsync(Submission);
             ((App)Application.Current).CurCom = result.Community;
             ((App)Application.Current).CurMem = result.Member;
             InServerCall = false;   
-            AppShell v = serviceProvider.GetService<AppShell>();
-            ((App)Application.Current).MainPage = v;
+            if(result == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Failed to create a community", "ok");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Success!", "Community created!", "ok");
+
+                AppShell v = serviceProvider.GetService<AppShell>();
+                ((App)Application.Current).MainPage = v;
+            }
         }
         #endregion
     }
