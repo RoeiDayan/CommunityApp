@@ -53,7 +53,30 @@
             </Grid>
             <Entry Placeholder="Enter Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
             <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
-
+            
+            <!-- Phone Number (White Headers) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Phone Number" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White"/>
+            </Grid>
+            <Entry Placeholder="Enter Phone Number" 
+                Text="{Binding PhoneNum}" 
+                Style="{StaticResource entryStyle}" 
+                FontFamily="Font1" 
+                HeightRequest="35" 
+                Margin="10,5" 
+                BackgroundColor="White" 
+                HorizontalTextAlignment="Center" 
+                TextColor="Black"/>
+            <Label Text="Invalid phone number" 
+                IsVisible="{Binding PhoneNumInvalid}" 
+                Style="{StaticResource labelErrorStyle}" 
+                FontFamily="Font1" 
+                FontSize="14" 
+                TextColor="Red"/>
+            
             <!-- Password (White Headers) -->
             <Grid>
                 <Grid.ColumnDefinitions>

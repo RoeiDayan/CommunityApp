@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CommunityApp.ViewModels
@@ -203,7 +204,47 @@ namespace CommunityApp.ViewModels
             IsPassword = !IsPassword;
         }
         #endregion
+        #region PhoneNumber
+        private string phoneNum;
 
+        public string PhoneNum
+        {
+            get => phoneNum;
+            set
+            {
+                phoneNum = value;
+                ValidatePhone();
+                OnPropertyChanged("PhoneNum");
+            }
+        }
+        private bool phoneNumInvalid;
+
+        public bool PhoneNumInvalid
+        {
+            get => phoneNumInvalid;
+            set
+            {
+                phoneNumInvalid = value;
+                OnPropertyChanged("PhoneNumInvalid");
+            }
+        }
+        private void ValidatePhone()
+        {
+            if (string.IsNullOrWhiteSpace(PhoneNum))
+            {
+                PhoneNumInvalid = true;
+                return;
+            }
+
+            // Remove common formatting characters
+            string cleanedNumber = Regex.Replace(PhoneNum, @"[\s\-\(\)]", "");
+
+            // Regex pattern to match valid phone numbers (international and local)
+            string pattern = @"^\+?\d{7,15}$";
+
+            PhoneNumInvalid = !Regex.IsMatch(cleanedNumber, pattern);
+        }
+        #endregion
         #region Photo
 
         private string photoURL;
@@ -273,8 +314,9 @@ namespace CommunityApp.ViewModels
             ValidateName();
             ValidateEmail();
             ValidatePassword();
+            ValidatePhone();
 
-            if (!ShowNameError && !ShowEmailError && !ShowPasswordError)
+            if (!ShowNameError && !ShowEmailError && !ShowPasswordError &&!PhoneNumInvalid)
             {
                 //Create a new AppUser object with the data from the registration form
                 var newAccount = new Account

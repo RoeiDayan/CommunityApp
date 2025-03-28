@@ -158,6 +158,27 @@ namespace CommunityApp.ViewModels
                 {
                     comName = value;
                     OnPropertyChanged(nameof(ComName));
+                    if(comName == null|| comName=="")
+                    {
+                        ComNameInvalid = true;
+                    }
+                    else
+                    {
+                        ComNameInvalid = false;
+                    }
+                }
+            }
+        }
+        private bool comNameInvalid;
+        public bool ComNameInvalid
+        {
+            get => comNameInvalid;
+            set
+            {
+                if (comNameInvalid != value)
+                {
+                    comNameInvalid = value;
+                    OnPropertyChanged(nameof(ComNameInvalid));
                 }
             }
         }
@@ -186,6 +207,27 @@ namespace CommunityApp.ViewModels
                 {
                     comCode = value;
                     OnPropertyChanged(nameof(ComCode));
+                    if (comCode == null|| comCode == "")
+                    {
+                        ComCodeInvalid = true;
+                    }
+                    else
+                    {
+                        ComCodeInvalid = false;
+                    }
+                }
+            }
+        }
+        private bool comCodeInvalid;
+        public bool ComCodeInvalid
+        {
+            get => comCodeInvalid;
+            set
+            {
+                if (comCodeInvalid != value)
+                {
+                    comCodeInvalid = value;
+                    OnPropertyChanged(nameof(ComCodeInvalid));
                 }
             }
         }
@@ -244,12 +286,25 @@ namespace CommunityApp.ViewModels
         public async void OnCreateCommunity()
         {
             InServerCall = true;
+            if (ComCodeInvalid)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Must enter community code", "ok");
+                InServerCall = false;
+
+                return;
+            }
+            if(ComNameInvalid)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Must enter community name", "ok");
+                InServerCall = false;
+
+                return;
+            }
             ComposeCommunity();
             ComposeMember();
             MemberCommunity Submission = new MemberCommunity {Member = this.mem, Community = this.com };
             MemberCommunity result = await this.proxy.CreateCommunityAsync(Submission);
-            ((App)Application.Current).CurCom = result.Community;
-            ((App)Application.Current).CurMem = result.Member;
+            
             InServerCall = false;   
             if(result == null)
             {
@@ -257,6 +312,8 @@ namespace CommunityApp.ViewModels
             }
             else
             {
+                ((App)Application.Current).CurCom = result.Community;
+                ((App)Application.Current).CurMem = result.Member;
                 await Application.Current.MainPage.DisplayAlert("Success!", "Community created!", "ok");
 
                 AppShell v = serviceProvider.GetService<AppShell>();

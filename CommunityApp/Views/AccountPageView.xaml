@@ -39,6 +39,13 @@
                            VerticalOptions="Center"
                            Padding="5,0"
                            HorizontalTextAlignment="Center"/>
+                    <!-- Phone -->
+                    <Label Text="{Binding CurrentAcc.PhoneNumber}"
+                        FontSize="16"
+                        TextColor="#555"
+                        VerticalOptions="Center"
+                        Padding="5,0"
+                        HorizontalTextAlignment="Center"/>
 
                     <!-- Password -->
                     <Label Text="{Binding CurrentAcc.Password}"

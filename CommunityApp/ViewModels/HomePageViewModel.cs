@@ -18,9 +18,13 @@ namespace CommunityApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             CurrentCom = ((App)Application.Current).CurCom;
+            CurrentComName = CurrentCom.ComName;
+            CurrentComPhone = CurrentCom.GatePhoneNum;
+            System.Diagnostics.Debug.WriteLine($"CurrentCom: {CurrentCom}");
+            System.Diagnostics.Debug.WriteLine($"CurrentComName: {CurrentComName}");
+            System.Diagnostics.Debug.WriteLine($"CurrentComPhone: {CurrentComPhone}");
             Reports = new ObservableCollection<Report>();
             Notices = new ObservableCollection<Notice>();
-
             // Command to fetch and refresh both notices and reports
             FetchBothCommand = new Command(async () => await FetchBothData());
 
@@ -38,6 +42,28 @@ namespace CommunityApp.ViewModels
             {
                 currentCom = value;
                 OnPropertyChanged(nameof(CurrentCom));
+            }
+        }
+
+        private string currentComName;
+        public string CurrentComName
+        {
+            get => currentComName;
+            set
+            {
+                currentComName = value;
+                OnPropertyChanged(nameof(CurrentComName));
+            }
+        }
+
+        private string currentComPhone;
+        public string CurrentComPhone
+        {
+            get => currentComPhone;
+            set
+            {
+                currentComPhone = value;
+                OnPropertyChanged(nameof(CurrentComPhone));
             }
         }
 

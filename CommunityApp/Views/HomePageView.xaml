@@ -27,7 +27,28 @@
     <ScrollView>
 
         <VerticalStackLayout Padding="20" Spacing="15">
+            <Frame BackgroundColor="#E3F2FD"
+       CornerRadius="10"
+       Margin="5,10"
+       Padding="15"
+       HasShadow="True">
 
+                <StackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="{Binding CurrentComName}"
+               FontSize="22"
+               FontAttributes="Bold"
+               TextColor="#D32F2F"
+               HorizontalTextAlignment="Center"
+               FontFamily="Font1"/>
+
+                    <Label Text="{Binding CurrentComPhone}"
+               FontSize="16"
+               FontAttributes="Bold"
+               TextColor="#37474F"
+               HorizontalTextAlignment="Center"
+               FontFamily="Font1"/>
+                </StackLayout>
+            </Frame>
 
 
             <!-- Error Message Label -->
@@ -247,7 +268,7 @@
                    HorizontalOptions="Center"
 
                    FontFamily="Font1"/>
-
+            <Label />
         </VerticalStackLayout>
 
     </ScrollView>
