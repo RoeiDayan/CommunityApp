@@ -1,10 +1,13 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
 using System;
+using CommunityToolkit.Maui;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 namespace CommunityApp.ViewModels
 {
@@ -20,9 +23,7 @@ namespace CommunityApp.ViewModels
             CurrentCom = ((App)Application.Current).CurCom;
             CurrentComName = CurrentCom.ComName;
             CurrentComPhone = CurrentCom.GatePhoneNum;
-            System.Diagnostics.Debug.WriteLine($"CurrentCom: {CurrentCom}");
-            System.Diagnostics.Debug.WriteLine($"CurrentComName: {CurrentComName}");
-            System.Diagnostics.Debug.WriteLine($"CurrentComPhone: {CurrentComPhone}");
+            CopyPhoneCommand = new Command(CopyPhoneToClipboard);
             Reports = new ObservableCollection<Report>();
             Notices = new ObservableCollection<Notice>();
             // Command to fetch and refresh both notices and reports
@@ -104,6 +105,7 @@ namespace CommunityApp.ViewModels
 
         #region Commands
         public ICommand FetchBothCommand { get; }
+        public ICommand CopyPhoneCommand { get; }
         #endregion
 
         #region Methods
@@ -159,6 +161,16 @@ namespace CommunityApp.ViewModels
             }
         }
 
+        private async void CopyPhoneToClipboard()
+        {
+            if (!string.IsNullOrWhiteSpace(CurrentComPhone))
+            {
+                await Clipboard.SetTextAsync(CurrentComPhone);
+                // Show a toast notification
+                var toast = Toast.Make("Phone number copied!", ToastDuration.Short, 14);
+                await toast.Show();
+            }
+        }
         #endregion
     }
 }

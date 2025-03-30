@@ -1,6 +1,7 @@
 ﻿using CommunityApp.Services;
 using CommunityApp.ViewModels;
 using CommunityApp.Views;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 
@@ -22,10 +23,11 @@ namespace CommunityApp
                 .RegisterDataServices()
                 .RegisterPages()
                 .RegisterViewModels()
+                .UseMauiCommunityToolkit()
                 ;
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
