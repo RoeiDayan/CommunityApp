@@ -360,5 +360,32 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<List<Member>> GetCommunityMembersAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetCommunityMembers?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    return JsonSerializer.Deserialize<List<Member>>(content, options) ?? new List<Member>();
+                }
+                else
+                {
+                    return new List<Member>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Member>();
+            }
+        }
+
     }
 }

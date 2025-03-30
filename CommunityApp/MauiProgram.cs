@@ -44,6 +44,7 @@ namespace CommunityApp
             builder.Services.AddTransient<JoinCommunityView>();
             builder.Services.AddTransient<AccountPageView>();
             builder.Services.AddTransient<CreateReportView>();
+            builder.Services.AddTransient<MemberListView>();
 
             return builder;
         }
@@ -65,6 +66,8 @@ namespace CommunityApp
             builder.Services.AddTransient<JoinCommunityViewModel>();
             builder.Services.AddTransient<AccountPageViewModel>();
             builder.Services.AddTransient<CreateReportViewModel>();
+            builder.Services.AddTransient<MemberListViewModel>();
+
 
             return builder;
         }

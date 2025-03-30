@@ -14,92 +14,6 @@
 
     Title="CommunityApp">
 
-
-
-    <!-- Flyout Menu -->
-
-    <FlyoutItem Title="All">
-
-        <ShellContent
-
-    Title="Home"
-
-    ContentTemplate="{DataTemplate local:HomePageView}"
-
-    Route="Home" />
-
-
-
-        <ShellContent
-
-     Title="Profile"
-
-     ContentTemplate="{DataTemplate local:ProfilePageView}"
-
-     Route="Profile" />
-
-
-
-        <ShellContent
-
-    Title="Account"
-
-    ContentTemplate="{DataTemplate local:AccountPageView}"
-
-    Route="Account"/>
-
-
-
-        <ShellContent
-
-    Title="Switch Community"
-
-    ContentTemplate="{DataTemplate local:SelectCommunityView}"
-
-    Route="SwitchCommunity"/>
-
-
-
-        <ShellContent
-
-    Title="Create Report"
-
-    ContentTemplate="{DataTemplate local:CreateReportView}"
-
-    Route="CreateReport"/>
-
-
-
-        <ShellContent
-
-    Title="Join Community"
-
-    ContentTemplate="{DataTemplate local:JoinCommunityView}"
-
-    Route="JoinCommunity"/>
-
-
-
-        <ShellContent
-
- Title="Start Community"
-
- ContentTemplate="{DataTemplate local:StartCommunityView}"
-
- Route="StartCommunity"/>
-
-    </FlyoutItem>
-
-
-
-
-
-
-
-
-
-
-
     <FlyoutItem Title="Home" FlyoutIcon="home.png">
 
         <ShellContent
@@ -118,6 +32,13 @@
             ContentTemplate="{DataTemplate local:CreateReportView}"
 
             Route="CreateReport"/>
+
+        <ShellContent
+            Icon="memberlist.png"
+            Title="All Members"
+            ContentTemplate="{DataTemplate local:MemberListView}"
+            Route="MemberList"/>
+
 
     </FlyoutItem>
 

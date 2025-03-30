@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CommunityApp.Views.MemberListView"
+             Title="Community Members">
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Community Members"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   FontFamily="Font1"
+                   Margin="0,10,0,20"/>
+
+            <Frame BackgroundColor="#E3F2FD" 
+                   CornerRadius="10" 
+                   Margin="5" 
+                   Padding="10" 
+                   HasShadow="True"
+                   IsVisible="{Binding HasErrorMessage}">
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="Red"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       FontFamily="Font1"/>
+            </Frame>
+
+            <CollectionView ItemsSource="{Binding Members}"
+                          BackgroundColor="Transparent">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No members found"
+                               FontSize="18"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#ECEFF1"
+                               CornerRadius="10"
+                               Margin="5,10"
+                               Padding="15"
+                               HasShadow="True">
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+
+                                <!-- Unit Number Badge -->
+                                <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                       BackgroundColor="#D32F2F"
+                                       CornerRadius="25"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
+                                       Padding="0"
+                                       VerticalOptions="Start"
+                                       Margin="0,0,10,0"
+                                       IsVisible="{Binding UnitNum, Converter={StaticResource NotNullConverter}}">
+                                    <Label Text="{Binding UnitNum}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontFamily="Font1"/>
+                                </Frame>
+
+                                <!-- Role and Balance - Aligned properly -->
+                                <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical" Spacing="2">
+                                    <Label Text="{Binding Role}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="{Binding Role, Converter={StaticResource RoleColorConverter}}"
+                                           FontFamily="Font1"/>
+
+                                    <Label Text="{Binding Balance, StringFormat='Balance: ${0}'}"
+                                           FontSize="16"
+                                           TextColor="{Binding Balance, Converter={StaticResource BalanceColorConverter}}"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Start"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Balance, Converter={StaticResource NotNullConverter}}"/>
+                                </StackLayout>
+
+                                <!-- Additional Info -->
+                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+                                    <Label Text="Manager"
+                                        FontSize="14"
+                                        TextColor="{Binding IsManager, Converter={StaticResource RoleColorConverter}}"
+                                        FontFamily="Font1"
+                                        VerticalOptions="Center"
+                                        IsVisible="{Binding IsManager}"/>
+
+                                    <Label Text="Provider"
+                                        FontSize="14"
+                                        TextColor="{Binding IsProvider, Converter={StaticResource RoleColorConverter}}"
+                                        FontFamily="Font1"
+                                        VerticalOptions="Center"
+                                        IsVisible="{Binding IsProvider}"/>
+
+                                    <Label Text="Resident"
+                                        FontSize="14"
+                                        TextColor="{Binding IsResident, Converter={StaticResource RoleColorConverter}}"
+                                        FontFamily="Font1"
+                                        VerticalOptions="Center"
+                                        IsVisible="{Binding IsResident}"/>
+                                </StackLayout>
+
+                                <!-- Divider -->
+                                <BoxView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                         HeightRequest="1"
+                                         Color="#BDBDBD"
+                                         Margin="0,10"/>
+
+                                <!-- Approval Status -->
+                                <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+                                             Orientation="Horizontal" 
+                                             HorizontalOptions="Center"
+                                             Spacing="5">
+                                    <Label Text="Status:"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"/>
+                                    <Label Text="{Binding IsApproved, Converter={StaticResource ApprovedStatusConverter}}"
+                                           FontSize="14"
+                                           TextColor="{Binding IsApproved, Converter={StaticResource ApprovedColorConverter}}"
+                                           FontAttributes="Bold"
+                                           FontFamily="Font1"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Refresh Members"
+                    Command="{Binding FetchMembersCommand}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="25"
+                    Padding="12"
+                    Margin="10,20,10,30"
+                    HorizontalOptions="Center"
+                    FontFamily="Font1"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

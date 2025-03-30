@@ -1,6 +1,8 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Services;
 using CommunityApp.Views;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,7 +95,8 @@ namespace CommunityApp.ViewModels
             ((App)Application.Current).LoggedInUser = acc;
             if (acc == null)
             {
-                ErrorMsg = "Invalid email or password";
+                var toast = Toast.Make("Invalid email or password", ToastDuration.Short, 14);
+                await toast.Show();
             }
             else
             {
