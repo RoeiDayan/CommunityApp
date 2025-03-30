@@ -22,20 +22,6 @@
                    FontFamily="Font1"
                    Margin="0,10,0,20"/>
 
-            <Frame BackgroundColor="#E3F2FD" 
-                   CornerRadius="10" 
-                   Margin="5" 
-                   Padding="10" 
-                   HasShadow="True"
-                   IsVisible="{Binding HasErrorMessage}">
-                <Label Text="{Binding ErrorMessage}"
-                       TextColor="Red"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       HorizontalOptions="Center"
-                       FontFamily="Font1"/>
-            </Frame>
-
             <CollectionView ItemsSource="{Binding Members}"
                           BackgroundColor="Transparent">
                 <CollectionView.EmptyView>
