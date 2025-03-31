@@ -4,110 +4,74 @@
              x:Class="CommunityApp.Views.RegisterView"
              Title="Register">
 
-    <!-- Background Gradient -->
     <ContentPage.Background>
         <LinearGradientBrush>
             <GradientStop Color="#2193b0" Offset="0.0" />
             <GradientStop Color="#6dd5ed" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
+    <ScrollView>
+    <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
 
-    <!-- Main Content -->
-    <Grid Padding="20">
+        <Label Text="Join Us! 🚀" 
+               FontSize="30" 
+               FontFamily="Font1"
+               HorizontalOptions="Center" 
+               TextColor="White"
+               FontAttributes="Bold"/>
 
-        <!-- Register Form -->
-        <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Spacing="15">
+        <!-- Photo Upload -->
+        <Frame HasShadow="True" Padding="10" BorderColor="#1E88E5" CornerRadius="20" BackgroundColor="White">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Image Source="{Binding PhotoURL}" HeightRequest="150" Aspect="AspectFill" />
+                <Button Text="📸 Upload Photo" 
+                        Command="{Binding UploadPhotoCommand}"
+                        BackgroundColor="#FF4081" 
+                        TextColor="White" 
+                        CornerRadius="20" 
+                        Padding="10"/>
+            </VerticalStackLayout>
+        </Frame>
 
-            <!-- Photo Upload (Updated) -->
-            <Frame Padding="10" BackgroundColor="#E3F2FD" CornerRadius="20" Margin="0, 10" HasShadow="True">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <!-- Modern photo upload area with rounded corners and a nice button -->
-                    <Image x:Name="theImageBug" Source="{Binding PhotoURL}" HeightRequest="150" Aspect="AspectFill" Margin="0, 10" />
-                    <Button Grid.Row="1" Text="Upload Photo" BackgroundColor="#FF4081" TextColor="White" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="End" Padding="15, 10" Command="{Binding UploadPhotoCommand}" />
-                </Grid>
-            </Frame>
+        <!-- Name Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry Placeholder="Name" Text="{Binding Name}" HeightRequest="50" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" />
+        </Frame>
+        <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" TextColor="Red" FontSize="14" HorizontalOptions="Center" />
 
-            <!-- Name (White Headers) -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Name" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White" />
-            </Grid>
-            <Entry Placeholder="Enter First Name" Text="{Binding Name}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
-            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
+        <!-- Email Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry Placeholder="Email" Text="{Binding Email}" HeightRequest="50" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" />
+        </Frame>
+        <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" TextColor="Red" FontSize="14" HorizontalOptions="Center" />
 
-            <!-- Email (White Headers) -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Email" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White" />
-            </Grid>
-            <Entry Placeholder="Enter Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
-            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
-            
-            <!-- Phone Number (White Headers) -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Phone Number" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White"/>
-            </Grid>
-            <Entry Placeholder="Enter Phone Number" 
-                Text="{Binding PhoneNum}" 
-                Style="{StaticResource entryStyle}" 
-                FontFamily="Font1" 
-                HeightRequest="35" 
-                Margin="10,5" 
-                BackgroundColor="White" 
-                HorizontalTextAlignment="Center" 
-                TextColor="Black"/>
-            <Label Text="Invalid phone number" 
-                IsVisible="{Binding PhoneNumInvalid}" 
-                Style="{StaticResource labelErrorStyle}" 
-                FontFamily="Font1" 
-                FontSize="14" 
-                TextColor="Red"/>
-            
-            <!-- Password (White Headers) -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Password" Style="{StaticResource labelNameStyle}" FontFamily="Font1" FontSize="18" TextColor="White"/>
-            </Grid>
+        <!-- Phone Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
+            <Entry Placeholder="Phone Number" Text="{Binding PhoneNum}" HeightRequest="50" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" />
+        </Frame>
+        <Label Text="Invalid phone number" IsVisible="{Binding PhoneNumInvalid}" TextColor="Red" FontSize="14" HorizontalOptions="Center" />
+
+        <!-- Password Entry -->
+        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="40" />
                 </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0" Placeholder="Enter Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" Style="{StaticResource entryStyle}" FontFamily="Font1" HeightRequest="35" Margin="10,5" BackgroundColor="White" HorizontalTextAlignment="Center" TextColor="Black"/>
-                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}" Padding="10"/>
+                <Entry Grid.Column="0" Placeholder="Password" Text="{Binding Password}" IsPassword="{Binding IsPassword}" HeightRequest="50" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" />
+                <ImageButton Grid.Column="1" HeightRequest="25" Source="passwordeye.jpg" Command="{Binding ShowPasswordCommand}" Padding="10" />
             </Grid>
-            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}" FontFamily="Font1" FontSize="14" TextColor="Red" />
+        </Frame>
+        <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" TextColor="Red" FontSize="14" HorizontalOptions="Center" />
 
-            <!-- Register and Cancel Buttons -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Text="Register" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1" Style="{StaticResource buttonStyle}" FontFamily="Font1" FontSize="18" BackgroundColor="#FF4081" TextColor="White" CornerRadius="25" Padding="15"/>
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0" Style="{StaticResource buttonStyle}" FontFamily="Font1" FontSize="18" BackgroundColor="#E0E0E0" TextColor="#37474F" CornerRadius="25" Padding="15"/>
-            </Grid>
+        <!-- Register & Cancel Buttons -->
+        <Grid ColumnDefinitions="*,*">
+            <Button Text="❌ Cancel" Command="{Binding CancelCommand}" BackgroundColor="#E0E0E0" TextColor="#37474F" CornerRadius="25" Padding="10" Grid.Column="0" />
+            <Button Text="✅ Register" Command="{Binding RegisterCommand}" BackgroundColor="#FF4081" TextColor="White" CornerRadius="25" Padding="10" Grid.Column="1" />
+        </Grid>
 
-        </VerticalStackLayout>
+        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="White" VerticalOptions="Center" HorizontalOptions="Center" />
 
-        <!-- Centered ActivityIndicator -->
-        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="Red" VerticalOptions="Center" HorizontalOptions="Center" />
-
-    </Grid>
+    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -324,6 +324,7 @@ namespace CommunityApp.ViewModels
                     Name = Name,
                     Email = Email,
                     Password = Password,
+                    PhoneNumber = PhoneNum
                 };
 
                 //Call the Register method on the proxy to register the new user
