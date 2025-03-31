@@ -24,10 +24,14 @@ namespace CommunityApp.ViewModels
             this.comId = 0;
             this.userId = ((App)Application.Current).LoggedInUser.Id;
             CreateCommunityCommand = new Command(OnCreateCommunity);
+            OnSelectCommunityCommand = new Command(OnSelectCommunity);
+
             InServerCall = false;
         }
         #region Commands
         public Command CreateCommunityCommand { get;}
+        public Command OnSelectCommunityCommand { get; }
+
         #endregion
         #region UserProperties
         private int comId;
@@ -310,8 +314,7 @@ namespace CommunityApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Failed to create a community", "ok");
             }
-            else
-            {
+            else { 
                 ((App)Application.Current).CurCom = result.Community;
                 ((App)Application.Current).CurMem = result.Member;
                 await Application.Current.MainPage.DisplayAlert("Success!", "Community created!", "ok");
@@ -319,6 +322,11 @@ namespace CommunityApp.ViewModels
                 AppShell v = serviceProvider.GetService<AppShell>();
                 ((App)Application.Current).MainPage = v;
             }
+        }
+        private async void OnSelectCommunity()
+        {
+            SelectCommunityView v = serviceProvider.GetService<SelectCommunityView>();
+            ((App)Application.Current).MainPage = v;
         }
         #endregion
     }

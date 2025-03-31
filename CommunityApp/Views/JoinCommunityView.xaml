@@ -10,7 +10,7 @@
             <GradientStop Color="#6dd5ed" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
- 
+    <ScrollView>
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
         <!-- Header -->
@@ -124,5 +124,5 @@
         <ActivityIndicator IsRunning="{Binding InServerCall}" Color="White"/>
 
     </VerticalStackLayout>
-
+    </ScrollView>
 </ContentPage>

@@ -64,6 +64,16 @@
 
         <!-- Activity Indicator -->
         <ActivityIndicator IsRunning="{Binding InServerCall}" Color="White"/>
+        <Label Text="Already a member? Select a community!"
+            TextColor="White"
+            FontFamily="Font1"
+            FontSize="16"
+            HorizontalOptions="Center"
+            VerticalOptions="End">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OnSelectCommunityCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
     </VerticalStackLayout>
 
 </ContentPage>
