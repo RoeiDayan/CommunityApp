@@ -21,6 +21,7 @@ namespace CommunityApp.ViewModels
             SignInCommand = new Command<int>(OnSignIn);
             JoinCommand = new Command(JoinCommunity);
             GoToLoginCommand = new Command(GoToLogin);
+            StartCommunityCommand = new Command(GoToStartCom);
             LoadCommunities();
         }
 
@@ -52,6 +53,7 @@ namespace CommunityApp.ViewModels
         public Command<int> SignInCommand { get; }
         public Command JoinCommand {  get; }
         public Command GoToLoginCommand { get; }
+        public Command StartCommunityCommand { get; }
         private async void OnSignIn(int comId)
         {
             bool found = false;
@@ -125,7 +127,11 @@ namespace CommunityApp.ViewModels
             LoginView v = serviceProvider.GetService<LoginView>();
             ((App)Application.Current).MainPage = v;
         }
-
+        private async void GoToStartCom()
+        {
+            StartCommunityView v = serviceProvider.GetService<StartCommunityView>();
+            ((App)Application.Current).MainPage = v;
+        }
 
         #endregion
     }

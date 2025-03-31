@@ -360,9 +360,9 @@ namespace CommunityApp.Services
             }
         }
 
-        public async Task<List<Member>> GetCommunityMembersAsync(int comId)
+        public async Task<List<MemberAccount>> GetCommunityMemberAccountsAsync(int comId)
         {
-            string url = $"{this.baseUrl}GetCommunityMembers?ComId={comId}";
+            string url = $"{this.baseUrl}GetCommunityMemberAccounts?ComId={comId}";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -374,16 +374,16 @@ namespace CommunityApp.Services
                         PropertyNameCaseInsensitive = true
                     };
 
-                    return JsonSerializer.Deserialize<List<Member>>(content, options) ?? new List<Member>();
+                    return JsonSerializer.Deserialize<List<MemberAccount>>(content, options) ?? new List<MemberAccount>();
                 }
                 else
                 {
-                    return new List<Member>();
+                    return new List<MemberAccount>();
                 }
             }
             catch (Exception ex)
             {
-                return new List<Member>();
+                return new List<MemberAccount>();
             }
         }
 

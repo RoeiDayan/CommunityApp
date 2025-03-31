@@ -24,14 +24,14 @@ namespace CommunityApp.ViewModels
             FetchMembersCommand = new Command(async () => await FetchCommunityUsers());
         }
         #region Properties
-        private ObservableCollection<Member> members = new ObservableCollection<Member>();
-        public ObservableCollection<Member> Members
+        private ObservableCollection<MemberAccount> memAcc = new ObservableCollection<MemberAccount>();
+        public ObservableCollection<MemberAccount> MemAcc
         {
-            get => members;
+            get => memAcc;
             set
             {
-                members = value ?? new ObservableCollection<Member>();
-                OnPropertyChanged(nameof(Members));
+                memAcc = value ?? new ObservableCollection<MemberAccount>();
+                OnPropertyChanged(nameof(MemAcc));
             }
         }
 
@@ -46,11 +46,11 @@ namespace CommunityApp.ViewModels
         {
             try
             {
-                List<Member> membersFromServer = await proxy.GetCommunityMembersAsync(((App)Application.Current).CurCom.ComId);
-                Members.Clear();
-                foreach (var member in membersFromServer)
+                List<MemberAccount> memberAccountsFromServer = await proxy.GetCommunityMemberAccountsAsync(((App)Application.Current).CurCom.ComId);
+                MemAcc.Clear();
+                foreach (var ma in memberAccountsFromServer)
                 {
-                    Members.Add(member);
+                    MemAcc.Add(ma);
                 }
 
             }
