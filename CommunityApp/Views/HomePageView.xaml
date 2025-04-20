@@ -1,8 +1,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.HomePageView"
+             xmlns:converters="clr-namespace:CommunityApp.Converters"
              Title="Home Page">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToBoolConverter x:Key="NullToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Background>
         <LinearGradientBrush>
             <GradientStop Color="#2193b0" Offset="0.0" />
@@ -53,34 +58,52 @@
                    Margin="0,0,0,10"/>
 
             <CollectionView ItemsSource="{Binding Notices}"
-                      BackgroundColor="Transparent"
-                      HeightRequest="300">
+                BackgroundColor="Transparent"
+                HeightRequest="300">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BackgroundColor="#E3F2FD"
-                               CornerRadius="10"
-                               Margin="5,10"
-                               Padding="15"
-                               HasShadow="True">
+                   CornerRadius="10"
+                   Margin="5,10"
+                   Padding="15"
+                   HasShadow="True">
                             <StackLayout Spacing="10">
                                 <Label Text="{Binding Title}"
-                                       FontSize="22"
-                                       FontAttributes="Bold"
-                                       TextColor="#D32F2F"
-                                       HorizontalTextAlignment="Center"
-                                       FontFamily="Font1"/>
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#D32F2F"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Font1"/>
                                 <Label Text="{Binding NoticeDesc}"
-                                       FontSize="16"
-                                       TextColor="#37474F"
-                                       FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"
-                                       FontFamily="Font1"
-                                       LineBreakMode="WordWrap"/>
+                           FontSize="16"
+                           TextColor="#37474F"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Font1"
+                           LineBreakMode="WordWrap"/>
+                                <Label Text="{Binding StartTime, StringFormat='Starts: {0:dd/MM/yyyy HH:mm}'}"
+                                    FontSize="14"
+                                    TextColor="#1976D2"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    FontFamily="Font1"
+                                    IsVisible="{Binding StartTime, Converter={StaticResource NullToBool}}" />
+
+                                <Label Text="{Binding EndTime, StringFormat='Ends: {0:dd/MM/yyyy HH:mm}'}"
+                                    FontSize="14"
+                                    TextColor="#1976D2"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    FontFamily="Font1"
+                                    IsVisible="{Binding EndTime, Converter={StaticResource NullToBool}}" />
+
+
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
 
             <Label Text="Reports"
                    FontSize="22"
