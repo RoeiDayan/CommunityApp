@@ -280,6 +280,30 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<bool> CreateNoticeAsync(Models.Notice n)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}CreateNotice";
+                string json = JsonSerializer.Serialize(n);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Server Response Content: {responseContent}"); // הדפסת תוכן התגובה
+
+                // If the request was successful, read the boolean response
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(responseContent, out bool result) && result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CreateNoticeAsync: {ex.Message}");
+                return false; // If an error occurs, assume failure
+            }
+        }
+
         public async Task<int> GetCommunityIdAsync(string s)
         {
             try

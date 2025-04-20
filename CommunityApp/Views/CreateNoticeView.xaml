@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CommunityApp.Views.CreateNoticeView"
+             Title="Create Notice">
+
+    <!-- Background Gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <!-- Header Section -->
+            <Label Text="Create a New Notice"
+                   FontSize="26"
+                   FontFamily="Font1"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label Text="Fill in the details below to create a notice."
+                   FontSize="16"
+                   FontFamily="Font1"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+            <!-- Notice Title -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <Entry x:Name="NoticeTitleEntry"
+                       Placeholder="Enter Notice Title"
+                       Text="{Binding Title}"
+                       FontSize="18"
+                       FontFamily="Font1"
+                       TextColor="#37474F"
+                       HeightRequest="50"/>
+            </Frame>
+
+            <!-- Notice Description -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <Editor x:Name="NoticeDescEditor"
+                        Placeholder="Enter Notice Description"
+                        Text="{Binding NoticeDesc}"
+                        FontSize="18"
+                        FontFamily="Font1"
+                        TextColor="#37474F"
+                        HeightRequest="150"/>
+            </Frame>
+
+            <!-- Start Date & Time Section -->
+            <Label Text="Start Time (Optional)"
+                   FontSize="16"
+                   FontFamily="Font1"
+                   TextColor="White" />
+
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Start Date"
+                           FontSize="14"
+                           TextColor="#37474F" />
+                    <DatePicker x:Name="StartDatePicker"
+                                Date="{Binding StartDate}"
+                                Format="dd/MM/yyyy" />
+
+                    <Label Text="Start Time"
+                           FontSize="14"
+                           TextColor="#37474F" />
+                    <TimePicker x:Name="StartTimePicker"
+                                Time="{Binding StartTime}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- End Date & Time Section -->
+            <Label Text="End Time (Optional)"
+                   FontSize="16"
+                   FontFamily="Font1"
+                   TextColor="White" />
+
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="10"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="End Date"
+                           FontSize="14"
+                           TextColor="#37474F" />
+                    <DatePicker x:Name="EndDatePicker"
+                                Date="{Binding EndDate}"
+                                Format="dd/MM/yyyy" />
+
+                    <Label Text="End Time"
+                           FontSize="14"
+                           TextColor="#37474F" />
+                    <TimePicker x:Name="EndTimePicker"
+                                Time="{Binding EndTime}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Create Notice Button -->
+            <Button Text="Create Notice"
+                    Command="{Binding CreateNoticeCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    FontFamily="Font1"
+                    CornerRadius="25"
+                    Padding="12"
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand" />
+
+            <!-- Activity Indicator for Server Call -->
+            <ActivityIndicator IsRunning="{Binding InServerCall}"
+                               IsVisible="{Binding InServerCall}"
+                               Color="White"
+                               VerticalOptions="Center"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

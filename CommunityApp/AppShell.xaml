@@ -1,103 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <Shell
-
     x:Class="CommunityApp.AppShell"
-
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-
     xmlns:local="clr-namespace:CommunityApp.Views"
-
     Shell.FlyoutBehavior="Flyout"
+    Title="CommunityApp"
+    xmlns:viewmodel="clr-namespace:CommunityApp.ViewModels"
+    x:Name="appShell">
 
-    Title="CommunityApp">
+    <Shell.BindingContext>
+        <viewmodel:AppShellViewModel />
+    </Shell.BindingContext>
 
     <FlyoutItem Title="Home" FlyoutIcon="home.png">
-
         <ShellContent
             Icon="home.png"
-            
             Title="Home"
-
             ContentTemplate="{DataTemplate local:HomePageView}"
-
             Route="Home" />
-
         <ShellContent
             Icon="report.png"
             Title="Create Report"
-
             ContentTemplate="{DataTemplate local:CreateReportView}"
-
-            Route="CreateReport"/>
-
+            Route="CreateReport"
+            IsVisible="{Binding IsProviding}"/>
         <ShellContent
             Icon="memberlist.png"
             Title="All Members"
             ContentTemplate="{DataTemplate local:MemberListView}"
             Route="MemberList"/>
-
-
     </FlyoutItem>
 
-
+    <FlyoutItem Title="Manage" FlyoutIcon="manage.png"
+                IsVisible="{Binding IsManagingOrProviding}">
+        <ShellContent
+            IsVisible="{Binding IsManaging}"
+            Icon="home.png"
+            Title="Manage Members"
+            ContentTemplate="{DataTemplate local:HomePageView}"
+            Route="Home" />
+        <ShellContent
+            Icon="notice.png"
+            Title="Create Notice"
+            ContentTemplate="{DataTemplate local:CreateNoticeView}"
+            Route="CreateReport"/>
+    </FlyoutItem>
 
     <FlyoutItem Title="User Settings" FlyoutIcon="user.png">
-
         <ShellContent
             Icon="user.png"
             Title="Profile"
-
             ContentTemplate="{DataTemplate local:ProfilePageView}"
-
             Route="Profile" />
-
         <ShellContent
-        Icon="account.png"
-        Title="Account"
-
-        ContentTemplate="{DataTemplate local:AccountPageView}"
-
-        Route="Account"/>
-
+            Icon="account.png"
+            Title="Account"
+            ContentTemplate="{DataTemplate local:AccountPageView}"
+            Route="Account"/>
     </FlyoutItem>
-
-
-
 
     <FlyoutItem Title="Community Hub" FlyoutIcon="community.png">
         <ShellContent
-    Icon="community.png"
-    Title="Switch Community"
-
-    ContentTemplate="{DataTemplate local:SelectCommunityView}"
-
-    Route="SwitchCommunity"/>
-
-        
-
+            Icon="community.png"
+            Title="Switch Community"
+            ContentTemplate="{DataTemplate local:SelectCommunityView}"
+            Route="SwitchCommunity"/>
         <ShellContent
-    Icon="joincommunity.png"
-    Title="Join Community"
-
-    ContentTemplate="{DataTemplate local:JoinCommunityView}"
-
-    Route="JoinCommunity"/>
-
+            Icon="joincommunity.png"
+            Title="Join Community"
+            ContentTemplate="{DataTemplate local:JoinCommunityView}"
+            Route="JoinCommunity"/>
         <ShellContent
-Icon="startcommunity.png"
-Title="Start Community"
-
-ContentTemplate="{DataTemplate local:StartCommunityView}"
-
-Route="StartCommunity"/>
+            Icon="startcommunity.png"
+            Title="Start Community"
+            ContentTemplate="{DataTemplate local:StartCommunityView}"
+            Route="StartCommunity"/>
     </FlyoutItem>
-
-
-
-
-
-
 </Shell>

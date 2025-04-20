@@ -61,7 +61,9 @@
 	  <None Remove="Resources\Images\community.png" />
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\joincommunity.png" />
+	  <None Remove="Resources\Images\manage.png" />
 	  <None Remove="Resources\Images\memberlist.png" />
+	  <None Remove="Resources\Images\notice.png" />
 	  <None Remove="Resources\Images\Report.png" />
 	  <None Remove="Resources\Images\startcommunity.png" />
 	  <None Remove="Resources\Images\user.png" />
@@ -76,6 +78,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\AccountPageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateNoticeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateReportView.xaml">

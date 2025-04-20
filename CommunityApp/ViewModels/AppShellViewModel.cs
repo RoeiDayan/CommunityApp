@@ -1,10 +1,8 @@
 ﻿using CommunityApp.Models;
 using CommunityApp.Views;
+using CommunityApp.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
 
 namespace CommunityApp.ViewModels
 {
@@ -12,14 +10,58 @@ namespace CommunityApp.ViewModels
     {
         private Account? currentUser;
         private IServiceProvider serviceProvider;
+        private bool _isManaging;
+        public bool IsManaging
+        {
+            get => _isManaging;
+            private set
+            {
+                _isManaging = value;
+                OnPropertyChanged(nameof(IsManaging));
+            }
+        }
+
+        private bool _isProviding;
+        public bool IsProviding
+        {
+            get => _isProviding;
+            private set
+            {
+                _isProviding = value;
+                OnPropertyChanged(nameof(IsProviding));
+            }
+        }
+
+        private bool _isManagingOrProviding;
+        public bool IsManagingOrProviding
+        {
+            get => _isManagingOrProviding;
+            private set
+            {
+                _isManagingOrProviding = value;
+                OnPropertyChanged(nameof(IsManagingOrProviding));
+            }
+        }
+
+        public AppShellViewModel()
+        {
+            CheckUserPermissions();
+        }
+
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.currentUser = ((App)Application.Current).LoggedInUser;
+            CheckUserPermissions();
         }
 
-        
-        //this command will be used for logout menu item
+        private void CheckUserPermissions()
+        {
+            IsManaging = ((App)Application.Current).CurMem?.IsManager == true;
+            IsProviding = ((App)Application.Current).CurMem?.IsProvider == true;
+            IsManagingOrProviding = IsManaging || IsProviding;
+        }
+
         public Command LogoutCommand
         {
             get
@@ -27,11 +69,9 @@ namespace CommunityApp.ViewModels
                 return new Command(OnLogout);
             }
         }
-        //this method will be trigger upon Logout button click
         public void OnLogout()
         {
             ((App)Application.Current).LoggedInUser = null;
-
             ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }
     }
