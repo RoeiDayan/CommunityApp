@@ -1,9 +1,36 @@
 ﻿using System.Globalization;
+using CommunityApp.ViewModels;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 
 namespace CommunityApp.Converters
 {
+    public class DateToAvailabilityColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is DateTime date)
+            {
+                if (parameter is ContentPage page && page.BindingContext is TenantRoomViewModel viewModel)
+                {
+                    string status = viewModel.GetRoomStatusForDate(date);
+                    return status switch
+                    {
+                        "Occupied" => Colors.Red,
+                        "Requested" => Colors.Orange,
+                        "Available" => Colors.Green,
+                        _ => Colors.Gray,
+                    };
+                }
+            }
+            return Colors.Gray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class NotNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

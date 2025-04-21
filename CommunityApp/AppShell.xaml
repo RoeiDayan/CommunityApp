@@ -30,6 +30,12 @@
             Title="All Members"
             ContentTemplate="{DataTemplate local:MemberListView}"
             Route="MemberList"/>
+        <ShellContent 
+            Icon="tenantroom.png"
+            Title="Tenant Room"
+            ContentTemplate="{DataTemplate local:TenantRoomView}"
+            Route="TenantRoom"/>
+
     </FlyoutItem>
 
     <FlyoutItem Title="Manage" FlyoutIcon="manage.png"
