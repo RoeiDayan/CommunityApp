@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CommunityApp.Views.ManageJoinRequestsView"
+             Title="Pending Requests"
+             x:Name="manageJoinRequestsView">
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Header -->
+        <Label Grid.Row="0"
+               Text="Join Requests"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontFamily="Font1"
+               Margin="0,10,0,20"/>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="1" 
+                    Command="{Binding FetchPendingMembersCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding PendingMembers}"
+                           BackgroundColor="Transparent" 
+                           x:Name="pendingMembersCollection">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No pending join requests"
+                               FontSize="18"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#ECEFF1"
+                               CornerRadius="10"
+                               Margin="5,10"
+                               Padding="15"
+                               HasShadow="True">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                                <!-- User Info -->
+                                <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="2">
+                                    <Label Text="{Binding Account.Name}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"/>
+
+                                    <Label Text="{Binding Member.Role}"
+                                           FontSize="16"
+                                           TextColor="#546E7A"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Member.Role, Converter={StaticResource NotNullConverter}}"/>
+                                </StackLayout>
+
+                                <!-- Contact Info -->
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       Text="{Binding Account.PhoneNumber, StringFormat='📞 {0}'}"
+                                       FontSize="16"
+                                       TextColor="#37474F"
+                                       FontFamily="Font1"
+                                       HorizontalOptions="Start"
+                                       IsVisible="{Binding Account.PhoneNumber, Converter={StaticResource NotNullConverter}}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference pendingMembersCollection}, Path=BindingContext.CopyToClipboardCommand}"
+                                            CommandParameter="{Binding Account.PhoneNumber}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="{Binding Account.Email, StringFormat='📧 {0}'}"
+                                       FontSize="16"
+                                       TextColor="#37474F"
+                                       FontFamily="Font1"
+                                       HorizontalOptions="Start"
+                                       IsVisible="{Binding Account.Email, Converter={StaticResource NotNullConverter}}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference pendingMembersCollection}, Path=BindingContext.CopyToClipboardCommand}"
+                                            CommandParameter="{Binding Account.Email}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Optional Unit Number Input -->
+                                <StackLayout Grid.Row="3" Grid.Column="0" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                                    <Label Text="Unit #:" 
+                                           FontSize="16"
+                                           TextColor="#37474F"
+                                           VerticalOptions="Center"
+                                           FontFamily="Font1"/>
+                                    <Entry Text="{Binding Member.UnitNum}"
+                                           Placeholder="Optional"
+                                           WidthRequest="80"
+                                           FontFamily="Font1"
+                                           TextColor="#37474F"
+                                           Keyboard="Numeric"/>
+                                </StackLayout>
+
+                                <!-- Role Selection -->
+                                <StackLayout Grid.Row="4" Grid.Column="0" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                                    <CheckBox IsChecked="{Binding Member.IsResident}" 
+                                              Color="#3F51B5"/>
+                                    <Label Text="Resident" 
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           VerticalOptions="Center"
+                                           FontFamily="Font1"/>
+
+                                    <CheckBox IsChecked="{Binding Member.IsLiable}" 
+                                              Color="#3F51B5"/>
+                                    <Label Text="Liable" 
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           VerticalOptions="Center"
+                                           FontFamily="Font1"/>
+                                </StackLayout>
+
+                                <!-- Approval Buttons -->
+                                <StackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="5"
+                                             VerticalOptions="Center">
+                                    <Button Text="Approve"
+                                            Command="{Binding Source={x:Reference pendingMembersCollection}, Path=BindingContext.ApproveMemberCommand}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="#4CAF50"
+                                            TextColor="White"
+                                            HeightRequest="40"
+                                            WidthRequest="100"
+                                            CornerRadius="20"
+                                            Margin="0,0,0,10"
+                                            FontFamily="Font1"/>
+
+                                    <Button Text="Reject"
+                                            Command="{Binding Source={x:Reference pendingMembersCollection}, Path=BindingContext.RejectMemberCommand}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="#F44336"
+                                            TextColor="White"
+                                            HeightRequest="40"
+                                            WidthRequest="100"
+                                            CornerRadius="20"
+                                            FontFamily="Font1"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Footer Button -->
+        <Button Grid.Row="2"
+                Text="Refresh Requests"
+                Command="{Binding FetchPendingMembersCommand}"
+                BackgroundColor="#FF4081"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="25"
+                Padding="12"
+                Margin="10,20,10,0"
+                HorizontalOptions="Center"
+                FontFamily="Font1"/>
+    </Grid>
+</ContentPage>

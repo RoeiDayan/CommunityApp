@@ -384,9 +384,9 @@ namespace CommunityApp.Services
             }
         }
 
-        public async Task<List<MemberAccount>> GetCommunityMemberAccountsAsync(int comId)
+        public async Task<List<MemberAccount>> GetApprovedCommunityMemberAccountsAsync(int comId)
         {
-            string url = $"{this.baseUrl}GetCommunityMemberAccounts?ComId={comId}";
+            string url = $"{this.baseUrl}GetApprovedCommunityMemberAccounts?ComId={comId}";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -489,6 +489,58 @@ namespace CommunityApp.Services
                 return null;
             }
         }
+
+        public async Task<List<MemberAccount>> GetUnapprovedCommunityMemberAccountsAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetUnapprovedCommunityMemberAccounts?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    return JsonSerializer.Deserialize<List<MemberAccount>>(content, options) ?? new List<MemberAccount>();
+                }
+                else
+                {
+                    return new List<MemberAccount>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<MemberAccount>();
+            }
+        }
+        public async Task<bool> UpdateMemberAsync(Member member)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}UpdateMember";
+                string json = JsonSerializer.Serialize(member);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
     }
 }

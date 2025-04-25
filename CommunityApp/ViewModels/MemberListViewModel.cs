@@ -50,7 +50,7 @@ namespace CommunityApp.ViewModels
         {
             try
             {
-                List<MemberAccount> memberAccountsFromServer = await proxy.GetCommunityMemberAccountsAsync(((App)Application.Current).CurCom.ComId);
+                List<MemberAccount> memberAccountsFromServer = await proxy.GetApprovedCommunityMemberAccountsAsync(((App)Application.Current).CurCom.ComId);
                 MemAcc.Clear();
                 foreach (var ma in memberAccountsFromServer)
                 {
