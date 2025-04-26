@@ -490,9 +490,9 @@ namespace CommunityApp.Services
             }
         }
 
-        public async Task<List<MemberAccount>> GetUnapprovedCommunityMemberAccountsAsync(int comId)
+        public async Task<List<MemberAccount>> GetSelectCommunityMemberAccountsAsync(int comId, bool approvedStat)
         {
-            string url = $"{this.baseUrl}GetUnapprovedCommunityMemberAccounts?ComId={comId}";
+            string url = $"{this.baseUrl}GetSelectCommunityMemberAccounts?ComId={comId}&ApprovedStat={approvedStat}";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -540,7 +540,29 @@ namespace CommunityApp.Services
                 return false;
             }
         }
-
+        public async Task<bool> RemoveMemberAsync(int comId, int userId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}RemoveMember?ComId={comId}&UserId={userId}";
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"Error removing member: {content}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception in RemoveMemberAsync: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }

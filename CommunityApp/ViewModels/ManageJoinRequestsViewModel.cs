@@ -71,7 +71,7 @@ namespace CommunityApp.ViewModels
                 IsRefreshing = true;
 
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
-                List<MemberAccount> pendingMembersFromServer = await proxy.GetUnapprovedCommunityMemberAccountsAsync(currentCommunityId);
+                List<MemberAccount> pendingMembersFromServer = await proxy.GetSelectCommunityMemberAccountsAsync(currentCommunityId, false);
 
                 PendingMembers.Clear();
                 foreach (var member in pendingMembersFromServer)
@@ -154,16 +154,26 @@ namespace CommunityApp.ViewModels
 
             try
             {
-                // Here we would typically delete the member record
-                // For now, let's just remove from local collection as an example
-                PendingMembers.Remove(memberAccount);
+                // Get the current community ID
+                int currentCommunityId = ((App)Application.Current).CurCom.ComId;
 
-                // In a real implementation, you might want to:
-                // 1. Call an API to delete the member
-                // 2. Or have an API to reject (which might set a different status)
+                // Call the API to remove the member
+                bool success = await proxy.RemoveMemberAsync(currentCommunityId, memberAccount.Member.UserId);
 
-                var toast = Toast.Make($"{memberAccount.Account.Name}'s request rejected");
-                await toast.Show();
+                if (success)
+                {
+                    // Remove from local collection
+                    PendingMembers.Remove(memberAccount);
+
+                    // Show success toast
+                    var toast = Toast.Make($"{memberAccount.Account.Name}'s request rejected");
+                    await toast.Show();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error",
+                        "Failed to reject member request. Please try again.", "OK");
+                }
             }
             catch (Exception ex)
             {
@@ -175,14 +185,24 @@ namespace CommunityApp.ViewModels
 
         private void UpdateMemberRole(Member member)
         {
-            List<string> roles = new List<string>();
+            string role = "";
 
-            if (member.IsResident == true) roles.Add("Resident");
-            if (member.IsLiable == true) roles.Add("Liable");
-            if (member.IsManager == true) roles.Add("Manager");
-            if (member.IsProvider == true) roles.Add("Provider");
+            if (member.IsResident == true)
+                role += "Resident, ";
+            if (member.IsLiable == true)
+                role += "Liable, ";
+            if (member.IsManager == true)
+                role += "Manager, ";
+            if (member.IsProvider == true)
+                role += "Provider, ";
 
-            member.Role = roles.Count > 0 ? string.Join(", ", roles) : "Member";
+
+            if (role.Length > 0)
+                role = role.Substring(0, role.Length - 2);
+            else
+                role = "Member";
+
+            member.Role = role;
         }
 
         private async Task CopyTextToClipboard(string text)

@@ -146,22 +146,6 @@
                                          HeightRequest="1"
                                          Color="#BDBDBD"
                                          Margin="0,10,0,15"/>
-                                <StackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
-                                             Orientation="Horizontal"
-                                             HorizontalOptions="Center"
-                                             Spacing="5"
-                                             Margin="0,5,0,0">
-                                    <Label Text="Status:"
-                                           FontSize="14"
-                                           TextColor="#37474F"
-                                           FontFamily="Font1"/>
-                                    <Label Text="{Binding Member.IsApproved, Converter={StaticResource ApprovedStatusConverter}}"
-                                           FontSize="14"
-                                           TextColor="{Binding Member.IsApproved, Converter={StaticResource ApprovedColorConverter}}"
-                                           FontAttributes="Bold"
-                                           FontFamily="Font1"/>
-                                </StackLayout>
-
                             </Grid>
                         </Frame>
                     </DataTemplate>
