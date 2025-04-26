@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CommunityApp.Views.ManageMembersView"
+             Title="Manage Members"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Header -->
+        <Label Grid.Row="0"
+            Text="Join Requests"
+            FontSize="24"
+            FontAttributes="Bold"
+            TextColor="White"
+            HorizontalOptions="Center"
+            FontFamily="Font1"
+            Margin="0,10,0,20"/>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="1" 
+                 Command="{Binding FetchMembersCommand}" 
+                 IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Members}"
+                        BackgroundColor="Transparent" 
+                        x:Name="MembersCollection">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No pending join requests"
+                            FontSize="18"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            FontFamily="Font1"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#ECEFF1"
+                            CornerRadius="10"
+                            Margin="5,10"
+                            Padding="15"
+                            HasShadow="True">
+                            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                                <!-- User Info -->
+                                <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="2">
+                                    <Label Text="{Binding Account.Name}"
+                                        FontSize="20"
+                                        FontAttributes="Bold"
+                                        TextColor="#37474F"
+                                        FontFamily="Font1" />
+
+                                    <Label Text="{Binding Member.Role}"
+                                        FontSize="16"
+                                        TextColor="#546E7A"
+                                        FontFamily="Font1"
+                                        IsVisible="{Binding Member.Role, Converter={StaticResource NotNullConverter}}" />
+                                </StackLayout>
+
+                                <!-- Contact Info -->
+                                <Label Grid.Row="1"
+                                    Text="{Binding Account.PhoneNumber, StringFormat='📞 {0}'}"
+                                    FontSize="16"
+                                    TextColor="#37474F"
+                                    FontFamily="Font1"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding Account.PhoneNumber, Converter={StaticResource NotNullConverter}}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference MembersCollection}, Path=BindingContext.CopyToClipboardCommand}"
+                                            CommandParameter="{Binding Account.PhoneNumber}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label Grid.Row="2"
+                                    Text="{Binding Account.Email, StringFormat='📧 {0}'}"
+                                    FontSize="16"
+                                    TextColor="#37474F"
+                                    FontFamily="Font1"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding Account.Email, Converter={StaticResource NotNullConverter}}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference MembersCollection}, Path=BindingContext.CopyToClipboardCommand}"
+                                            CommandParameter="{Binding Account.Email}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Unit Number Input -->
+                                <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                                    <Label Text="Unit #:" 
+                                        FontSize="16"
+                                        TextColor="#37474F"
+                                        VerticalOptions="Center"
+                                        FontFamily="Font1"/>
+                                    <Entry Text="{Binding Member.UnitNum}"
+                                        Placeholder="Optional"
+                                        WidthRequest="80"
+                                        FontFamily="Font1"
+                                        TextColor="#37474F"
+                                        Keyboard="Numeric"/>
+                                </StackLayout>
+
+                                <!-- Balance Input -->
+                                <StackLayout Grid.Row="4" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                                    <Label Text="Balance:" 
+                                        FontSize="16"
+                                        TextColor="#37474F"
+                                        VerticalOptions="Center"
+                                        FontFamily="Font1"/>
+                                    <Entry Text="{Binding Member.Balance}" 
+                                        Placeholder="0.00"
+                                        FontFamily="Font1"
+                                        WidthRequest="100"
+                                        Keyboard="Numeric"
+                                        TextColor="#37474F" />
+                                </StackLayout>
+
+                                <!-- Role Selection -->
+                                <StackLayout Grid.Row="5" Orientation="Vertical" Spacing="10" Margin="0,10,0,0">
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <CheckBox IsChecked="{Binding Member.IsResident}" Color="#3F51B5"/>
+                                        <Label Text="Resident" FontSize="14" TextColor="#37474F" VerticalOptions="Center" FontFamily="Font1"/>
+
+                                        <CheckBox IsChecked="{Binding Member.IsLiable}" Color="#3F51B5"/>
+                                        <Label Text="Liable" FontSize="14" TextColor="#37474F" VerticalOptions="Center" FontFamily="Font1"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <CheckBox IsChecked="{Binding Member.IsManager}" Color="#3F51B5"/>
+                                        <Label Text="Manager" FontSize="14" TextColor="#37474F" VerticalOptions="Center" FontFamily="Font1"/>
+
+                                        <CheckBox IsChecked="{Binding Member.IsProvider}" Color="#3F51B5"/>
+                                        <Label Text="Provider" FontSize="14" TextColor="#37474F" VerticalOptions="Center" FontFamily="Font1"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <!-- Update Button -->
+                                <Button Grid.Row="6"
+                                    Text="Update"
+                                    Command="{Binding Source={x:Reference MembersCollection}, Path=BindingContext.UpdateMemberCommand}"
+                                    CommandParameter="{Binding}"
+                                    BackgroundColor="#4CAF50"
+                                    TextColor="White"
+                                    HeightRequest="40"
+                                    WidthRequest="100"
+                                    CornerRadius="20"
+                                    Margin="0,10,0,0"
+                                    HorizontalOptions="Center"
+                                    FontFamily="Font1"/>
+                            </Grid>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Footer Button -->
+        <Button Grid.Row="2"
+             Text="Refresh Members"
+             Command="{Binding FetchMembersCommand}"
+             BackgroundColor="#FF4081"
+             TextColor="White"
+             FontSize="18"
+             CornerRadius="25"
+             Padding="12"
+             Margin="10,20,10,0"
+             HorizontalOptions="Center"
+             FontFamily="Font1"/>
+    </Grid>
+</ContentPage>

@@ -42,10 +42,10 @@
                 IsVisible="{Binding IsManagingOrProviding}">
         <ShellContent
             IsVisible="{Binding IsManaging}"
-            Icon="home.png"
+            Icon="managemembers.png"
             Title="Manage Members"
-            ContentTemplate="{DataTemplate local:HomePageView}"
-            Route="Home" />
+            ContentTemplate="{DataTemplate local:ManageMembersView}"
+            Route="ManageMembers" />
         <ShellContent
             IsVisible="{Binding IsManaging}"
             Icon="userrequests.png"
