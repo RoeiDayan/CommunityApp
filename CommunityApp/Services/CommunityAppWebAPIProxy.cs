@@ -563,6 +563,24 @@ namespace CommunityApp.Services
                 return false;
             }
         }
+        public async Task<bool> CreateRoomRequestAsync(RoomRequest request)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}CreateRoomRequest";
+                string json = JsonSerializer.Serialize(request);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(await response.Content.ReadAsStringAsync(), out bool result) && result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
     }
 }

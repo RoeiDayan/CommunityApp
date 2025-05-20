@@ -66,6 +66,7 @@
 	  <None Remove="Resources\Images\memberlist.png" />
 	  <None Remove="Resources\Images\notice.png" />
 	  <None Remove="Resources\Images\Report.png" />
+	  <None Remove="Resources\Images\request.png" />
 	  <None Remove="Resources\Images\startcommunity.png" />
 	  <None Remove="Resources\Images\tenantroom.png" />
 	  <None Remove="Resources\Images\user.png" />

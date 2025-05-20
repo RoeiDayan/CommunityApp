@@ -1,12 +1,63 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="CommunityApp.Views.RoomRequestView"
-             Title="RoomRequestView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Room Request">
+
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="15">
+
+            <!-- Start Date -->
+            <Label Text="Start Date" FontSize="16" TextColor="White"/>
+            <DatePicker Date="{Binding StartDate}" MinimumDate="{Binding MinDate}" />
+            <TimePicker Time="{Binding StartTime}" />
+
+            <!-- End Date -->
+            <Label Text="End Date" FontSize="16" TextColor="White"/>
+            <DatePicker Date="{Binding EndDate}" MinimumDate="{Binding StartDate}" />
+            <TimePicker Time="{Binding EndTime}" />
+
+            <!-- Optional Description -->
+            <Frame BackgroundColor="White" CornerRadius="15" Padding="10" HasShadow="True">
+                <Editor Placeholder="Additional Notes (Optional)"
+                Text="{Binding RequestText}"
+                FontSize="18"
+                FontFamily="Font1"
+                TextColor="#37474F"
+                HeightRequest="120"/>
+            </Frame>
+
+            <!-- Submit Button -->
+            <Button Text="Submit Room Request"
+            Command="{Binding SubmitRequestCommand}"
+            IsEnabled="{Binding NotInServerCall}"
+            BackgroundColor="#FF4081"
+            TextColor="White"
+            FontSize="18"
+            FontFamily="Font1"
+            CornerRadius="25"
+            Padding="12"
+            Margin="10"
+            HorizontalOptions="Center"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding InServerCall}"
+                       IsVisible="{Binding InServerCall}"
+                       Color="White"
+                       VerticalOptions="Center"
+                       WidthRequest="40"
+                       HeightRequest="40"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 </ContentPage>

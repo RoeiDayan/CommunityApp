@@ -35,7 +35,11 @@
             Title="Tenant Room"
             ContentTemplate="{DataTemplate local:TenantRoomView}"
             Route="TenantRoom"/>
-
+        <ShellContent
+            Icon="request.png"
+            Title="Request Room"
+            ContentTemplate="{DataTemplate local:RoomRequestView}"
+            Route="RoomRquest"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Manage" FlyoutIcon="manage.png"
