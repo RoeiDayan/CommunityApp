@@ -14,7 +14,7 @@
     <Grid RowDefinitions="Auto,*,Auto" Padding="20">
         <!-- Header -->
         <Label Grid.Row="0"
-            Text="Join Requests"
+            Text="Manage Members"
             FontSize="24"
             FontAttributes="Bold"
             TextColor="White"
@@ -31,7 +31,7 @@
                         x:Name="MembersCollection">
                 <CollectionView.EmptyView>
                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="No pending join requests"
+                        <Label Text="No members"
                             FontSize="18"
                             TextColor="White"
                             FontAttributes="Bold"
