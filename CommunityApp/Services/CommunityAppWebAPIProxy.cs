@@ -410,32 +410,32 @@ namespace CommunityApp.Services
                 return new List<MemberAccount>();
             }
         }
-        public async Task<TenantRoom> GetCommunityTenantRoomAsync(int comId)
-        {
-            string url = $"{this.baseUrl}GetCommunityTenantRoom?ComId={comId}";
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    return JsonSerializer.Deserialize<TenantRoom>(content, options) ?? new TenantRoom();
-                }
-                else
-                {
-                    return new TenantRoom();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions (log them, etc.)
-                return new TenantRoom();
-            }
-        }
+        //public async Task<TenantRoom> GetCommunityTenantRoomAsync(int comId)
+        //{
+        //    string url = $"{this.baseUrl}GetCommunityTenantRoom?ComId={comId}";
+        //    try
+        //    {
+        //        HttpResponseMessage response = await client.GetAsync(url);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            string content = await response.Content.ReadAsStringAsync();
+        //            JsonSerializerOptions options = new JsonSerializerOptions
+        //            {
+        //                PropertyNameCaseInsensitive = true
+        //            };
+        //            return JsonSerializer.Deserialize<TenantRoom>(content, options) ?? new TenantRoom();
+        //        }
+        //        else
+        //        {
+        //            return new TenantRoom();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle exceptions (log them, etc.)
+        //        return new TenantRoom();
+        //    }
+        //}
 
         public async Task<List<RoomRequest>?> GetApprovedRoomRequestsAsync(int comId)
         {

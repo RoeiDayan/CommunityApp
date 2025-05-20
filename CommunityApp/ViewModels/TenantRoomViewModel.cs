@@ -3,105 +3,177 @@ using CommunityApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Maui.Controls; // Make sure this is included for Application.Current
 
 namespace CommunityApp.ViewModels
 {
     public class TenantRoomViewModel : ViewModelBase
     {
         private CommunityWebAPIProxy proxy;
-        private IServiceProvider serviceProvider;
-        private TenantRoom tenantRoom;
-        private List<RoomRequest> approvedRequests;
-        private string errorMessage;
-        private bool hasErrorMessage;
-        private MemberAccount keyHolder;
-        private ObservableCollection<RequestWithUser> requestsWithUsers;
+        private List<RoomRequest> _approvedRequests;
+        private string _errorMessage;
+        private bool _hasErrorMessage;
 
-        public TenantRoomViewModel(CommunityWebAPIProxy proxy, IServiceProvider serviceProvider)
+        // Properties for UI Binding (Calculated)
+        private string _roomStatus;
+        private bool _isRoomAvailable;
+        private string _currentSessionInfo;
+        private bool _hasActiveSession;
+        private MemberAccount _currentKeyHolder;
+        private string _keyHolderName;
+        private string _keyHolderContact;
+        private bool _hasKeyHolder;
+
+        // New property to hold the currently active request
+        private RoomRequest _currentActiveRequest;
+
+        public TenantRoomViewModel(CommunityWebAPIProxy proxy)
         {
-            this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            this.approvedRequests = new List<RoomRequest>();
-            this.requestsWithUsers = new ObservableCollection<RequestWithUser>();
+            this._approvedRequests = new List<RoomRequest>();
+            this._requestsWithUsers = new ObservableCollection<RequestWithUser>();
 
             RefreshCommand = new Command(async () => await LoadData());
-            InServerCall = false;
 
-            // Load data immediately when the ViewModel is created
-            Task.Run(async () => await LoadData());
+            InServerCall = false;
+            // Initialize with loading states for a better user experience
+            RoomStatus = "Loading...";
+            CurrentSessionInfo = "Loading session info...";
+            KeyHolderName = "Loading...";
+            KeyHolderContact = "";
+            HasKeyHolder = false; // Initialize HasKeyHolder to false
         }
 
-        // Class to combine request with user information
+        // Helper class to combine request and user info for the UI
         public class RequestWithUser
         {
             public RoomRequest Request { get; set; }
             public MemberAccount User { get; set; }
             public string DisplayName => User?.Account?.Name ?? "Unknown";
             public string ContactInfo => User?.Account?.PhoneNumber ?? "No contact info";
-            public string DateRange => $"{Request?.StartTime.ToString("MMM dd")} - {Request?.EndTime.ToString("MMM dd")}";
+            // Updated to display time as well for better precision
+            public string DateRange => $"{Request?.StartTime.ToString("dd/MM/yyyy HH:mm")} - {Request?.EndTime.ToString("dd/MM/yyyy HH:mm")}";
         }
 
-        #region Properties
-        public TenantRoom TenantRoom
+
+        #region Properties for UI Binding (Calculated)
+
+        public string RoomStatus
         {
-            get => tenantRoom;
+            get => _roomStatus;
             set
             {
-                tenantRoom = value;
-                OnPropertyChanged(nameof(TenantRoom));
+                _roomStatus = value;
                 OnPropertyChanged(nameof(RoomStatus));
-                OnPropertyChanged(nameof(IsRoomAvailable));
-                OnPropertyChanged(nameof(CurrentSessionInfo));
-                OnPropertyChanged(nameof(HasActiveSession));
-                OnPropertyChanged(nameof(KeyHolderInfo));
             }
         }
 
-        public MemberAccount KeyHolder
+        public bool IsRoomAvailable
         {
-            get => keyHolder;
+            get => _isRoomAvailable;
             set
             {
-                keyHolder = value;
-                OnPropertyChanged(nameof(KeyHolder));
+                _isRoomAvailable = value;
+                OnPropertyChanged(nameof(IsRoomAvailable));
+            }
+        }
+
+        public string CurrentSessionInfo
+        {
+            get => _currentSessionInfo;
+            set
+            {
+                _currentSessionInfo = value;
+                OnPropertyChanged(nameof(CurrentSessionInfo));
+            }
+        }
+
+        public bool HasActiveSession
+        {
+            get => _hasActiveSession;
+            set
+            {
+                _hasActiveSession = value;
+                OnPropertyChanged(nameof(HasActiveSession));
+            }
+        }
+
+        public MemberAccount CurrentKeyHolder
+        {
+            get => _currentKeyHolder;
+            set
+            {
+                _currentKeyHolder = value;
+                OnPropertyChanged(nameof(CurrentKeyHolder));
+                // Update dependent properties when CurrentKeyHolder changes
+                KeyHolderName = value?.Account?.Name ?? "No key holder";
+                KeyHolderContact = value?.Account?.PhoneNumber ?? "";
+                HasKeyHolder = value != null;
+            }
+        }
+
+        public string KeyHolderName
+        {
+            get => _keyHolderName;
+            set
+            {
+                _keyHolderName = value;
                 OnPropertyChanged(nameof(KeyHolderName));
+            }
+        }
+
+        public string KeyHolderContact
+        {
+            get => _keyHolderContact;
+            set
+            {
+                _keyHolderContact = value;
                 OnPropertyChanged(nameof(KeyHolderContact));
+            }
+        }
+
+        public bool HasKeyHolder
+        {
+            get => _hasKeyHolder;
+            set
+            {
+                _hasKeyHolder = value;
                 OnPropertyChanged(nameof(HasKeyHolder));
             }
         }
 
-        public string KeyHolderName => KeyHolder?.Account?.Name ?? "No key holder";
-        public string KeyHolderContact => KeyHolder?.Account?.PhoneNumber ?? "";
-        public bool HasKeyHolder => KeyHolder != null;
-
-        public ObservableCollection<RequestWithUser> RequestsWithUsers
+        // List of all approved requests (fetched from API)
+        public List<RoomRequest> ApprovedRequests
         {
-            get => requestsWithUsers;
+            get => _approvedRequests;
             set
             {
-                requestsWithUsers = value;
-                OnPropertyChanged(nameof(RequestsWithUsers));
+                _approvedRequests = value;
+                OnPropertyChanged(nameof(ApprovedRequests));
             }
         }
 
-        public List<RoomRequest> ApprovedRequests
+        // ObservableCollection for the UI list (CollectionView)
+        private ObservableCollection<RequestWithUser> _requestsWithUsers;
+        public ObservableCollection<RequestWithUser> RequestsWithUsers
         {
-            get => approvedRequests;
+            get => _requestsWithUsers;
             set
             {
-                approvedRequests = value;
-                OnPropertyChanged(nameof(ApprovedRequests));
+                _requestsWithUsers = value;
+                OnPropertyChanged(nameof(RequestsWithUsers));
             }
         }
 
         public string ErrorMessage
         {
-            get => errorMessage;
+            get => _errorMessage;
             set
             {
-                errorMessage = value;
+                _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
                 HasErrorMessage = !string.IsNullOrEmpty(value);
             }
@@ -109,42 +181,26 @@ namespace CommunityApp.ViewModels
 
         public bool HasErrorMessage
         {
-            get => hasErrorMessage;
+            get => _hasErrorMessage;
             set
             {
-                hasErrorMessage = value;
+                _hasErrorMessage = value;
                 OnPropertyChanged(nameof(HasErrorMessage));
             }
         }
 
-        // Computed properties for UI
-        public string RoomStatus => TenantRoom?.Status ?? "Unknown";
-
-        public bool IsRoomAvailable =>
-            TenantRoom != null &&
-            string.Equals(TenantRoom.Status, "Available", StringComparison.OrdinalIgnoreCase);
-
-        public string CurrentSessionInfo
-        {
-            get
-            {
-                if (TenantRoom?.SessionStart == null || TenantRoom?.SessionEnd == null)
-                    return "No active session";
-
-                return $"{TenantRoom.SessionStart?.ToString("dd/MM/yyyy HH:mm")} - {TenantRoom.SessionEnd?.ToString("dd/MM/yyyy HH:mm")}";
-            }
-        }
-
-        public bool HasActiveSession => TenantRoom?.SessionStart != null && TenantRoom?.SessionEnd != null;
-
-        public string KeyHolderInfo => TenantRoom?.KeyHolderId > 0 ? $"Key Holder ID: {TenantRoom?.KeyHolderId}" : "No key holder assigned";
         #endregion
+
 
         #region Commands
+
         public Command RefreshCommand { get; }
+
         #endregion
 
+
         #region Methods
+
         public async Task LoadData()
         {
             try
@@ -152,7 +208,6 @@ namespace CommunityApp.ViewModels
                 InServerCall = true;
                 ErrorMessage = string.Empty;
 
-                // Get current community ID from the app
                 int comId = ((App)Application.Current).CurCom?.ComId ?? 0;
 
                 if (comId == 0)
@@ -161,27 +216,26 @@ namespace CommunityApp.ViewModels
                     return;
                 }
 
-                var tenantRoomTask = proxy.GetCommunityTenantRoomAsync(comId);
-                var requestsTask = proxy.GetApprovedRoomRequestsAsync(comId);
+                // 1. Fetch all approved room requests from the API
+                List<RoomRequest> allApprovedRequests = await proxy.GetApprovedRoomRequestsAsync(comId) ?? new List<RoomRequest>();
+                ApprovedRequests = allApprovedRequests; // Also update the backing field.
 
-                await Task.WhenAll(tenantRoomTask, requestsTask);
+                // 2. Calculate the current room status (and active request)
+                await CalculateCurrentRoomStatus(comId, allApprovedRequests); // Pass the fetched requests
 
-                TenantRoom = await tenantRoomTask;
-                ApprovedRequests = await requestsTask ?? new List<RoomRequest>();
-
-                // Load key holder information if available
-                if (TenantRoom?.KeyHolderId > 0)
-                {
-                    KeyHolder = await proxy.GetMemberAccountAsync(TenantRoom.KeyHolderId, comId);
-                }
-                else
-                {
-                    KeyHolder = null;
-                }
-
-                // Load user information for each approved request
+                // 3. Clear the UI collection
                 RequestsWithUsers.Clear();
-                foreach (var request in ApprovedRequests)
+
+                DateTime now = DateTime.Now;
+
+                // 4. Filter for *upcoming* requests (StartTime > now)
+                List<RoomRequest> upcomingRequests = allApprovedRequests
+                    .Where(r => r.StartTime > now)
+                    .OrderBy(r => r.StartTime)
+                    .ToList();
+
+                // 5. Populate the UI collection with RequestWithUser objects
+                foreach (var request in upcomingRequests)
                 {
                     var user = await proxy.GetMemberAccountAsync(request.UserId, comId);
                     RequestsWithUsers.Add(new RequestWithUser
@@ -201,28 +255,63 @@ namespace CommunityApp.ViewModels
             }
         }
 
-        // Method for the DateToAvailabilityColorConverter
+        private async Task CalculateCurrentRoomStatus(int comId, List<RoomRequest> approvedRequests)
+        {
+            DateTime now = DateTime.Now;
+
+            // Normalize all comparisons to local time
+            RoomRequest activeRequest = approvedRequests
+                .FirstOrDefault(r =>
+                    r.StartTime.ToLocalTime() <= now &&
+                    r.EndTime.ToLocalTime() >= now
+                );
+
+            _currentActiveRequest = activeRequest;
+
+            if (activeRequest != null)
+            {
+                RoomStatus = "Occupied";
+                IsRoomAvailable = false;
+                CurrentSessionInfo = $"{activeRequest.StartTime.ToLocalTime():dd/MM/yyyy HH:mm} - {activeRequest.EndTime.ToLocalTime():dd/MM/yyyy HH:mm}";
+                HasActiveSession = true;
+                CurrentKeyHolder = await proxy.GetMemberAccountAsync(activeRequest.UserId, comId);
+            }
+            else
+            {
+                RoomStatus = "Available";
+                IsRoomAvailable = true;
+                CurrentSessionInfo = "No active session";
+                HasActiveSession = false;
+                CurrentKeyHolder = null;
+                _currentActiveRequest = null;
+            }
+        }
+
+
+
+
+        // Method used by the DateToAvailabilityColorConverter (or similar logic)
         public string GetRoomStatusForDate(DateTime date)
         {
-            // Check if the room is currently occupied for this date
-            if (TenantRoom?.SessionStart != null && TenantRoom?.SessionEnd != null)
-            {
-                if (date.Date >= TenantRoom.SessionStart.Value.Date && date.Date <= TenantRoom.SessionEnd.Value.Date)
-                {
-                    return "Occupied";
-                }
-            }
+            // Find if there's any approved request that covers the given date (day-wise)
+            var requestOnDate = ApprovedRequests
+                .FirstOrDefault(r => date.Date >= r.StartTime.Date && date.Date <= r.EndTime.Date);
 
-            // Check if the date is within any approved request
-            foreach (var request in ApprovedRequests)
+            if (requestOnDate != null)
             {
-                if (date.Date >= request.StartTime.Date && date.Date <= request.EndTime.Date)
+                // If the request for this date is also the currently active session
+                if (requestOnDate == _currentActiveRequest)
                 {
+                    return "Occupied"; // It's the active session right now
+                }
+                else
+                {
+                    // If there's an approved request for this date, but it's not the currently active one (i.e., a future request)
                     return "Requested";
                 }
             }
 
-            return "Available";
+            return "Available"; // No approved request found for this date
         }
         #endregion
     }

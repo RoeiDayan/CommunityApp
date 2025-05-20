@@ -12,5 +12,13 @@ namespace CommunityApp.Views
             this.viewModel = viewModel;
             BindingContext = viewModel;
         }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is TenantRoomViewModel viewModel)
+            {
+                await viewModel.LoadData(); 
+            }
+        }
     }
 }
