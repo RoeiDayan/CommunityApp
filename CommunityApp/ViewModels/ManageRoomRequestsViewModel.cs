@@ -27,9 +27,8 @@ namespace CommunityApp.ViewModels
             ApproveRequestCommand = new AsyncRelayCommand<RoomRequest>(ApproveRequest);
             RejectRequestCommand = new AsyncRelayCommand<RoomRequest>(RejectRequest);
             CopyToClipboardCommand = new AsyncRelayCommand<string>(CopyTextToClipboard);
-            ToggleFilterCommand = new Command<string>(FilterRequests); 
-
-
+            ToggleFilterCommand = new Command<string>(FilterRequests);
+            DeletePastRequestsCommand = new AsyncRelayCommand(DeletePastRequests);
             // Initial data load
             _ = FetchRoomRequests();
         }
@@ -86,10 +85,11 @@ namespace CommunityApp.ViewModels
     public IAsyncRelayCommand<string> CopyToClipboardCommand { get; }
     public ICommand ToggleFilterCommand { get; }
 
-    #endregion
+        public IAsyncRelayCommand DeletePastRequestsCommand { get; }
+        #endregion
 
-    #region Methods
-    private async Task FetchRoomRequests()
+        #region Methods
+        private async Task FetchRoomRequests()
         {
             try
             {
@@ -300,6 +300,34 @@ namespace CommunityApp.ViewModels
                     System.Diagnostics.Debug.WriteLine($"Error copying text: {ex.Message}");
                     await Application.Current.MainPage.DisplayAlert("Error", "Could not copy to clipboard", "OK");
                 }
+            }
+        }
+
+        private async Task DeletePastRequests()
+        {
+            try
+            {
+                int currentCommunityId = ((App)Application.Current).CurCom.ComId;
+
+                bool success = await proxy.DeletePastRoomRequestsAsync(currentCommunityId);
+
+                if (success)
+                {
+                    var toast = Toast.Make("Past room requests deleted successfully");
+                    await toast.Show();
+
+                    // Refresh the list after deletion
+                    await FetchRoomRequests();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Info", "No past requests to delete.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Failed to delete past requests.", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error deleting past requests: {ex.Message}");
             }
         }
         #endregion

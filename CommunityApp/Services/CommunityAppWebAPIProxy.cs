@@ -618,5 +618,20 @@ namespace CommunityApp.Services
                 return new List<RoomRequest>();
             }
         }
+        public async Task<bool> DeletePastRoomRequestsAsync(int comId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}DeletePastRoomRequests?ComId={comId}";
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Optional: log or handle the error
+                return false;
+            }
+        }
+
     }
 }

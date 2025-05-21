@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="10">
         <!-- Header -->
         <Label Grid.Row="0"
                Text="Room Reservation Requests"
@@ -227,17 +227,32 @@
             </CollectionView>
         </RefreshView>
 
-        <!-- Footer Button -->
-        <Button Grid.Row="3"
-                Text="Refresh Requests"
-                Command="{Binding FetchRoomRequestsCommand}"
-                BackgroundColor="#FF4081"
-                TextColor="White"
-                FontSize="18"
-                CornerRadius="25"
-                Padding="12"
-                Margin="10,20,10,0"
-                HorizontalOptions="Center"
-                FontFamily="Font1"/>
+        <!-- Footer Buttons Container -->
+        <StackLayout Grid.Row="3"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     Spacing="15"
+                     Margin="10,20,10,0">
+
+            <Button Text="Refresh Requests"
+                    Command="{Binding FetchRoomRequestsCommand}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="25"
+                    Padding="12"
+                    WidthRequest="150"
+                    FontFamily="Font1"/>
+
+            <Button Text="🗑️ Delete Past Requests"
+                    Command="{Binding DeletePastRequestsCommand}"
+                    BackgroundColor="DarkRed"
+                    TextColor="White"
+                    CornerRadius="25"
+                    Padding="12"
+                    WidthRequest="180"
+                    FontFamily="Font1"/>
+        </StackLayout>
+
     </Grid>
 </ContentPage>
