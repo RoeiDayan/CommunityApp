@@ -618,6 +618,33 @@ namespace CommunityApp.Services
                 return new List<RoomRequest>();
             }
         }
+
+        public async Task<List<RoomRequest>?> GetAllRoomRequestsAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetAllRoomRequests?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    return JsonSerializer.Deserialize<List<RoomRequest>>(content, options) ?? new List<RoomRequest>();
+                }
+                else
+                {
+                    return new List<RoomRequest>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log them, etc.)
+                return new List<RoomRequest>();
+            }
+        }
         public async Task<bool> DeletePastRoomRequestsAsync(int comId)
         {
             try

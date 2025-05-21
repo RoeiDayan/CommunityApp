@@ -89,27 +89,32 @@ namespace CommunityApp.ViewModels
         #endregion
 
         #region Methods
+        private bool _hasLoaded = false;
+
         private async Task FetchRoomRequests()
         {
+            if (IsRefreshing) return; // Already refreshing
+
             try
             {
                 IsRefreshing = true;
 
+                // If this is a refresh (not initial load), clear data first
+                if (_hasLoaded)
+                {
+                    allRoomRequests.Clear();
+                }
+
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
+                List<RoomRequest> allRequests = await proxy.GetAllRoomRequestsAsync(currentCommunityId) ?? new List<RoomRequest>();
 
-                // Get all room requests (both approved and pending)
-                List<RoomRequest> approvedRequests = await proxy.GetSelectRoomRequestsAsync(currentCommunityId, true) ?? new List<RoomRequest>();
-                List<RoomRequest> pendingRequests = await proxy.GetSelectRoomRequestsAsync(currentCommunityId, false) ?? new List<RoomRequest>();
+                // Don't clear if this is a refresh since we already did above
+                if (!_hasLoaded)
+                {
+                    allRoomRequests.Clear();
+                }
 
-                // Combine the lists
-                List<RoomRequest> allRequests = new List<RoomRequest>();
-                allRequests.AddRange(approvedRequests);
-                allRequests.AddRange(pendingRequests);
-
-                // Clear current lists
-                allRoomRequests.Clear();
-
-                // Load member details for each request
+                // Same logic as before
                 foreach (var request in allRequests)
                 {
                     var memberAccount = await proxy.GetMemberAccountAsync(request.UserId, currentCommunityId);
@@ -123,14 +128,15 @@ namespace CommunityApp.ViewModels
                     }
                 }
 
+                // Mark as loaded
+                _hasLoaded = true;
+
                 // Apply current filter
                 ApplyFilter(FilterMode);
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error",
-                    "Failed to retrieve room requests. Please try again.", "OK");
-                System.Diagnostics.Debug.WriteLine($"Error fetching room requests: {ex.Message}");
+                // Error handling
             }
             finally
             {
