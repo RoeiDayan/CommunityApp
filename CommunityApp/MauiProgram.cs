@@ -51,6 +51,7 @@ namespace CommunityApp
             builder.Services.AddTransient<ManageMembersView>();
             builder.Services.AddTransient<RoomRequestView>();
             builder.Services.AddTransient<ManageRoomRequestsView>();
+            builder.Services.AddTransient<CreateExpenseView>();
 
             return builder;
         }
@@ -79,6 +80,7 @@ namespace CommunityApp
             builder.Services.AddTransient<ManageMembersViewModel>();
             builder.Services.AddTransient<RoomRequestViewModel>();
             builder.Services.AddTransient<ManageRoomRequestsViewModel>();
+            builder.Services.AddTransient<CreateExpenseViewModel>();
 
 
 

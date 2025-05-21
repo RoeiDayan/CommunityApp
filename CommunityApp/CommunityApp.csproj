@@ -86,6 +86,9 @@
 	  <MauiXaml Update="Views\AccountPageView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateExpenseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateNoticeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
