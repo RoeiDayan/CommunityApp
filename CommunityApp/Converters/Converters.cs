@@ -38,14 +38,17 @@ namespace CommunityApp.Converters
             if (value is bool boolValue && parameter is string colorParams)
             {
                 string[] colors = colorParams.Split(',');
-                if (colors.Length == 2)
+                if (colors.Length == 2 &&
+                    Color.TryParse(colors[0], out var trueColor) &&
+                    Color.TryParse(colors[1], out var falseColor))
                 {
-                    return boolValue ? Color.FromArgb(colors[0]) : Color.FromArgb(colors[1]);
+                    return boolValue ? trueColor : falseColor;
                 }
             }
 
-            return Colors.Gray;
+            return Colors.Gray; // fallback
         }
+
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
