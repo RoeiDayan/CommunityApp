@@ -57,6 +57,12 @@
             ContentTemplate="{DataTemplate local:ManageJoinRequestsView}"
             Route="ManageJoinRequests"/>
         <ShellContent
+            IsVisible="{Binding IsManaging}"
+            Icon="manageroom.png"
+            Title="Room Requests"
+            ContentTemplate="{DataTemplate local:ManageRoomRequestsView}"
+            Route="ManageRoomRequests"/>
+        <ShellContent
             Icon="notice.png"
             Title="Create Notice"
             ContentTemplate="{DataTemplate local:CreateNoticeView}"

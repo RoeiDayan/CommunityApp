@@ -437,32 +437,7 @@ namespace CommunityApp.Services
         //    }
         //}
 
-        public async Task<List<RoomRequest>?> GetApprovedRoomRequestsAsync(int comId)
-        {
-            string url = $"{this.baseUrl}GetApprovedRoomRequests?ComId={comId}";
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    return JsonSerializer.Deserialize<List<RoomRequest>>(content, options) ?? new List<RoomRequest>();
-                }
-                else
-                {
-                    return new List<RoomRequest>();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions (log them, etc.)
-                return new List<RoomRequest>();
-            }
-        }
+        
         public async Task<MemberAccount?> GetMemberAccountAsync(int userId, int comId)
         {
             string url = $"{this.baseUrl}GetMemberAccount?UserId={userId}&ComId={comId}";
@@ -581,6 +556,67 @@ namespace CommunityApp.Services
                 return false;
             }
         }
+        
 
+        
+        public async Task<bool> UpdateRoomRequestAsync(RoomRequest request)
+        {
+            string url = $"{this.baseUrl}UpdateRoomRequest";
+            try
+            {
+                string json = JsonSerializer.Serialize(request);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(url, content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log them, etc.)
+                System.Diagnostics.Debug.WriteLine($"Error updating room request: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteRoomRequestAsync(int requestId)
+        {
+            string url = $"{this.baseUrl}DeleteRoomRequest?id={requestId}";
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log them, etc.)
+                System.Diagnostics.Debug.WriteLine($"Error deleting room request: {ex.Message}");
+                return false;
+            }
+        }
+        public async Task<List<RoomRequest>?> GetSelectRoomRequestsAsync(int comId, bool isApp)
+        {
+            string url = $"{this.baseUrl}GetSelectRoomRequests?ComId={comId}&IsApproved={isApp}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    return JsonSerializer.Deserialize<List<RoomRequest>>(content, options) ?? new List<RoomRequest>();
+                }
+                else
+                {
+                    return new List<RoomRequest>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log them, etc.)
+                return new List<RoomRequest>();
+            }
+        }
     }
 }

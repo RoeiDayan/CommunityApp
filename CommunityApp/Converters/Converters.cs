@@ -31,6 +31,27 @@ namespace CommunityApp.Converters
             throw new NotImplementedException();
         }
     }
+    public class BoolToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue && parameter is string colorParams)
+            {
+                string[] colors = colorParams.Split(',');
+                if (colors.Length == 2)
+                {
+                    return boolValue ? Color.FromArgb(colors[0]) : Color.FromArgb(colors[1]);
+                }
+            }
+
+            return Colors.Gray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class NotNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -118,6 +139,5 @@ namespace CommunityApp.Converters
             throw new NotImplementedException();
         }
     }
-
 
 }

@@ -217,7 +217,7 @@ namespace CommunityApp.ViewModels
                 }
 
                 // 1. Fetch all approved room requests from the API
-                List<RoomRequest> allApprovedRequests = await proxy.GetApprovedRoomRequestsAsync(comId) ?? new List<RoomRequest>();
+                List<RoomRequest> allApprovedRequests = await proxy.GetSelectRoomRequestsAsync(comId, true) ?? new List<RoomRequest>();
                 ApprovedRequests = allApprovedRequests; // Also update the backing field.
 
                 // 2. Calculate the current room status (and active request)
