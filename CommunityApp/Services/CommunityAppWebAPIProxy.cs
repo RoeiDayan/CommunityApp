@@ -660,5 +660,26 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<bool> CreateExpenseAsync(Expense expense)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}CreateExpense";
+                string json = JsonSerializer.Serialize(expense);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(responseContent, out bool result) && result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CreateExpenseAsync: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

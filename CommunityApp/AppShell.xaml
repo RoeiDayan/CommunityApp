@@ -67,6 +67,11 @@
             Title="Create Notice"
             ContentTemplate="{DataTemplate local:CreateNoticeView}"
             Route="CreateReport"/>
+        <ShellContent
+            Icon="expense.png"
+            Title="Create Expense"
+            ContentTemplate="{DataTemplate local:CreateExpenseView}"
+            Route="CreateExpense"/>
     </FlyoutItem>
 
     <FlyoutItem Title="User Settings" FlyoutIcon="user.png">

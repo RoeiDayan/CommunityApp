@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:NotNullConverter x:Key="NotNullConverter" />
             <converters:BalanceColorConverter x:Key="BalanceColorConverter" />
             <converters:ApprovedStatusConverter x:Key="ApprovedStatusConverter" />
