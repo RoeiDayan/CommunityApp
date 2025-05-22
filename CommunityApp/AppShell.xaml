@@ -77,6 +77,11 @@
             Title="Create Expense"
             ContentTemplate="{DataTemplate local:CreateExpenseView}"
             Route="CreateExpense"/>
+        <ShellContent
+            Icon="issuepayments.png"
+            Title="Issue Payments"
+            ContentTemplate="{DataTemplate local:IssuePaymentsView}"
+            Route="IssuePayments"/>
     </FlyoutItem>
 
     <FlyoutItem Title="User Settings" FlyoutIcon="user.png">

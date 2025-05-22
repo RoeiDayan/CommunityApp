@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Images\expense.png" />
 	  <None Remove="Resources\Images\expenses.png" />
 	  <None Remove="Resources\Images\home.png" />
+	  <None Remove="Resources\Images\issuepayments.png" />
 	  <None Remove="Resources\Images\joincommunity.png" />
 	  <None Remove="Resources\Images\manage.png" />
 	  <None Remove="Resources\Images\managemembers.png" />
@@ -101,6 +102,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomePageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\IssuePaymentsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\JoinCommunityView.xaml">

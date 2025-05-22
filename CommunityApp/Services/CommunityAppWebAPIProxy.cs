@@ -706,5 +706,49 @@ namespace CommunityApp.Services
                 return new List<Expense>();
             }
         }
+
+        public async Task<bool> IssuePaymentToAllMembersAsync(Payment p)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}IssuePaymentToAllMembers";
+                string json = JsonSerializer.Serialize(p);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(responseContent, out bool result) && result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in IssuePaymentToAllMembersAsync: {ex.Message}");
+                return false;
+            }
+        }
+
+
+        public async Task<bool> IssuePaymentToMemberAsync(Payment p)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}IssuePaymentToMember";
+                string json = JsonSerializer.Serialize(p);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode &&
+                       bool.TryParse(responseContent, out bool result) && result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in IssuePaymentToMemberAsync: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

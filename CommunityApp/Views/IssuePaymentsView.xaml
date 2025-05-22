@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CommunityApp.ViewModels"
+             xmlns:converters="clr-namespace:CommunityApp.Converters"
+              x:Class="CommunityApp.Views.IssuePaymentsView"
+             Title="Issue Payment"
+             x:Name="createPaymentView">
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NotNullConverter x:Key="NotNullConverter" />
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Padding="20">
+        <StackLayout Spacing="20">
+            <!-- Header -->
+            <Label Text="Issue Payment Request"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   FontFamily="Font1"
+                   Margin="0,10,0,20"/>
+
+            <!-- Payment Details Form -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="True"
+                   Margin="0,0,0,10">
+                <StackLayout Spacing="15">
+                    <Label Text="Payment Details"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#37474F"
+                           FontFamily="Font1"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Amount Entry -->
+                    <StackLayout>
+                        <Label Text="Amount (Required)"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#37474F"
+                               FontFamily="Font1"/>
+                        <Entry x:Name="amountEntry"
+                               Text="{Binding Amount}"
+                               Keyboard="Numeric"
+                               Placeholder="Enter amount"
+                               BackgroundColor="#F5F5F5"
+                               TextColor="#37474F"
+                               FontFamily="Font1"
+                               IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBooleanConverter}}"/>
+                    </StackLayout>
+
+                    <!-- Details Entry -->
+                    <StackLayout>
+                        <Label Text="Details (Optional)"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#37474F"
+                               FontFamily="Font1"/>
+                        <Entry Text="{Binding Details}"
+                               Placeholder="Payment description or notes"
+                               BackgroundColor="#F5F5F5"
+                               TextColor="#37474F"
+                               FontFamily="Font1"
+                               IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBooleanConverter}}"/>
+                    </StackLayout>
+
+                    <!-- Pay From Date -->
+                    <StackLayout>
+                        <Label Text="Pay From Date (Optional)"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#37474F"
+                               FontFamily="Font1"/>
+                        <DatePicker Date="{Binding PayFromDate}"
+                                    BackgroundColor="#F5F5F5"
+                                    TextColor="#37474F"
+                                    FontFamily="Font1"
+                                    IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBooleanConverter}}"/>
+                    </StackLayout>
+
+                    <!-- Pay Until Date -->
+                    <StackLayout>
+                        <Label Text="Pay Until Date (Optional)"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#37474F"
+                               FontFamily="Font1"/>
+                        <DatePicker Date="{Binding PayUntilDate}"
+                                    BackgroundColor="#F5F5F5"
+                                    TextColor="#37474F"
+                                    FontFamily="Font1"
+                                    IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBooleanConverter}}"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- Issue to All Button -->
+            <Button Text="💰 Issue to Entire Community"
+                    Command="{Binding IssueToAllMembersCommand}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    Padding="15"
+                    FontFamily="Font1"
+                    IsEnabled="{Binding IsAmountValid}"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                              IsRunning="{Binding IsLoading}"
+                              Color="White"
+                              Scale="1.5"/>
+
+            <!-- Processing Indicator -->
+            <StackLayout IsVisible="{Binding IsProcessing}"
+                        Orientation="Horizontal"
+                        HorizontalOptions="Center"
+                        Spacing="10">
+                <ActivityIndicator IsRunning="{Binding IsProcessing}"
+                                  Color="White"/>
+                <Label Text="Processing payment..."
+                       TextColor="White"
+                       FontFamily="Font1"
+                       VerticalOptions="Center"/>
+            </StackLayout>
+
+            <!-- Members List Section -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="15"
+                   HasShadow="True"
+                   IsVisible="{Binding Members.Count, Converter={StaticResource NotNullConverter}}">
+                <StackLayout>
+                    <Label Text="Issue to Individual Members"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#37474F"
+                           FontFamily="Font1"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,15"/>
+
+                    <CollectionView ItemsSource="{Binding Members}"
+                                   BackgroundColor="Transparent"
+                                   x:Name="membersCollection">
+                        <CollectionView.EmptyView>
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="No members found"
+                                       FontSize="16"
+                                       TextColor="#78909C"
+                                       FontFamily="Font1"
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#F5F5F5"
+                                       CornerRadius="10"
+                                       Margin="0,5"
+                                       Padding="15"
+                                       HasShadow="False"
+                                       BorderColor="#E0E0E0">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <!-- Member Info -->
+                                        <StackLayout Grid.Column="0" Spacing="5">
+                                            <Label Text="{Binding Account.Name}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#37474F"
+                                                   FontFamily="Font1"/>
+
+                                            <Label Text="{Binding Member.Role}"
+                                                   FontSize="14"
+                                                   TextColor="#546E7A"
+                                                   FontFamily="Font1"
+                                                   IsVisible="{Binding Member.Role, Converter={StaticResource NotNullConverter}}"/>
+
+                                            <Label Text="{Binding Account.Email}"
+                                                   FontSize="14"
+                                                   TextColor="#546E7A"
+                                                   FontFamily="Font1"
+                                                   IsVisible="{Binding Account.Email, Converter={StaticResource NotNullConverter}}"/>
+
+                                            <Label Text="{Binding Account.PhoneNumber, StringFormat='📞 {0}'}"
+                                                   FontSize="14"
+                                                   TextColor="#546E7A"
+                                                   FontFamily="Font1"
+                                                   IsVisible="{Binding Account.PhoneNumber, Converter={StaticResource NotNullConverter}}"/>
+                                        </StackLayout>
+
+                                        <!-- Issue Payment Button -->
+                                        <Button Grid.Column="1"
+                                                Text="💰 Issue Payment"
+                                                Command="{Binding Source={x:Reference membersCollection}, Path=BindingContext.IssueToMemberCommand}"
+                                                CommandParameter="{Binding}"
+                                                BackgroundColor="#FF9800"
+                                                TextColor="White"
+                                                FontSize="14"
+                                                CornerRadius="15"
+                                                Padding="10,5"
+                                                VerticalOptions="Center"
+                                                FontFamily="Font1"
+                                                IsEnabled="{Binding Source={x:Reference membersCollection}, Path=BindingContext.IsAmountValid}"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
