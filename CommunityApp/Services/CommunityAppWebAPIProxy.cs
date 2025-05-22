@@ -718,8 +718,8 @@ namespace CommunityApp.Services
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 string responseContent = await response.Content.ReadAsStringAsync();
 
-                return response.IsSuccessStatusCode &&
-                       bool.TryParse(responseContent, out bool result) && result;
+                return response.IsSuccessStatusCode;
+
             }
             catch (Exception ex)
             {
@@ -740,8 +740,8 @@ namespace CommunityApp.Services
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 string responseContent = await response.Content.ReadAsStringAsync();
 
-                return response.IsSuccessStatusCode &&
-                       bool.TryParse(responseContent, out bool result) && result;
+                return response.IsSuccessStatusCode;
+
             }
             catch (Exception ex)
             {
