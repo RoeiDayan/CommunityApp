@@ -60,6 +60,7 @@
 	  <None Remove="Resources\Images\account.png" />
 	  <None Remove="Resources\Images\community.png" />
 	  <None Remove="Resources\Images\expense.png" />
+	  <None Remove="Resources\Images\expenses.png" />
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\joincommunity.png" />
 	  <None Remove="Resources\Images\manage.png" />
@@ -85,6 +86,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\AccountPageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CommunityExpensesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateExpenseView.xaml">

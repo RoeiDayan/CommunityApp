@@ -681,5 +681,30 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<List<Expense>?> GetCommunityExpensesAsync(int comId)
+        {
+            string url = $"{this.baseUrl}GetCommunityExpenses?ComId={comId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    return JsonSerializer.Deserialize<List<Expense>>(content, options) ?? new List<Expense>();
+                }
+                else
+                {
+                    return new List<Expense>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Expense>();
+            }
+        }
     }
 }
