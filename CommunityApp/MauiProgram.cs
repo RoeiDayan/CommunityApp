@@ -54,7 +54,7 @@ namespace CommunityApp
             builder.Services.AddTransient<CreateExpenseView>();
             builder.Services.AddTransient<CommunityExpensesView>();
             builder.Services.AddTransient<IssuePaymentsView>();
-
+            builder.Services.AddTransient<PaymentHistoryView>();
 
 
             return builder;
@@ -87,6 +87,8 @@ namespace CommunityApp
             builder.Services.AddTransient<CreateExpenseViewModel>();
             builder.Services.AddTransient<CommunityExpensesViewModel>();
             builder.Services.AddTransient<IssuePaymentsViewModel>();
+            builder.Services.AddTransient<PaymentHistoryViewModel>();
+
 
 
             return builder;

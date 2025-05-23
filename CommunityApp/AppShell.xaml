@@ -95,6 +95,11 @@
             Title="Account"
             ContentTemplate="{DataTemplate local:AccountPageView}"
             Route="Account"/>
+        <ShellContent
+            Icon="payments.png"
+            Title="Payments"
+            ContentTemplate="{DataTemplate local:PaymentHistoryView}"
+            Route="PaymentHistory"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Community Hub" FlyoutIcon="community.png">

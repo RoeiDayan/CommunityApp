@@ -69,6 +69,7 @@
 	  <None Remove="Resources\Images\manageroom.png" />
 	  <None Remove="Resources\Images\memberlist.png" />
 	  <None Remove="Resources\Images\notice.png" />
+	  <None Remove="Resources\Images\payments.png" />
 	  <None Remove="Resources\Images\Report.png" />
 	  <None Remove="Resources\Images\request.png" />
 	  <None Remove="Resources\Images\startcommunity.png" />
@@ -123,6 +124,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MemberListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PaymentHistoryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProfilePageView.xaml">

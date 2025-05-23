@@ -750,5 +750,32 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<List<Payment>> GetMemberPaymentsAsync(int comId, int userId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}GetMemberPayments?ComId={comId}&UserId={userId}";
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<Payment>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<Payment>();
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Failed to fetch payments: {response.StatusCode}");
+                return new List<Payment>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in GetMemberPaymentsAsync: {ex.Message}");
+                return new List<Payment>();
+            }
+        }
+
+
     }
 }
