@@ -73,18 +73,26 @@
             ContentTemplate="{DataTemplate local:CreateNoticeView}"
             Route="CreateReport"/>
         <ShellContent
+            IsVisible="{Binding IsManaging}"
             Icon="expense.png"
             Title="Create Expense"
             ContentTemplate="{DataTemplate local:CreateExpenseView}"
             Route="CreateExpense"/>
         <ShellContent
+            IsVisible="{Binding IsManaging}"
             Icon="issuepayments.png"
             Title="Issue Payments"
             ContentTemplate="{DataTemplate local:IssuePaymentsView}"
             Route="IssuePayments"/>
+        <ShellContent
+            IsVisible="{Binding IsManaging}"
+            Icon="managepayments.png"
+            Title="Manage Payments"
+            ContentTemplate="{DataTemplate local:ManagePaymentsView}"
+            Route="ManagePayments"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="User Settings" FlyoutIcon="user.png">
+    <FlyoutItem Title="My Account" FlyoutIcon="user.png">
         <ShellContent
             Icon="user.png"
             Title="Profile"
