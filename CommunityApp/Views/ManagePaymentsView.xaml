@@ -1,12 +1,287 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CommunityApp.ViewModels"
+             xmlns:converters="clr-namespace:CommunityApp.Converters"
              x:Class="CommunityApp.Views.ManagePaymentsView"
-             Title="ManagePaymentsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Manage Payments"
+             x:Name="managePaymentsView">
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:NotNullConverter x:Key="NotNullConverter" />
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:PaymentStatusConverter x:Key="PaymentStatusConverter" />
+            <converters:PaymentStatusColorConverter x:Key="PaymentStatusColorConverter" />
+            <converters:PaymentAmountConverter x:Key="PaymentAmountConverter" />
+            <converters:DateOnlyDisplayConverter x:Key="DateOnlyDisplayConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="10">
+        <!-- Header -->
+        <Label Grid.Row="0"
+               Text="Manage Payments"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontFamily="Font1"
+               Margin="0,10,0,20"/>
+
+        <!-- Filter Buttons -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" Margin="0,0,0,15">
+            <Button Text="All" 
+                    Command="{Binding ToggleFilterCommand}" 
+                    CommandParameter="all"
+                    BackgroundColor="{Binding IsAllFilterSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='#3F51B5,#78909C'}"
+                    TextColor="White"
+                    Margin="2,0"
+                    FontFamily="Font1"/>
+
+            <Button Grid.Column="1" 
+                    Text="Paid" 
+                    Command="{Binding ToggleFilterCommand}" 
+                    CommandParameter="paid"
+                    BackgroundColor="{Binding IsPaidFilterSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='#4CAF50,#78909C'}"
+                    TextColor="White"
+                    Margin="2,0"
+                    FontFamily="Font1"/>
+
+            <Button Grid.Column="2" 
+                    Text="Unpaid" 
+                    Command="{Binding ToggleFilterCommand}" 
+                    CommandParameter="unpaid"
+                    BackgroundColor="{Binding IsUnpaidFilterSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='#F44336,#78909C'}"
+                    TextColor="White"
+                    Margin="2,0"
+                    FontFamily="Font1"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="2" 
+                     Command="{Binding FetchPaymentsCommand}" 
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Payments}"
+                           BackgroundColor="Transparent" 
+                           x:Name="paymentsCollection">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No payments found"
+                               FontSize="18"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#ECEFF1"
+                               CornerRadius="10"
+                               Margin="5,10"
+                               Padding="15"
+                               HasShadow="True"
+                               BorderColor="{Binding Payment.WasPayed, Converter={StaticResource PaymentStatusColorConverter}}">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                                <!-- Status and Amount Indicator -->
+                                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                             Orientation="Horizontal" 
+                                             HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Payment.WasPayed, Converter={StaticResource PaymentStatusConverter}}"
+                                           FontSize="16"
+                                           TextColor="{Binding Payment.WasPayed, Converter={StaticResource PaymentStatusColorConverter}}"
+                                           FontAttributes="Bold"
+                                           FontFamily="Font1"/>
+
+                                    <Label Text="{Binding Payment.Amount, Converter={StaticResource PaymentAmountConverter}}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+
+                                <!-- Member Information -->
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                      RowDefinitions="Auto,Auto,Auto,Auto" 
+                                      ColumnDefinitions="Auto,*"
+                                      Margin="0,10,0,0">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="Member Name:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"/>
+
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Account.Name}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="Email:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"/>
+
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Account.Email}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="Unit Number:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Member.UnitNum, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding Member.UnitNum}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Member.UnitNum, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="3" Grid.Column="0"
+                                           Text="Phone:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Account.PhoneNumber, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="3" Grid.Column="1"
+                                           Text="{Binding Account.PhoneNumber}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Account.PhoneNumber, Converter={StaticResource NotNullConverter}}"/>
+                                </Grid>
+
+                                <!-- Payment Details -->
+                                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                      RowDefinitions="Auto,Auto,Auto" 
+                                      ColumnDefinitions="Auto,*"
+                                      Margin="0,10,0,0">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="Details:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.Details, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Payment.Details}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.Details, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="Pay From:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.PayFrom, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Payment.PayFrom, Converter={StaticResource DateOnlyDisplayConverter}}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.PayFrom, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="Pay Until:"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.PayUntil, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding Payment.PayUntil, Converter={StaticResource DateOnlyDisplayConverter}}"
+                                           FontSize="14"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding Payment.PayUntil, Converter={StaticResource NotNullConverter}}"/>
+                                </Grid>
+
+                                <!-- Action Buttons -->
+                                <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                             Orientation="Horizontal"
+                                             HorizontalOptions="Center"
+                                             Margin="0,15,0,0"
+                                             Spacing="20">
+                                    <Button Text="Mark as Paid"
+                                            Command="{Binding Source={x:Reference paymentsCollection}, Path=BindingContext.MarkAsPaidCommand}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="#4CAF50"
+                                            TextColor="White"
+                                            HeightRequest="40"
+                                            WidthRequest="130"
+                                            CornerRadius="20"
+                                            IsVisible="{Binding Payment.WasPayed, Converter={StaticResource InverseBooleanConverter}}"
+                                            FontFamily="Font1"/>
+
+                                    <Button Text="Delete Payment"
+                                            Command="{Binding Source={x:Reference paymentsCollection}, Path=BindingContext.DeletePaymentCommand}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="#F44336"
+                                            TextColor="White"
+                                            HeightRequest="40"
+                                            WidthRequest="130"
+                                            CornerRadius="20"
+                                            FontFamily="Font1"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Footer Button -->
+        <StackLayout Grid.Row="3"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     Margin="10,20,10,0">
+
+            <Button Text="Refresh Payments"
+                    Command="{Binding FetchPaymentsCommand}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="25"
+                    Padding="12"
+                    WidthRequest="150"
+                    FontFamily="Font1"/>
+        </StackLayout>
+
+    </Grid>
 </ContentPage>

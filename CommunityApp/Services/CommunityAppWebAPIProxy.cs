@@ -776,6 +776,64 @@ namespace CommunityApp.Services
             }
         }
 
+        public async Task<List<PaymentMemberAccount>> GetCommunityPaymentsAsync(int comId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}GetCommunityPayments?ComId={comId}";
+                HttpResponseMessage response = await client.GetAsync(url);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<PaymentMemberAccount>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<PaymentMemberAccount>();
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Failed to fetch community payments: {response.StatusCode}");
+                return new List<PaymentMemberAccount>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in GetCommunityPaymentsAsync: {ex.Message}");
+                return new List<PaymentMemberAccount>();
+            }
+        }
+
+        public async Task<bool> DeleteMemberPaymentAsync(int payId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}DeleteMemberPayment?payId={payId}";
+                HttpResponseMessage response = await client.DeleteAsync(url);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in DeleteMemberPaymentAsync: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdatePaymentAsync(Payment payment)
+        {
+            string url = $"{this.baseUrl}UpdatePayment";
+            try
+            {
+                string json = JsonSerializer.Serialize(payment);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(url, content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (log them, etc.)
+                System.Diagnostics.Debug.WriteLine($"Error updating payment: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

@@ -86,18 +86,22 @@ namespace CommunityApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return Colors.Gray;
+            if (value is int balance)
+            {
+                return balance < 0 ? Colors.Red : balance > 0 ? Colors.Green : Colors.Gray;
+            }
+            else if (int.TryParse(value?.ToString(), out int parsed))
+            {
+                return parsed < 0 ? Colors.Red : parsed > 0 ? Colors.Green : Colors.Gray;
+            }
 
-            int balance = (int)value;
-            return balance < 0 ? Colors.Red : balance > 0 ? Colors.Green : Colors.Gray;
+            return Colors.Gray;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
     }
+
 
     public class ApprovedStatusConverter : IValueConverter
     {
@@ -152,6 +156,92 @@ namespace CommunityApp.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is bool boolValue ? !boolValue : false;
+        }
+    }
+    //New convs
+    // Converter for DateOnly to display string
+    public class DateOnlyDisplayConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is DateOnly dateOnly)
+            {
+                return dateOnly.ToString("MMM dd, yyyy");
+            }
+            return "Not specified";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    
+
+    // PaymentStatusConverter for nullable bool WasPayed property
+    public class PaymentStatusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return "⏳ PENDING";
+
+            if (value is bool boolValue)
+            {
+                return boolValue ? "✅ PAID" : "❌ UNPAID";
+            }
+
+            return "⏳ PENDING";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    // PaymentStatusColorConverter for nullable bool WasPayed property
+    public class PaymentStatusColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return Colors.Orange;
+
+            if (value is bool boolValue)
+            {
+                return boolValue ? Colors.Green : Colors.Red;
+            }
+
+            return Colors.Orange;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    // PaymentAmountConverter for int amount
+    public class PaymentAmountConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int amount)
+            {
+                return $"${amount:N0}";
+            }
+            if (value != null && int.TryParse(value.ToString(), out int parsedAmount))
+            {
+                return $"${parsedAmount:N0}";
+            }
+            return "$0";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 
