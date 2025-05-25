@@ -3,14 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CommunityApp.ViewModels"
     xmlns:converter="clr-namespace:CommunityApp.Converters"
-    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
     x:Class="CommunityApp.Views.TenantRoomView"
     Title="Tenant Room Booking">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:DateToAvailabilityColorConverter x:Key="DateToAvailabilityColorConverter" />
-            <converter:NullToBoolConverter x:Key="NullToBool" />
+            <converter:NullToBoolConverter x:Key="NullToBoolConverter" />
             <converter:ApprovedStatusConverter x:Key="ApprovedStatusConverter" />
             <converter:ApprovedColorConverter x:Key="ApprovedColorConverter" />
         </ResourceDictionary>
@@ -24,13 +23,15 @@
     </ContentPage.Background>
 
     <Grid>
+        <!-- Loading Spinner -->
         <ActivityIndicator IsRunning="{Binding InServerCall}" 
-                          IsVisible="{Binding InServerCall}"
-                          Color="White"
-                          VerticalOptions="Center"
-                          HorizontalOptions="Center" />
+                           IsVisible="{Binding InServerCall}"
+                           Color="White"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
 
-        <ScrollView IsVisible="{Binding InServerCall, Converter={StaticResource NullToBool}, ConverterParameter=Invert}">
+        <!-- Main Content -->
+        <ScrollView IsVisible="{Binding InServerCall, Converter={StaticResource NullToBoolConverter}, ConverterParameter=Invert}">
             <VerticalStackLayout Padding="20" Spacing="15">
 
                 <!-- Error Message -->
@@ -40,10 +41,9 @@
                        FontSize="16"
                        IsVisible="{Binding HasErrorMessage}"
                        HorizontalOptions="Center"
-                       Padding="5"
                        FontFamily="Font1"/>
 
-                <!-- Current Room Status -->
+                <!-- Room Status -->
                 <Label Text="Tenant Room Status"
                        FontSize="22"
                        FontAttributes="Bold"
@@ -52,11 +52,7 @@
                        FontFamily="Font1"
                        Margin="0,10"/>
 
-                <Frame BackgroundColor="#E3F2FD" 
-                       CornerRadius="10" 
-                       Margin="5,10" 
-                       Padding="15" 
-                       HasShadow="True">
+                <Frame BackgroundColor="#E3F2FD" CornerRadius="10" Margin="5,10" Padding="15" HasShadow="True">
                     <StackLayout Spacing="10" HorizontalOptions="Center">
                         <Label Text="{Binding RoomStatus}"
                                FontSize="22"
@@ -74,7 +70,7 @@
                     </StackLayout>
                 </Frame>
 
-                <!-- Key Holder Information -->
+                <!-- Key Holder Info -->
                 <Label Text="Current Key Holder"
                        FontSize="22"
                        FontAttributes="Bold"
@@ -84,13 +80,15 @@
                        Margin="0,10"
                        IsVisible="{Binding HasKeyHolder}"/>
 
-                <Frame BackgroundColor="#E8F5E9" 
-                       CornerRadius="10" 
-                       Margin="5,10" 
-                       Padding="15" 
-                       HasShadow="True"
+                <Frame BackgroundColor="#E8F5E9" CornerRadius="10" Margin="5,10" Padding="15" HasShadow="True"
                        IsVisible="{Binding HasKeyHolder}">
                     <StackLayout Spacing="10" HorizontalOptions="Center">
+                        <Label Text="Current key holder"
+                            FontSize="14"
+                            TextColor="#81C784"
+                            FontAttributes="Italic"
+                            HorizontalTextAlignment="Center"
+                            FontFamily="Font1"/>
                         <Label Text="{Binding KeyHolderName}"
                                FontSize="20"
                                FontAttributes="Bold"
@@ -103,22 +101,11 @@
                                TextColor="#43A047"
                                HorizontalTextAlignment="Center"
                                FontFamily="Font1"/>
-
-                        <Label Text="Current key holder"
-                               FontSize="14"
-                               TextColor="#81C784"
-                               FontAttributes="Italic"
-                               HorizontalTextAlignment="Center"
-                               FontFamily="Font1"/>
                     </StackLayout>
                 </Frame>
 
-                <Frame BackgroundColor="#ECEFF1" 
-                       CornerRadius="10" 
-                       Margin="5,10" 
-                       Padding="15" 
-                       HasShadow="True"
-                       IsVisible="{Binding HasKeyHolder, Converter={StaticResource NullToBool}, ConverterParameter=Invert}">
+                <Frame BackgroundColor="#ECEFF1" CornerRadius="10" Margin="5,10" Padding="15" HasShadow="True"
+                       IsVisible="{Binding HasKeyHolder, Converter={StaticResource InverseBooleanConverter}}">
                     <Label Text="No key holder assigned"
                            FontSize="18"
                            TextColor="#78909C"
@@ -126,8 +113,8 @@
                            FontFamily="Font1"/>
                 </Frame>
 
-                <!-- Approved Requests with User Details -->
-                <Label Text="Approved Room Requests"
+                <!-- Requests With User Info -->
+                <Label Text="Upcoming Room Requests"
                        FontSize="22"
                        FontAttributes="Bold"
                        TextColor="White"
@@ -143,17 +130,12 @@
                             <Label Text="No approved requests available"
                                    FontSize="16"
                                    TextColor="White"
-                                   HorizontalOptions="Center"
                                    FontFamily="Font1"/>
                         </StackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BackgroundColor="#ECEFF1"
-                                   CornerRadius="10"
-                                   Margin="5,10"
-                                   Padding="15"
-                                   HasShadow="True">
+                            <Frame BackgroundColor="#ECEFF1" CornerRadius="10" Margin="5,10" Padding="15" HasShadow="True">
                                 <StackLayout Spacing="10">
                                     <Label Text="{Binding DisplayName}"
                                            FontSize="18"
@@ -174,16 +156,16 @@
                                            HorizontalTextAlignment="Center"
                                            FontFamily="Font1"/>
 
-                                    <Label Text="{Binding Request.StartTime, StringFormat='From: {0:dd/MM/yyyy HH:mm}'}" 
+                                    <Label Text="{Binding Request.StartTime, StringFormat='From: {0:dd/MM/yyyy HH:mm}'}"
                                            FontSize="14"
-                                           TextColor="#1976D2" 
+                                           TextColor="#1976D2"
                                            FontAttributes="Bold"
                                            HorizontalTextAlignment="Center"
                                            FontFamily="Font1"/>
 
-                                    <Label Text="{Binding Request.EndTime, StringFormat='To: {0:dd/MM/yyyy HH:mm}'}" 
+                                    <Label Text="{Binding Request.EndTime, StringFormat='To: {0:dd/MM/yyyy HH:mm}'}"
                                            FontSize="14"
-                                           TextColor="#1976D2" 
+                                           TextColor="#1976D2"
                                            FontAttributes="Bold"
                                            HorizontalTextAlignment="Center"
                                            FontFamily="Font1"/>
@@ -192,8 +174,7 @@
                                            FontSize="12"
                                            TextColor="#78909C"
                                            HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"
-                                           IsVisible="{Binding Request.CreatedAt, Converter={StaticResource NullToBool}}"/>
+                                           FontFamily="Font1"/>
 
                                     <Label Text="Approved"
                                            FontSize="14"
@@ -207,67 +188,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!-- Legacy Approved Requests (Fallback) -->
-                <CollectionView ItemsSource="{Binding ApprovedRequests}"
-                                BackgroundColor="Transparent"
-                                HeightRequest="300"
-                                IsVisible="False">
-                    <CollectionView.EmptyView>
-                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="No approved requests available"
-                                   FontSize="16"
-                                   TextColor="White"
-                                   HorizontalOptions="Center"
-                                   FontFamily="Font1"/>
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BackgroundColor="#ECEFF1"
-                                   CornerRadius="10"
-                                   Margin="5,10"
-                                   Padding="15"
-                                   HasShadow="True">
-                                <StackLayout Spacing="10">
-                                    <Label Text="{Binding Text}"
-                                           FontSize="18"
-                                           FontAttributes="Bold"
-                                           TextColor="#37474F"
-                                           HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"/>
-
-                                    <Label Text="{Binding StartTime, StringFormat='From: {0:dd/MM/yyyy HH:mm}'}" 
-                                           FontSize="14"
-                                           TextColor="#1976D2" 
-                                           FontAttributes="Bold"
-                                           HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"/>
-
-                                    <Label Text="{Binding EndTime, StringFormat='To: {0:dd/MM/yyyy HH:mm}'}" 
-                                           FontSize="14"
-                                           TextColor="#1976D2" 
-                                           FontAttributes="Bold"
-                                           HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"/>
-
-                                    <Label Text="{Binding CreatedAt, StringFormat='Requested on: {0:dd/MM/yyyy}'}"
-                                           FontSize="12"
-                                           TextColor="#78909C"
-                                           HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"
-                                           IsVisible="{Binding CreatedAt, Converter={StaticResource NullToBool}}"/>
-
-                                    <Label Text="{Binding IsApproved, Converter={StaticResource ApprovedStatusConverter}}"
-                                           FontSize="14"
-                                           TextColor="{Binding IsApproved, Converter={StaticResource ApprovedColorConverter}}"
-                                           FontAttributes="Bold"
-                                           HorizontalTextAlignment="Center"
-                                           FontFamily="Font1"/>
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                
 
                 <!-- Refresh Button -->
                 <Button Text="Refresh Data"

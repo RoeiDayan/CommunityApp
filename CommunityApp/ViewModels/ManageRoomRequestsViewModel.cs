@@ -218,9 +218,9 @@ namespace CommunityApp.ViewModels
                 return;
 
             bool confirm = (bool)await Application.Current.MainPage.DisplayAlert(
-    "Confirm Rejection",
-    "Are you sure you want to reject this room request?",
-    "Yes", "No");
+                "Confirm Rejection",
+                "Are you sure you want to reject this room request? Rejecting an unapproved requests deletes it",
+                "Yes", "No");
 
 
 
@@ -311,6 +311,15 @@ namespace CommunityApp.ViewModels
 
         private async Task DeletePastRequests()
         {
+            bool confirm = (bool)await Application.Current.MainPage.DisplayAlert(
+                "Confirm Deletion",
+                "All outdated room requests will be permanently deleted. Would you like to continue?",
+                "Yes", "No");
+
+
+
+            if (!confirm)
+                return;
             try
             {
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
@@ -339,7 +348,6 @@ namespace CommunityApp.ViewModels
         #endregion
     }
 
-    // Helper class to bind room requests with member accounts
     public class RoomRequestWithMember
     {
         public RoomRequest Request { get; set; }
