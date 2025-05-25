@@ -30,6 +30,15 @@
             Title="All Members"
             ContentTemplate="{DataTemplate local:MemberListView}"
             Route="MemberList"/>
+        
+        <ShellContent
+            Icon="expenses.png"
+            Title="Community Expenses"
+            ContentTemplate="{DataTemplate local:CommunityExpensesView}"
+            Route="CommunityExpenses"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Tenant Room" FlyoutIcon="tenantroom.png">
         <ShellContent 
             Icon="tenantroom.png"
             Title="Tenant Room"
@@ -40,69 +49,74 @@
             Title="Request Room"
             ContentTemplate="{DataTemplate local:RoomRequestView}"
             Route="RoomRquest"/>
-        <ShellContent
-            Icon="expenses.png"
-            Title="Community Expenses"
-            ContentTemplate="{DataTemplate local:CommunityExpensesView}"
-            Route="CommunityExpenses"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Manage" FlyoutIcon="manage.png"
-                IsVisible="{Binding IsManagingOrProviding}">
+    <FlyoutItem Title="Community Management" FlyoutIcon="manage.png"
+            IsVisible="{Binding IsManaging}">
         <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="managemembers.png"
-            Title="Manage Members"
-            ContentTemplate="{DataTemplate local:ManageMembersView}"
-            Route="ManageMembers" />
+        IsVisible="{Binding IsManaging}"
+        Icon="managemembers.png"
+        Title="Manage Members"
+        ContentTemplate="{DataTemplate local:ManageMembersView}"
+        Route="ManageMembers" />
         <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="userrequests.png"
-            Title="Join Requests"
-            ContentTemplate="{DataTemplate local:ManageJoinRequestsView}"
-            Route="ManageJoinRequests"/>
+        IsVisible="{Binding IsManaging}"
+        Icon="userrequests.png"
+        Title="Join Requests"
+        ContentTemplate="{DataTemplate local:ManageJoinRequestsView}"
+        Route="ManageJoinRequests"/>
         <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="manageroom.png"
-            Title="Room Requests"
-            ContentTemplate="{DataTemplate local:ManageRoomRequestsView}"
-            Route="ManageRoomRequests"/>
-        <ShellContent
-            Icon="notice.png"
-            Title="Create Notice"
-            ContentTemplate="{DataTemplate local:CreateNoticeView}"
-            Route="CreateReport"/>
-        <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="expense.png"
-            Title="Create Expense"
-            ContentTemplate="{DataTemplate local:CreateExpenseView}"
-            Route="CreateExpense"/>
-        <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="issuepayments.png"
-            Title="Issue Payments"
-            ContentTemplate="{DataTemplate local:IssuePaymentsView}"
-            Route="IssuePayments"/>
-        <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="managepayments.png"
-            Title="Manage Payments"
-            ContentTemplate="{DataTemplate local:ManagePaymentsView}"
-            Route="ManagePayments"/>
-        <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="managereports.png"
-            Title="Manage Reports"
-            ContentTemplate="{DataTemplate local:ManageReportsView}"
-            Route="ManageReports"/>
-        <ShellContent
-            IsVisible="{Binding IsManaging}"
-            Icon="managenotices.png"
-            Title="Manage Notices"
-            ContentTemplate="{DataTemplate local:ManageNoticesView}"
-            Route="ManageNotices"/>
+        IsVisible="{Binding IsManaging}"
+        Icon="manageroom.png"
+        Title="Room Requests"
+        ContentTemplate="{DataTemplate local:ManageRoomRequestsView}"
+        Route="ManageRoomRequests"/>
     </FlyoutItem>
+
+    <FlyoutItem Title="Financial Management" FlyoutIcon="managepayments.png"
+            IsVisible="{Binding IsManaging}">
+        <ShellContent
+        IsVisible="{Binding IsManaging}"
+        Icon="expense.png"
+        Title="Create Expense"
+        ContentTemplate="{DataTemplate local:CreateExpenseView}"
+        Route="CreateExpense"/>
+        <ShellContent
+        IsVisible="{Binding IsManaging}"
+        Icon="issuepayments.png"
+        Title="Issue Payments"
+        ContentTemplate="{DataTemplate local:IssuePaymentsView}"
+        Route="IssuePayments"/>
+        <ShellContent
+        IsVisible="{Binding IsManaging}"
+        Icon="managepayments.png"
+        Title="Manage Payments"
+        ContentTemplate="{DataTemplate local:ManagePaymentsView}"
+        Route="ManagePayments"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Updates &amp; Issues" FlyoutIcon="notice.png"
+            IsVisible="{Binding IsManagingOrProviding}">
+        <ShellContent
+        Icon="notice.png"
+        Title="Create Notice"
+        ContentTemplate="{DataTemplate local:CreateNoticeView}"
+        Route="CreateReport"/>
+        <ShellContent
+        IsVisible="{Binding IsManaging}"
+        Icon="managereports.png"
+        Title="Manage Reports"
+        ContentTemplate="{DataTemplate local:ManageReportsView}"
+        Route="ManageReports"/>
+        <ShellContent
+        IsVisible="{Binding IsManaging}"
+        Icon="managenotices.png"
+        Title="Manage Notices"
+        ContentTemplate="{DataTemplate local:ManageNoticesView}"
+        Route="ManageNotices"/>
+    </FlyoutItem>
+
+
 
     <FlyoutItem Title="My Account" FlyoutIcon="user.png">
         <ShellContent
