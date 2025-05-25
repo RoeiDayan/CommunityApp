@@ -19,6 +19,7 @@ namespace CommunityApp.Models
         public DateTime? CreatedAt { get; set; }
         public string? PhoneNumber { get; set; }
 
+        public string? ProfilePhotoFileName { get; set; }
 
     }
 }
