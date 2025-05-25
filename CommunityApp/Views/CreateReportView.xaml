@@ -42,19 +42,6 @@
                         HeightRequest="150"/>
             </Frame>
 
-            <!-- Anonymity Toggle -->
-            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
-                <Label Text="Submit Anonymously"
-                       FontSize="16"
-                       FontFamily="Font1"
-                       TextColor="White"
-                       VerticalOptions="Center"/>
-                <Switch x:Name="AnonymitySwitch"
-                        IsToggled="{Binding IsAnon}"
-                        ThumbColor="#FF4081"
-                        OnColor="#FF80AB"/>
-            </HorizontalStackLayout>
-
             <!-- Create Report Button -->
             <Button Text="Create Report"
                     Command="{Binding CreateReportCommand}"

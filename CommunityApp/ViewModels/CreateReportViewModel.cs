@@ -45,16 +45,7 @@ namespace CommunityApp.ViewModels
             }
         }
 
-        private bool? isAnon;
-        public bool? IsAnon
-        {
-            get => isAnon;
-            set
-            {
-                isAnon = value;
-                OnPropertyChanged(nameof(IsAnon));
-            }
-        }
+        
         #endregion
 
         #region Commands
@@ -69,7 +60,7 @@ namespace CommunityApp.ViewModels
             int userId = ((App)Application.Current).LoggedInUser.Id;
             int comId = ((App)Application.Current).CurCom.ComId;
 
-            Report r = new Report { UserId = userId, ComId = comId, Title = Title, ReportDesc = ReportDesc, IsAnon = IsAnon, Priority = null, Status = null, CreatedAt = null };
+            Report r = new Report { UserId = userId, ComId = comId, Title = Title, ReportDesc = ReportDesc, IsAnon = true, Priority = null, Status = null, CreatedAt = null };
             bool answer = false;
             answer = await this.proxy.CreateReportAsync(r);
             InServerCall = false;
