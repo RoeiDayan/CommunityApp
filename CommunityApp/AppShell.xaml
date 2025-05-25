@@ -90,6 +90,18 @@
             Title="Manage Payments"
             ContentTemplate="{DataTemplate local:ManagePaymentsView}"
             Route="ManagePayments"/>
+        <ShellContent
+            IsVisible="{Binding IsManaging}"
+            Icon="managereports.png"
+            Title="Manage Reports"
+            ContentTemplate="{DataTemplate local:ManageReportsView}"
+            Route="ManageReports"/>
+        <ShellContent
+            IsVisible="{Binding IsManaging}"
+            Icon="managenotices.png"
+            Title="Manage Notices"
+            ContentTemplate="{DataTemplate local:ManageNoticesView}"
+            Route="ManageNotices"/>
     </FlyoutItem>
 
     <FlyoutItem Title="My Account" FlyoutIcon="user.png">
