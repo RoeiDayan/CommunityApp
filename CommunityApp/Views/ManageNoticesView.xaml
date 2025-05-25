@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CommunityApp.ViewModels"
+             xmlns:converters="clr-namespace:CommunityApp.Converters"
+             x:Class="CommunityApp.Views.ManageNoticesView"
+             Title="Manage Notices"
+             x:Name="manageNoticesView">
+
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#2193b0" Offset="0.0" />
+            <GradientStop Color="#6dd5ed" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NotNullConverter x:Key="NotNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="10">
+        <!-- Header -->
+        <Label Grid.Row="0"
+               Text="Manage Notices"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontFamily="Font1"
+               Margin="0,10,0,20"/>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="1" 
+                     Command="{Binding FetchNoticesCommand}" 
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Notices}"
+                           BackgroundColor="Transparent" 
+                           x:Name="noticesCollection">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No notices found"
+                               FontSize="18"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               FontFamily="Font1"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#ECEFF1"
+                               CornerRadius="10"
+                               Margin="5,10"
+                               Padding="15"
+                               HasShadow="True"
+                               BorderColor="#3F51B5">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+                                <!-- Title -->
+                                <Label Grid.Row="0"
+                                       Text="{Binding Title}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#37474F"
+                                       FontFamily="Font1"
+                                       Margin="0,0,0,10"/>
+
+                                <!-- Description -->
+                                <Label Grid.Row="1"
+                                       Text="{Binding NoticeDesc}"
+                                       FontSize="14"
+                                       TextColor="#37474F"
+                                       FontFamily="Font1"
+                                       Margin="0,0,0,10"
+                                       LineBreakMode="WordWrap"
+                                       IsVisible="{Binding NoticeDesc, Converter={StaticResource NotNullConverter}}"/>
+
+                                <!-- Notice Details -->
+                                <Grid Grid.Row="2" 
+                                      RowDefinitions="Auto,Auto,Auto" 
+                                      ColumnDefinitions="Auto,*"
+                                      Margin="0,0,0,10">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="Created:"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding CreatedAt, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding CreatedAt, StringFormat='{0:MMM dd, yyyy HH:mm}'}"
+                                           FontSize="12"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding CreatedAt, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="Start Time:"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding StartTime, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding StartTime, StringFormat='{0:MMM dd, yyyy HH:mm}'}"
+                                           FontSize="12"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding StartTime, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="End Time:"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           TextColor="#37474F"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding EndTime, Converter={StaticResource NotNullConverter}}"/>
+
+                                    <Label Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding EndTime, StringFormat='{0:MMM dd, yyyy HH:mm}'}"
+                                           FontSize="12"
+                                           TextColor="#37474F"
+                                           Margin="5,0,0,0"
+                                           FontFamily="Font1"
+                                           IsVisible="{Binding EndTime, Converter={StaticResource NotNullConverter}}"/>
+                                </Grid>
+
+                                <!-- Action Button -->
+                                <StackLayout Grid.Row="3"
+                                             Orientation="Horizontal"
+                                             HorizontalOptions="Center"
+                                             Margin="0,10,0,0">
+                                    <Button Text="Delete Notice"
+                                            Command="{Binding Source={x:Reference noticesCollection}, Path=BindingContext.DeleteNoticeCommand}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="#F44336"
+                                            TextColor="White"
+                                            HeightRequest="40"
+                                            WidthRequest="130"
+                                            CornerRadius="20"
+                                            FontFamily="Font1"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Footer Button -->
+        <StackLayout Grid.Row="2"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     Margin="10,20,10,0">
+
+            <Button Text="Refresh Notices"
+                    Command="{Binding FetchNoticesCommand}"
+                    BackgroundColor="#FF4081"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="25"
+                    Padding="12"
+                    WidthRequest="150"
+                    FontFamily="Font1"/>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

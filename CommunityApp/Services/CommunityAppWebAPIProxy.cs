@@ -328,7 +328,7 @@ namespace CommunityApp.Services
             }
             catch
             {
-                return -3; 
+                return -3;
             }
         }
 
@@ -347,10 +347,10 @@ namespace CommunityApp.Services
             }
             catch
             {
-                return false; 
+                return false;
             }
         }
-        
+
         public async Task<MemberCommunity> CreateCommunityAsync(MemberCommunity memCom)
         {
             try
@@ -437,7 +437,7 @@ namespace CommunityApp.Services
         //    }
         //}
 
-        
+
         public async Task<MemberAccount?> GetMemberAccountAsync(int userId, int comId)
         {
             string url = $"{this.baseUrl}GetMemberAccount?UserId={userId}&ComId={comId}";
@@ -556,9 +556,9 @@ namespace CommunityApp.Services
                 return false;
             }
         }
-        
 
-        
+
+
         public async Task<bool> UpdateRoomRequestAsync(RoomRequest request)
         {
             string url = $"{this.baseUrl}UpdateRoomRequest";
@@ -835,5 +835,38 @@ namespace CommunityApp.Services
                 return false;
             }
         }
+
+        public async Task<bool> DeleteNoticeAsync(int noticeId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}DeleteNotice?noticeId={noticeId}";
+                HttpResponseMessage response = await client.DeleteAsync(url);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in DeleteNoticeAsync: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteReportAsync(int repId)
+        {
+            try
+            {
+                string url = $"{this.baseUrl}DeleteReport?repId={repId}";
+                HttpResponseMessage response = await client.DeleteAsync(url);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in DeleteReportAsync: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

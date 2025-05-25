@@ -56,6 +56,8 @@ namespace CommunityApp
             builder.Services.AddTransient<IssuePaymentsView>();
             builder.Services.AddTransient<PaymentHistoryView>();
             builder.Services.AddTransient<ManagePaymentsView>();
+            builder.Services.AddTransient<ManageNoticesView>();
+            builder.Services.AddTransient<ManageReportsView>();
 
             return builder;
         }
@@ -89,6 +91,8 @@ namespace CommunityApp
             builder.Services.AddTransient<IssuePaymentsViewModel>();
             builder.Services.AddTransient<PaymentHistoryViewModel>();
             builder.Services.AddTransient<ManagePaymentsViewModel>();
+            builder.Services.AddTransient<ManageNoticesViewModel>();
+            builder.Services.AddTransient<ManageReportsViewModel>();
 
 
             return builder;
