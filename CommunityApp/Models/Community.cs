@@ -16,8 +16,6 @@ namespace CommunityApp.Models
 
         public string? ComCode { get; set; }
 
-        public string? Picture { get; set; }
-
         public string? GatePhoneNum { get; set; }
 
         public DateTime? CreatedAt { get; set; }

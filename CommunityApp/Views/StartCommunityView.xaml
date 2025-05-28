@@ -35,8 +35,6 @@
                 <!-- Gate Phone Number Entry -->
                 <Entry Placeholder="Gate Phone Number" Text="{Binding GatePhoneNum}" FontFamily="Font1" HeightRequest="50" BackgroundColor="White" PlaceholderColor="Gray" TextColor="Black" Keyboard="Telephone" HorizontalTextAlignment="Center"/>
 
-                <!-- Picture Upload Placeholder -->
-
 
 
 

@@ -236,19 +236,7 @@ namespace CommunityApp.ViewModels
             }
         }
 
-        private string picture;
-        public string Picture
-        {
-            get => picture;
-            set
-            {
-                if (picture != value)
-                {
-                    picture = value;
-                    OnPropertyChanged(nameof(Picture));
-                }
-            }
-        }
+        
 
         private string gatePhoneNum;
         public string GatePhoneNum
@@ -272,7 +260,6 @@ namespace CommunityApp.ViewModels
             com.ComName = ComName;
             com.ComDesc = ComDesc;
             com.ComCode = ComCode;
-            com.Picture = Picture;
             com.GatePhoneNum = GatePhoneNum;
         }
         public void ComposeMember()
