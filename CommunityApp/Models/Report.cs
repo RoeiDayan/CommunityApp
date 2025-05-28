@@ -19,10 +19,6 @@ namespace CommunityApp.Models
 
         public string? ReportDesc { get; set; }
 
-        public int? Priority { get; set; }
-
-        public int? Status { get; set; }
-
 
         public DateTime? CreatedAt { get; set; }
     }

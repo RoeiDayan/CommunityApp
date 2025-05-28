@@ -60,7 +60,7 @@ namespace CommunityApp.ViewModels
             int userId = ((App)Application.Current).LoggedInUser.Id;
             int comId = ((App)Application.Current).CurCom.ComId;
 
-            Report r = new Report { UserId = userId, ComId = comId, Title = Title, ReportDesc = ReportDesc, Priority = null, Status = null, CreatedAt = null };
+            Report r = new Report { UserId = userId, ComId = comId, Title = Title, ReportDesc = ReportDesc, CreatedAt = null };
             bool answer = false;
             answer = await this.proxy.CreateReportAsync(r);
             InServerCall = false;
