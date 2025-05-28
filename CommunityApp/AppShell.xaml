@@ -23,8 +23,7 @@
             Icon="report.png"
             Title="Create Report"
             ContentTemplate="{DataTemplate local:CreateReportView}"
-            Route="CreateReport"
-            IsVisible="{Binding IsProviding}"/>
+            Route="CreateReport"/>
         <ShellContent
             Icon="memberlist.png"
             Title="All Members"
