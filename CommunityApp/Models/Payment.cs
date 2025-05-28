@@ -18,8 +18,6 @@ namespace CommunityApp.Models
 
         public string? Details { get; set; }
 
-        public bool? MarkedPayed { get; set; }
-
         public bool? WasPayed { get; set; }
 
         public DateOnly? PayFrom { get; set; }
