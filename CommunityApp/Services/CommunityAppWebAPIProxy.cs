@@ -60,18 +60,39 @@ namespace CommunityApp.Services
             string url = $"{this.baseUrl}uploadprofileimage";
             try
             {
+                // Check if file exists
+                if (!System.IO.File.Exists(imagePath))
+                {
+                    throw new FileNotFoundException($"Image file not found: {imagePath}");
+                }
+
                 //Create the form data
                 MultipartFormDataContent form = new MultipartFormDataContent();
-                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
-                form.Add(fileContent, "file", imagePath);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(imagePath);
+                var fileContent = new ByteArrayContent(fileBytes);
+
+                // Set the content type based on file extension
+                string fileName = Path.GetFileName(imagePath);
+                string extension = Path.GetExtension(imagePath).ToLower();
+                string contentType = extension switch
+                {
+                    ".jpg" or ".jpeg" => "image/jpeg",
+                    ".png" => "image/png",
+                    _ => "application/octet-stream"
+                };
+
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+                form.Add(fileContent, "file", fileName);
+
                 //Call the server API
                 HttpResponseMessage response = await client.PostAsync(url, form);
+
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
                     //Extract the content as string
                     string resContent = await response.Content.ReadAsStringAsync();
-                    //Desrialize result
+                    //Deserialize result
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
@@ -81,11 +102,15 @@ namespace CommunityApp.Services
                 }
                 else
                 {
+                    // Log the error response for debugging
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"Upload failed: {response.StatusCode} - {errorContent}");
                     return null;
                 }
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Upload exception: {ex.Message}");
                 return null;
             }
         }

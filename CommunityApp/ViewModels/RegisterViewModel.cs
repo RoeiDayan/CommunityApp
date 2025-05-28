@@ -316,7 +316,7 @@ namespace CommunityApp.ViewModels
             ValidatePassword();
             ValidatePhone();
 
-            if (!ShowNameError && !ShowEmailError && !ShowPasswordError &&!PhoneNumInvalid)
+            if (!ShowNameError && !ShowEmailError && !ShowPasswordError && !PhoneNumInvalid)
             {
                 //Create a new AppUser object with the data from the registration form
                 var newAccount = new Account
@@ -330,32 +330,42 @@ namespace CommunityApp.ViewModels
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
                 newAccount = await proxy.Register(newAccount);
-                InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
                 if (newAccount != null)
                 {
-                    //UPload profile imae if needed
+                    //Upload profile image if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Email = newAccount.Email, Password = newAccount.Password });
-                        Account? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
-                        if (updatedUser == null)
+                        // Login first to establish session
+                        var loginResult = await proxy.LoginAsync(new LoginInfo { Email = newAccount.Email, Password = newAccount.Password });
+                        if (loginResult != null)
                         {
-                            InServerCall = false;
-                            await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
+                            Account? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
+                            if (updatedUser == null)
+                            {
+                                await Application.Current.MainPage.DisplayAlert("Registration", "User registered successfully but profile image upload failed.", "OK");
+                            }
+                            else
+                            {
+                                await Application.Current.MainPage.DisplayAlert("Registration", "Registration and profile image upload successful!", "OK");
+                            }
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Registration", "User registered but couldn't login for image upload. Please try logging in manually.", "OK");
                         }
                     }
-                    InServerCall = false;
 
+                    InServerCall = false;
                     ((App)(Application.Current)).MainPage.Navigation.PopAsync();
                 }
                 else
                 {
-
+                    InServerCall = false;
                     //If the registration failed, display an error message
                     string errorMsg = "Registration failed. Please try again.";
-                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "OK");
                 }
             }
         }
