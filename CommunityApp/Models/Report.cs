@@ -23,7 +23,6 @@ namespace CommunityApp.Models
 
         public int? Status { get; set; }
 
-        public bool? IsAnon { get; set; }
 
         public DateTime? CreatedAt { get; set; }
     }
