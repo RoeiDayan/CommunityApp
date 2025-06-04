@@ -9,9 +9,7 @@
     xmlns:viewmodel="clr-namespace:CommunityApp.ViewModels"
     x:Name="appShell">
 
-    <Shell.BindingContext>
-        <viewmodel:AppShellViewModel />
-    </Shell.BindingContext>
+   
 
     <FlyoutItem Title="Home" FlyoutIcon="home.png">
         <ShellContent
@@ -152,4 +150,8 @@
             ContentTemplate="{DataTemplate local:StartCommunityView}"
             Route="StartCommunity"/>
     </FlyoutItem>
+
+    <MenuItem Text="Logout" Command="{Binding LogoutCommand}">
+        
+    </MenuItem>
 </Shell>

@@ -26,11 +26,15 @@
                 <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
 
                     <!-- Profile Icon Placeholder -->
-                    <Ellipse Fill="#E0E0E0"
-                             WidthRequest="80"
-                             HeightRequest="80"
-                             HorizontalOptions="Center"
-                             Margin="0,0,0,10"/>
+                    <Frame WidthRequest="120" HeightRequest="120" CornerRadius="60" 
+       BackgroundColor="White" HasShadow="True" Padding="5">
+                        <!-- Bind Image to ProfilePicture from ViewModel -->
+                        <Image Source="{Binding CurrentAcc.ProfilePhotoUrl}" 
+           WidthRequest="110" HeightRequest="110"
+           Aspect="AspectFill"
+           HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+
 
                     <!-- Name Section -->
                     <VerticalStackLayout Spacing="5" HorizontalOptions="Center">

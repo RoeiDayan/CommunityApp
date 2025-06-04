@@ -43,10 +43,8 @@ namespace CommunityApp.ViewModels
             }
         }
 
-        public AppShellViewModel()
-        {
-            CheckUserPermissions();
-        }
+        
+        
 
         public AppShellViewModel(IServiceProvider serviceProvider)
         {

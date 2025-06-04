@@ -26,9 +26,11 @@ namespace CommunityApp.ViewModels
             IsLiable = CurMember.IsLiable;
             IsResident = CurMember.IsResident;
             IsManager = CurMember.IsManager;
+            ProfilePicture = ((App)Application.Current).LoggedInUser.ProfilePhotoUrl;
             ChooseRole();
         }
 
+        public string ProfilePicture { get; set; }
         public void ChooseRole()
         {
             if (IsManager.HasValue && IsManager.Value)

@@ -1,3 +1,4 @@
+using CommunityApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,14 @@ namespace CommunityApp.Models
         public string? PhoneNumber { get; set; }
 
         public string? ProfilePhotoFileName { get; set; }
+
+        public string ProfilePhotoUrl
+        {
+            get
+            {
+                return CommunityWebAPIProxy.ImageBaseAddress + ProfilePhotoFileName;
+            }
+        }
 
     }
 }
