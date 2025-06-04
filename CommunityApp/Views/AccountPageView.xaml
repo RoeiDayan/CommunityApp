@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommunityApp.Views.AccountPageView"
              Title="My Account">
-
     <!-- Background Gradient -->
     <ContentPage.Background>
         <LinearGradientBrush>
@@ -12,48 +11,97 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <ScrollView Padding="20">
-        <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
-
+    <ScrollView>
+        <Grid VerticalOptions="CenterAndExpand" 
+              HorizontalOptions="CenterAndExpand"
+              Padding="20">
             <!-- Account Card -->
             <Frame BackgroundColor="White"
                    CornerRadius="20"
-                   Padding="25"
+                   Padding="30"
                    HasShadow="True"
-                   WidthRequest="320"
-                   HorizontalOptions="Center">
+                   WidthRequest="350"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
 
-                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <!-- Profile Icon Placeholder -->
+                    <Ellipse Fill="#E0E0E0"
+                             WidthRequest="80"
+                             HeightRequest="80"
+                             HorizontalOptions="Center"
+                             Margin="0,0,0,10"/>
 
-                    <!-- Name -->
-                    <Label Text="{Binding CurrentAcc.Name}"
-                           FontSize="22"
-                           FontAttributes="Bold"
-                           TextColor="#333"
-                           HorizontalTextAlignment="Center"/>
+                    <!-- Name Section -->
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="Name"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#888"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding CurrentAcc.Name}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#333"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
 
-                    <!-- Email -->
-                    <Label Text="{Binding CurrentAcc.Email}"
-                           FontSize="16"
-                           TextColor="#555"
-                           VerticalOptions="Center"
-                           Padding="5,0"
-                           HorizontalTextAlignment="Center"/>
-                    <!-- Phone -->
-                    <Label Text="{Binding CurrentAcc.PhoneNumber}"
-                        FontSize="16"
-                        TextColor="#555"
-                        VerticalOptions="Center"
-                        Padding="5,0"
-                        HorizontalTextAlignment="Center"/>
+                    <!-- Divider -->
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="#E0E0E0"
+                             HorizontalOptions="Fill"
+                             Margin="20,0"/>
 
-                    <!-- Password -->
-                    <Label Text="{Binding CurrentAcc.Password}"
-                           FontSize="16"
-                           TextColor="#555"
-                           VerticalOptions="Center"
-                           Padding="5,0"
-                           HorizontalTextAlignment="Center"/>
+                    <!-- Contact Information -->
+                    <VerticalStackLayout Spacing="15" HorizontalOptions="Fill">
+
+                        <!-- Email Section -->
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Email"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#888"
+                                   HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding CurrentAcc.Email}"
+                                   FontSize="16"
+                                   TextColor="#555"
+                                   HorizontalTextAlignment="Start"
+                                   LineBreakMode="TailTruncation"/>
+                        </VerticalStackLayout>
+
+                        <!-- Phone Section -->
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Phone Number"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#888"
+                                   HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding CurrentAcc.PhoneNumber}"
+                                   FontSize="16"
+                                   TextColor="#555"
+                                   HorizontalTextAlignment="Start"/>
+                        </VerticalStackLayout>
+
+                        <!-- Password Section (Consider removing for security) -->
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Password"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#888"
+                                   HorizontalTextAlignment="Start"/>
+                            <Label Text="••••••••"
+                                   FontSize="16"
+                                   TextColor="#555"
+                                   HorizontalTextAlignment="Start"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <!-- Divider -->
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="#E0E0E0"
+                             HorizontalOptions="Fill"
+                             Margin="20,10,20,0"/>
 
                     <!-- Logout Button -->
                     <Button Text="Log Out"
@@ -64,11 +112,11 @@
                             CornerRadius="25"
                             HeightRequest="50"
                             HorizontalOptions="Fill"
-                            FontAttributes="Bold"/>
+                            FontAttributes="Bold"
+                            Margin="0,10,0,0"/>
+
                 </VerticalStackLayout>
-
             </Frame>
-
-        </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

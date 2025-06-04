@@ -63,6 +63,7 @@ namespace CommunityApp.ViewModels
                 {
                     Expenses.Add(expense);
                 }
+                OnPropertyChanged(nameof(TotalExpenses));
             }
             catch (Exception)
             {
