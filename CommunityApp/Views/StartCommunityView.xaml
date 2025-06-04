@@ -14,7 +14,7 @@
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
         <!-- Header -->
-        <Label Text="Create a Community 🌍" 
+        <Label Text="Create a Community " 
                FontSize="30" 
                FontFamily="Font1"
                HorizontalOptions="Center" 
@@ -28,28 +28,19 @@
                 <Label Text="Must enter a community name" IsVisible="{Binding ComNameInvalid}" TextColor="#FF4081" HorizontalTextAlignment="Center" FontFamily="Font1" FontSize="22"/>
                 <Editor Placeholder="Community Description" Text="{Binding ComDesc}" FontFamily="Font1" HeightRequest="80" BackgroundColor="White" PlaceholderColor="Gray" TextColor="Black"/>
 
-
                 <!-- Community Code Entry -->
                 <Entry Placeholder="Community Code" Text="{Binding ComCode}" FontFamily="Font1" HeightRequest="50" BackgroundColor="White" PlaceholderColor="Gray" TextColor="Black" HorizontalTextAlignment="Center"/>
                 <Label Text="Must enter a community code" IsVisible="{Binding ComCodeInvalid}" TextColor="#FF4081" HorizontalTextAlignment="Center" FontFamily="Font1" FontSize="22"/>
                 <!-- Gate Phone Number Entry -->
                 <Entry Placeholder="Gate Phone Number" Text="{Binding GatePhoneNum}" FontFamily="Font1" HeightRequest="50" BackgroundColor="White" PlaceholderColor="Gray" TextColor="Black" Keyboard="Telephone" HorizontalTextAlignment="Center"/>
 
-
-
-
                 <Entry Placeholder="Your Unit Number" Text="{Binding UnitNum}" FontFamily="Font1" HeightRequest="50" BackgroundColor="White" PlaceholderColor="Gray" TextColor="Black" HorizontalTextAlignment="Center"/>
 
             </StackLayout>
         </Frame>
-        <Frame HasShadow="False" Padding="10" BorderColor="#1E88E5" CornerRadius="10" BackgroundColor="White">
-                <StackLayout>
-                    <Label Text="Upload Picture 📷" FontFamily="Font1" TextColor="Black" HorizontalOptions="Center"/>
-                    <Button Text="Choose File" Command="{Binding UploadPictureCommand}" BackgroundColor="#FF4081" TextColor="White"/>
-                </StackLayout>
-            </Frame>
-            <!-- Create Button -->
-        <Button Text="Create Community 🚀"
+
+        <!-- Create Button -->
+        <Button Text="Create Community "
                 Command="{Binding CreateCommunityCommand}"
                 IsEnabled="{Binding NotInServerCall}"
                 FontFamily="Font1"
