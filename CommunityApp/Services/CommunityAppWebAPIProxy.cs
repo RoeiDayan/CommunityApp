@@ -392,32 +392,7 @@ namespace CommunityApp.Services
             }
         }
 
-        public async Task<List<MemberAccount>> GetApprovedCommunityMemberAccountsAsync(int comId)
-        {
-            string url = $"{this.baseUrl}GetApprovedCommunityMemberAccounts?ComId={comId}";
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-
-                    return JsonSerializer.Deserialize<List<MemberAccount>>(content, options) ?? new List<MemberAccount>();
-                }
-                else
-                {
-                    return new List<MemberAccount>();
-                }
-            }
-            catch (Exception ex)
-            {
-                return new List<MemberAccount>();
-            }
-        }
+        
         //public async Task<TenantRoom> GetCommunityTenantRoomAsync(int comId)
         //{
         //    string url = $"{this.baseUrl}GetCommunityTenantRoom?ComId={comId}";

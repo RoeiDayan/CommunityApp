@@ -135,7 +135,7 @@ namespace CommunityApp.ViewModels
                 Members.Clear();
 
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
-                List<MemberAccount> allMembers = await proxy.GetApprovedCommunityMemberAccountsAsync(currentCommunityId) ?? new List<MemberAccount>();
+                List<MemberAccount> allMembers = await proxy.GetSelectCommunityMemberAccountsAsync(currentCommunityId, true) ?? new List<MemberAccount>();
 
                 foreach (var member in allMembers)
                 {
