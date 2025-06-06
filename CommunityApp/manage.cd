@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommunityApp.Views.CreateExpenseView" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CreateExpenseView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.CreateNoticeView" Collapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CreateNoticeView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.IssuePaymentsView" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\IssuePaymentsView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManageJoinRequestsView" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManageJoinRequestsView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManageMembersView" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManageMembersView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManageNoticesView" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManageNoticesView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManagePaymentsView" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManagePaymentsView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManageReportsView" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManageReportsView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ManageRoomRequestsView" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ManageRoomRequestsView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.CreateExpenseViewModel" Collapsed="true">
+    <Position X="8.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAQAAgaEgQICABAACAAQABgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\CreateExpenseViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.CreateNoticeViewModel" Collapsed="true">
+    <Position X="1.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAIAAAAUAAAEEoAACggACAgIBAjAAAAACAAAEAQCAA=</HashCode>
+      <FileName>ViewModels\CreateNoticeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.IssuePaymentsViewModel" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEAQgAAAAABAAoAKRAIAASAAAAJgARAQAAkAEAAAAI=</HashCode>
+      <FileName>ViewModels\IssuePaymentsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManageJoinRequestsViewModel" Collapsed="true">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQAAABABAAAwgQBAAAAABAAABBAAAAAAAIAAIAAE=</HashCode>
+      <FileName>ViewModels\ManageJoinRequestsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManageMembersViewModel" Collapsed="true">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQAAAAABAAAgCQCAAAAAAAAAJAAQAAAAEIAIAAAA=</HashCode>
+      <FileName>ViewModels\ManageMembersViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManageNoticesViewModel" Collapsed="true">
+    <Position X="10" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAABgAAhAQAAAQAAAAAABAAACAAIAAAAAAAg=</HashCode>
+      <FileName>ViewModels\ManageNoticesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManagePaymentsViewModel" Collapsed="true">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAIQBAABggRAAAQAAAAABJAAQGAAAAIAAAAKo=</HashCode>
+      <FileName>ViewModels\ManagePaymentsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManageRoomRequestsViewModel" Collapsed="true">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAQAAAAkBAAAkERAgBQAAAAgDBAAAAKQAAIAAAACg=</HashCode>
+      <FileName>ViewModels\ManageRoomRequestsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ManageReportsViewModel" Collapsed="true">
+    <Position X="11.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAIAAAABAABgAQAAAAAAgAAABAAABAAAAACAAAAg=</HashCode>
+      <FileName>ViewModels\ManageReportsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

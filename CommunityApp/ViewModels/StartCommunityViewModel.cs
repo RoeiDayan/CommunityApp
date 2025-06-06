@@ -284,13 +284,34 @@ namespace CommunityApp.ViewModels
 
                 return;
             }
-            if(ComNameInvalid)
+            if (ComNameInvalid)
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Must enter community name", "ok");
                 InServerCall = false;
 
                 return;
             }
+            //Check if community code is unique
+            try
+            {
+                int existingCommunityId = await this.proxy.GetCommunityIdAsync(ComCode);
+
+                if (existingCommunityId >= 0) // Community with this code already exists
+                {
+                    await Application.Current.MainPage.DisplayAlert("Failed",
+                        "A community with this code already exists. Please choose a different code.", "ok");
+                    InServerCall = false;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error",
+                    "Network error while validating community code. Please check your connection and try again.", "ok");
+                InServerCall = false;
+                return;
+            }
+
             ComposeCommunity();
             ComposeMember();
             MemberCommunity Submission = new MemberCommunity {Member = this.mem, Community = this.com };

@@ -348,9 +348,5 @@ namespace CommunityApp.ViewModels
         #endregion
     }
 
-    public class RoomRequestWithMember
-    {
-        public RoomRequest Request { get; set; }
-        public MemberAccount MemberAccount { get; set; }
-    }
+    
 }

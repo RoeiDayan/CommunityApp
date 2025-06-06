@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommunityApp.ViewModels.RegisterViewModel" Collapsed="true">
+    <Position X="14" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wIABAChAAygMQAggBIABIAQpAQAGIgCGAAIBAoAAAQI=</HashCode>
+      <FileName>ViewModels\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.LoginViewModel" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAggAAAAAgAAAAABAACGQAAAAkCAAAA=</HashCode>
+      <FileName>ViewModels\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.LoginView" Collapsed="true">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.RegisterView" Collapsed="true">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RegisterView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.JoinCommunityView" Collapsed="true">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\JoinCommunityView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.StartCommunityView" Collapsed="true">
+    <Position X="17" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\StartCommunityView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.SelectCommunityView" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SelectCommunityView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.JoinCommunityViewModel" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iABiAQBEQAAkQAhgIAAiQwAAAAABBAJABAQAQIiAAAA=</HashCode>
+      <FileName>ViewModels\JoinCommunityViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.StartCommunityViewModel" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iBAAEIAwAhCgAAgAOBggQRAYIgIBBAJCAAwAQowAgAA=</HashCode>
+      <FileName>ViewModels\StartCommunityViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.SelectCommunityViewModel" Collapsed="true">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABIAKAAAgCAAhAAQAAABEAgAABCAAAAAAQAAAAAAA=</HashCode>
+      <FileName>ViewModels\SelectCommunityViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

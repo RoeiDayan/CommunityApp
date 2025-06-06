@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommunityApp.Views.AccountPageView" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AccountPageView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.CommunityExpensesView" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommunityExpensesView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.CreateReportView" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CreateReportView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.HomePageView" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Views\HomePageView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.MemberListView" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MemberListView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.PaymentHistoryView" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PaymentHistoryView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.ProfilePageView" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ProfilePageView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.RoomRequestView" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RoomRequestView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.Views.TenantRoomView" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\TenantRoomView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.AccountPageViewModel" Collapsed="true">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAABAAAiAAAAAgAAAIA=</HashCode>
+      <FileName>ViewModels\AccountPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.CommunityExpensesViewModel" Collapsed="true">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAABCAAAAQAEAAEAAAA=</HashCode>
+      <FileName>ViewModels\CommunityExpensesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.HomePageViewModel" Collapsed="true">
+    <Position X="1" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAEAAoAAAApAAAAAQBAAAAABAEAIAAhAADAAAAA=</HashCode>
+      <FileName>ViewModels\HomePageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.MemberListViewModel" Collapsed="true">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAABAIAAAAgCAAAAAAAAAAABAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>ViewModels\MemberListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.PaymentHistoryViewModel" Collapsed="true">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQACAAABAgBggRAAAQACAAABJAAQCEAAAIBAAAKo=</HashCode>
+      <FileName>ViewModels\PaymentHistoryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.ProfilePageViewModel" Collapsed="true">
+    <Position X="13.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAAAAAAAAAgAAgAIIggAACIIAABBABAhAQAQIgAAAA=</HashCode>
+      <FileName>ViewModels\ProfilePageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.RoomRequestViewModel" Collapsed="true">
+    <Position X="15" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIACAAAAAAEAgAgAQAAAAgMAAhAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ViewModels\RoomRequestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.TenantRoomViewModel" Collapsed="true">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQASZAAICoBRIAgAgAAAAIEEAAABEgAAABAgABAAAAA=</HashCode>
+      <FileName>ViewModels\TenantRoomViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommunityApp.ViewModels.CreateReportViewModel" Collapsed="true">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAEQEgAAAAAAAAAAAABAAAAAAAEAABAAAA=</HashCode>
+      <FileName>ViewModels\CreateReportViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
