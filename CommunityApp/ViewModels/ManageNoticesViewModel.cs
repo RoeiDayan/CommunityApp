@@ -62,39 +62,24 @@ namespace CommunityApp.ViewModels
         #endregion
 
         #region Methods
-        private bool _hasLoaded = false;
 
         private async Task FetchNotices()
         {
-            if (IsRefreshing) return; // Already refreshing
+            if (IsRefreshing) return;
 
             try
             {
                 IsRefreshing = true;
 
-                // If this is a refresh (not initial load), clear data first
-                if (_hasLoaded)
-                {
-                    notices.Clear();
-                }
+                notices.Clear();
 
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
                 List<Notice> noticesList = await proxy.GetCommunityNoticesAsync(currentCommunityId) ?? new List<Notice>();
 
-                // Don't clear if this is a refresh since we already did above
-                if (!_hasLoaded)
-                {
-                    notices.Clear();
-                }
-
-                // Add all notices to the collection
                 foreach (var notice in noticesList)
                 {
                     notices.Add(notice);
                 }
-
-                // Mark as loaded
-                _hasLoaded = true;
             }
             catch (Exception ex)
             {
@@ -108,15 +93,13 @@ namespace CommunityApp.ViewModels
             }
         }
 
+
         private async Task DeleteNotice(Notice notice)
         {
             if (notice == null)
                 return;
-
             bool confirm = await Application.Current.MainPage.DisplayAlert(
-                "Confirm Delete",
-                $"Are you sure you want to delete the notice '{notice.Title}'?",
-                "Yes", "No");
+                "Confirm Delete",$"Are you sure you want to delete the notice '{notice.Title}'?","Yes", "No");
 
             if (!confirm)
                 return;
@@ -141,15 +124,12 @@ namespace CommunityApp.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error",
-                        "Failed to delete notice. Please try again.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error","Failed to delete notice. Please try again.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error",
-                    "Failed to delete notice. Please try again.", "OK");
-                System.Diagnostics.Debug.WriteLine($"Error deleting notice: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", "Failed to delete notice. Please try again.", "OK");
             }
         }
         #endregion
