@@ -281,14 +281,12 @@ namespace CommunityApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Must enter community code", "ok");
                 InServerCall = false;
-
                 return;
             }
             if (ComNameInvalid)
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Must enter community name", "ok");
                 InServerCall = false;
-
                 return;
             }
             //Check if community code is unique
@@ -296,10 +294,9 @@ namespace CommunityApp.ViewModels
             {
                 int existingCommunityId = await this.proxy.GetCommunityIdAsync(ComCode);
 
-                if (existingCommunityId >= 0) // Community with this code already exists
+                if (existingCommunityId >= 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Failed",
-                        "A community with this code already exists. Please choose a different code.", "ok");
+                    await Application.Current.MainPage.DisplayAlert("Failed","A community with this code already exists. Please choose a different code.", "ok");
                     InServerCall = false;
                     return;
                 }
