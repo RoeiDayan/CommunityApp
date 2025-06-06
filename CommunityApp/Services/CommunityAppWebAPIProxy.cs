@@ -14,8 +14,7 @@ namespace CommunityApp.Services
     public class CommunityWebAPIProxy
     {
         #region without tunnel
-        /*
-        //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
+        
         private static string serverIP = "localhost";
         private HttpClient client;
         private string baseUrl;
@@ -23,18 +22,18 @@ namespace CommunityApp.Services
             DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5046/api/" : $"https://{serverIP}:5046/api/";
         public static string ImageBaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
             DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5046" : $"https://{serverIP}:5046";
-        */
+        
         #endregion
 
         #region with tunnel
-        
+        /*
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
         private static string serverIP = "gvxbtwjc-7237.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = "https://gvxbtwjc-7237.euw.devtunnels.ms/api/";
         public static string ImageBaseAddress = "https://gvxbtwjc-7237.euw.devtunnels.ms/";
-        
+        */
         #endregion
 
         public CommunityWebAPIProxy()
