@@ -139,7 +139,10 @@ namespace CommunityApp.ViewModels
 
                 foreach (var member in allMembers)
                 {
-                    Members.Add(member);
+                    if (member.Member.IsLiable==true)
+                    {
+                        Members.Add(member);
+                    }
                 }
             }
             catch (Exception ex)
@@ -158,20 +161,13 @@ namespace CommunityApp.ViewModels
         {
             if (!ValidatePaymentInput())
                 return;
-
-            bool confirm = await Application.Current.MainPage.DisplayAlert(
-                "Confirm Payment Issue",
-                $"Are you sure you want to issue a payment of {Amount} to all {Members.Count} members?",
-                "Yes", "No");
-
+            bool confirm = await Application.Current.MainPage.DisplayAlert( "Confirm Payment Issue", $"Are you sure you want to issue a payment of {Amount} to all {Members.Count} members?", "Yes", "No");
             if (!confirm)
                 return;
-
             try
             {
                 IsProcessing = true;
                 int currentCommunityId = ((App)Application.Current).CurCom.ComId;
-
                 var payment = new Payment
                 {
                     ComId = currentCommunityId,
@@ -184,26 +180,20 @@ namespace CommunityApp.ViewModels
                 };
 
                 bool success = await proxy.IssuePaymentToAllMembersAsync(payment);
-
                 if (success)
                 {
                     var toast = Toast.Make($"Payment issued successfully to all {Members.Count} members");
                     await toast.Show();
-
-                    // Clear form after successful submission
                     ClearForm();
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error",
-                        "Failed to issue payment to all members. Please try again.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error","Failed to issue payment to all members. Please try again.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error",
-                    "An error occurred while issuing payment. Please try again.", "OK");
-                System.Diagnostics.Debug.WriteLine($"Error issuing payment to all: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred while issuing payment. Please try again.", "OK");
             }
             finally
             {
@@ -215,15 +205,9 @@ namespace CommunityApp.ViewModels
         {
             if (memberAccount == null || !ValidatePaymentInput())
                 return;
-
-            bool confirm = await Application.Current.MainPage.DisplayAlert(
-                "Confirm Payment Issue",
-                $"Issue payment of {Amount} to {memberAccount.Account.Name}?",
-                "Yes", "No");
-
+            bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm Payment Issue",$"Issue payment of {Amount} to {memberAccount.Account.Name}?","Yes", "No");
             if (!confirm)
                 return;
-
             try
             {
                 IsProcessing = true;
@@ -249,15 +233,12 @@ namespace CommunityApp.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error",
-                        "Failed to issue payment. Please try again.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error","Failed to issue payment. Please try again.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error",
-                    "An error occurred while issuing payment. Please try again.", "OK");
-                System.Diagnostics.Debug.WriteLine($"Error issuing payment to member: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred while issuing payment. Please try again.", "OK");
             }
             finally
             {
